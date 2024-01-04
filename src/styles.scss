@@ -28,17 +28,43 @@ $mat-primary: (
 );
 
 $theme-primary: mat.define-palette($mat-primary, main, lighter, darker);
-$theme-accent : mat.define-palette(mat.$indigo-palette,A200,A100,A400);
+$theme-accent : mat.define-palette(mat.$indigo-palette, A200, A100, A400);
 
-$my-theme: mat.define-light-theme(
-    (
-        color: (
-            primary: $theme-primary,
-            accent:$theme-accent
-        ),
-        typography: mat.define-typography-config(),
-        density: 0,
+$my-light-theme: mat.define-light-theme((color: (primary: $theme-primary,
+                accent:$theme-accent ),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
+
+
+$mat-dark: (
+    main: #121212,
+    // Dark background color
+    lighter: #333333,
+    // Slightly lighter background color
+    darker: #000000,
+    // Even darker background color
+    200: #121212,
+    // for slide toggle
+    contrast: (main: #ffffff, // Text color on dark background
+        lighter: #000000, // Text color on slightly lighter background
+        darker: #ffffff // Text color on even darker background
     )
 );
 
-@include mat.all-component-themes($my-theme);
+$theme-dark: mat.define-palette($mat-dark, main, lighter, darker);
+$theme-accent: mat.define-palette(mat.$indigo-palette, A200, A100, A400);
+
+$my-dark-theme: mat.define-dark-theme((color: (primary: $theme-dark,
+                accent: $theme-accent ),
+            typography: mat.define-typography-config(),
+            density: 0,
+        ));
+
+.theme-ligth {
+    @include mat.all-component-themes($my-light-theme);
+}
+
+.theme-dark {
+    @include mat.all-component-themes($my-dark-theme);
+}

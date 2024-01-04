@@ -2,7 +2,9 @@
     <button mat-icon-button (click)="collapsed.set(!collapsed())" >
         <mat-icon>menu</mat-icon>
     </button>
-
+    <button mat-icon-button (click)="toggleTheme()">
+        <mat-icon>{{ darkTheme() ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
+      </button>
 </mat-toolbar>
 <mat-sidenav-container class="content">
     <mat-sidenav opened  mode="side" [style.width]="sidenaveWidth()">
