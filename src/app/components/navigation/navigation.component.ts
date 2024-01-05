@@ -23,7 +23,10 @@ export class NavigationComponent {
   darkTheme = signal(false);
   constructor(private breakpointObserver: BreakpointObserver) {
     this.setCollapsedForScreenSize();
-
+    const collapsedStore = localStorage.getItem('collapsed');
+    if(collapsedStore){
+      this.collapsed.set(collapsedStore == 'true');
+    }
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
       this.darkTheme.set(storedTheme === 'dark')
@@ -32,7 +35,10 @@ export class NavigationComponent {
   }
 
 
-  sidenaveWidth = computed(() => this.collapsed() ? '65px' : '250px');
+  sidenaveWidth = computed(() => {
+    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+    return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
+  });
 
   private setCollapsedForScreenSize() {
     this.breakpointObserver.observe([
@@ -40,9 +46,9 @@ export class NavigationComponent {
     ]).subscribe(result => {
       if (result.matches) {
         this.collapsed.set(true);
-      } else {
+       } else {
         this.collapsed.set(false);
-      }
+       }
     });
   }
 
@@ -61,5 +67,11 @@ export class NavigationComponent {
       document.body.classList.remove('theme-dark');
       localStorage.setItem('theme', 'light');
     }
+  }
+
+
+  toggleCollapse(){
+    this.collapsed.set(!this.collapsed());
+    localStorage.setItem('collapsed', this.collapsed() + "");
   }
 }
