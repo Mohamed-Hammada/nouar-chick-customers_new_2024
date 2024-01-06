@@ -24,6 +24,21 @@ export class CustomSideNavComponent {
   }
   menuItems = signal<MenuItem[]>([
     {
+      label: 'Products',
+      icon: 'local_grocery_store',
+      route: '/products'
+    },
+    {
+      icon: 'person',
+      label: 'Customers',
+      route: '/customers'
+    },
+    {
+      label: 'Financial',
+      icon: 'attach_money',
+      route: '/financial'
+    },
+    {
       icon: 'dashboard',
       label: 'Dashboard',
       route: '/dashboard'
@@ -32,11 +47,6 @@ export class CustomSideNavComponent {
       icon: 'analytics',
       label: 'Analytics',
       route: '/analytics'
-    },
-    {
-      icon: 'person',
-      label: 'Customers',
-      route: '/customers'
     },
     {
       icon: 'person_add',

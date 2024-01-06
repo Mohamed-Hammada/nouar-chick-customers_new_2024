@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { FinancialTransactionComponent } from './pages/financial-transaction/financial-transaction.component';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { ProductsComponent } from './pages/products/products.component';
 
 
  
@@ -9,5 +12,8 @@ export const routes: Routes = [
   { path: '' ,component: DashboardComponent },
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'financial', component: FinancialTransactionComponent },
+  { path: 'customers', component: CustomersComponent },
+  { path: 'products', component: ProductsComponent },
 ];
 
