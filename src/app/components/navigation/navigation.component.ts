@@ -36,6 +36,7 @@ export class NavigationComponent {
 
 
   sidenaveWidth = computed(() => {
+    debugger
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
     return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
   });
