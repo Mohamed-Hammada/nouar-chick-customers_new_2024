@@ -1,1 +1,22 @@
-<p>products works!</p>
+<div class="responsive-grid">
+    <mat-card *ngFor="let card of (cards$ | async)?.content">
+        <mat-card-header>
+          <mat-card-title >{{ card.name }} </mat-card-title>
+          <div class="spacer"></div>
+            <button mat-button>
+              <mat-icon>edit</mat-icon> 
+            </button>
+          </mat-card-header>
+        <br />
+        <!-- <img mat-card-image [src]="card.imageUrl" /> -->
+        <mat-card-content>
+        
+          <p>
+            {{ card.description }}
+          </p>
+        </mat-card-content>
+        <mat-card-content class="footer">
+            Last Modified: {{ card.modification_date | date:'medium' }}
+          </mat-card-content>
+      </mat-card>
+</div>
