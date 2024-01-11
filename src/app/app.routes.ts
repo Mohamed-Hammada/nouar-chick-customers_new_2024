@@ -9,7 +9,8 @@ import { ProductsComponent } from './pages/products/products.component';
  
 
 export const routes: Routes = [
-  { path: '' ,component: DashboardComponent },
+  // { path: '' ,component: DashboardComponent },
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'financial', component: FinancialTransactionComponent },
