@@ -23,6 +23,7 @@ export class CustomSideNavComponent {
     this.sidenavCollapsed.set(val);
   }
   menuItems = signal<MenuItem[]>([
+    
     {
       label: 'Products',
       icon: 'local_grocery_store',

@@ -3,15 +3,19 @@
         <mat-card-header>
           <mat-card-title >{{ card.name }} </mat-card-title>
           <div class="spacer"></div>
+          <button mat-mini-fab color="" (click)="addChildHandler(card)" >
+            <mat-icon>visibility_off</mat-icon> 
+          </button>
             <button mat-mini-fab color="" (click)="addChildHandler(card)" >
               <mat-icon>edit</mat-icon> 
             </button>
+          
           </mat-card-header>
         <br />
         <!-- <img mat-card-image [src]="card.imageUrl" /> -->
         <mat-card-content>
         
-          <p>
+          <p class="scrollable-description">
             {{ card.description }}
           </p>
         </mat-card-content>
