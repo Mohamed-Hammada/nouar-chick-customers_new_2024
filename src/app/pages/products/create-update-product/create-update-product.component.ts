@@ -23,6 +23,7 @@ import { MatInputModule } from '@angular/material/input';
 export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
 
   product: Product = {};
+  readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
 
 
@@ -32,7 +33,10 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
     private notificationService: NotificationService,
     private router: Router) {
     if (this.dataService.data)
-      this.product = this.dataService.data;
+      this.product = this.dataService.data.content;
+    if(this.dataService.data.readOnly){
+      this.readOnly = true;
+    }
   }
   ngAfterViewInit(): void {
     if (this.descriptionTextarea) {

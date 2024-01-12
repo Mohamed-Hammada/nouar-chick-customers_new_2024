@@ -18,7 +18,7 @@
           <mat-form-field class="form-group" style="display: flex; align-items: center;">
             <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>local_grocery_store</mat-icon>
             <mat-label>Product Name</mat-label>
-            <input matInput formControlName="name">
+            <input [readonly]="readOnly" matInput formControlName="name">
           </mat-form-field>
         </div>
   
@@ -26,7 +26,7 @@
           <mat-form-field>
             <mat-icon style="position: relative; top: 3px; color: #a4b0f5;" matPrefix>description</mat-icon>
             <mat-label>Description</mat-label>
-            <textarea #descriptionTextarea matInput formControlName="description" (keyup)="autoGrowTextZone($event)"></textarea>
+            <textarea #descriptionTextarea matInput [readonly]="readOnly" formControlName="description" (keyup)="autoGrowTextZone($event)"></textarea>
           </mat-form-field>
         </div>
   

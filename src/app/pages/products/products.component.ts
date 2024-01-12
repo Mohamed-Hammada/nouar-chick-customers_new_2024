@@ -104,9 +104,9 @@ export class ProductsComponent implements OnInit {
     return card.id; // Assuming 'id' is a unique identifier for each card
   }
 
-  addChildHandler(card?:any) {
+  addChildHandler(card?:any , readOnly:boolean = false): void {
     if(card){
-      this.dataService.setData(card);
+      this.dataService.setData({ readOnly:readOnly , content: card });
     }else{
       this.dataService.setData({ });
     }
