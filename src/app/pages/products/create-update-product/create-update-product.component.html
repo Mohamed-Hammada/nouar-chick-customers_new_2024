@@ -30,7 +30,7 @@
           </mat-form-field>
         </div>
   
-        <button mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">
+        <button  [hidden]="readOnly"  mat-raised-button color="primary" type="submit" [disabled]="!productForm.valid">
           <mat-icon style="color: #00f0b5;">check_circle</mat-icon> Submit
         </button>
       </form>

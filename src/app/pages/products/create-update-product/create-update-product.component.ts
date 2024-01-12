@@ -33,7 +33,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
     private notificationService: NotificationService,
     private router: Router) {
     if (this.dataService.data)
-      this.product = this.dataService.data.content;
+      this.product = this.dataService.data.content; 
     if(this.dataService.data.readOnly){
       this.readOnly = true;
     }
