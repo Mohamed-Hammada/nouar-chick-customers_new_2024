@@ -27,4 +27,12 @@
       <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
         <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
       </button>
+
+
+
 </div>
+<mat-paginator showFirstLastButtons 
+[pageSize]="pageSize" 
+[pageSizeOptions]="pageSizeOptions" 
+(page)="pageEvent($event)" 
+[length]="totalRecords"></mat-paginator>

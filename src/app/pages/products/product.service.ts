@@ -14,8 +14,8 @@ export type Product = {
 
 export interface ProductPage {
   content?: Product[];
-  totalElements?: number;
-  totalPages?: number;
+  total_elements?: number;
+  total_pages?: number;
   pageable?: {
     page_number?: number;
     page_size?: number;
@@ -61,7 +61,7 @@ export class ProductService {
 
   getProducts(page = 1, size = 10): Observable<ProductPage> {
     return this.http.get<ProductPage>(`${this.apiUrl}`, {
-      params: { page: (page - 1).toString(), size: size.toString() }
+      params: { page: page.toString(), size: size.toString() }
     });
   }
 
