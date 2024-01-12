@@ -1,9 +1,9 @@
 <div class="responsive-grid">
-    <mat-card *ngFor="let card of (cards$ | async)?.content">
+    <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
         <mat-card-header>
           <mat-card-title >{{ card.name }} </mat-card-title>
           <div class="spacer"></div>
-            <button mat-mini-fab color=""  >
+            <button mat-mini-fab color="" (click)="addChildHandler(card)" >
               <mat-icon>edit</mat-icon> 
             </button>
           </mat-card-header>
@@ -19,4 +19,8 @@
             Last Modified: {{ card.modification_date | date:'medium' }}
           </mat-card-content>
       </mat-card>
+
+      <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
+        <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
+      </button>
 </div>

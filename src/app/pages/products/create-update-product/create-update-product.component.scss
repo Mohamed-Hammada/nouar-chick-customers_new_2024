@@ -1,0 +1,30 @@
+
+
+  form {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  mat-card {
+    text-align: center;  
+    height: auto;
+    width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    mat-card-header {
+      margin: 0 auto;
+      width: fit-content; 
+    }
+  }
+
+  /* @media (max-width: 600px) {
+    .form-group {
+      flex-direction: column;
+    }
+  } */

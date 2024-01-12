@@ -22,3 +22,9 @@ img {
     margin-top: 2%;
   }
   
+  .floating-button {
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 1000; /* Adjust the z-index as needed */
+  }
