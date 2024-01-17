@@ -49,9 +49,9 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
 
   ngOnInit(): void {
     this.productForm = this.fb.group({
-      id: [this.product.id || null],
-      name: [this.product.name || '', Validators.required],
-      description: [this.product.description || '']
+      id: [this.product?.id || null],
+      name: [this.product?.name || '', Validators.required],
+      description: [this.product?.description || '']
     });
   }
   autoGrowTextZone(e: Event) {
