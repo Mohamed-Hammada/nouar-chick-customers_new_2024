@@ -73,3 +73,11 @@ $my-dark-theme: mat.define-dark-theme((color: (primary: $theme-dark,
 ::-webkit-scrollbar {
     width: 0px;
 }
+
+.dense-1 {
+    @include mat.all-component-densities(-1);
+}
+  
+.dense-2 {
+@include mat.all-component-densities(-5);
+}

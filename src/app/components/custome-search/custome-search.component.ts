@@ -1,6 +1,5 @@
-import { Component, ElementRef, ViewChild, computed } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -17,12 +16,11 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './custome-search.component.scss'
 })
 export class CustomeSearchComponent {
-  @ViewChild('customMatFormField') customMatFormField!: ElementRef;
 
   searchWidth = computed(() => {
     // debugger
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
-    return isSmallDevice ? 350 : 500;
+    return isSmallDevice ? 300 : 500;
   });
 
   applyFilter(searchValue: string) {
