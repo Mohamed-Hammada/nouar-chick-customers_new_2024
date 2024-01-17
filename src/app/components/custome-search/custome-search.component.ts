@@ -22,18 +22,11 @@ export class CustomeSearchComponent {
   searchWidth = computed(() => {
     // debugger
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
-    return isSmallDevice ? 250 : 500;
+    return isSmallDevice ? 350 : 500;
   });
 
   applyFilter(searchValue: string) {
   }
 
-  increaseSize() {
-    console.log('increase size');
-    this.customMatFormField.nativeElement.style.width = '300px';
-  }
-
-  decreaseSize() {
-    this.customMatFormField.nativeElement.style.width = '200px';
-  }
+  
 }

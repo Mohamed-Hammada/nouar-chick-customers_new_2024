@@ -10,13 +10,14 @@ import { LanguageService } from '../../_helper/language.service';
 import { Router } from '@angular/router';
 import { DataService } from '../../_helper/data.service';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 
 @Component({
-  selector: 'app-products',
-  standalone: true,
-  imports: [CommonModule, MatIconModule,MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule],
-  templateUrl: './products.component.html',
-  styleUrl: './products.component.scss'
+    selector: 'app-products',
+    standalone: true,
+    templateUrl: './products.component.html',
+    styleUrl: './products.component.scss',
+    imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
 })
 export class ProductsComponent implements OnInit {
   cards$: Observable<ProductPage>;

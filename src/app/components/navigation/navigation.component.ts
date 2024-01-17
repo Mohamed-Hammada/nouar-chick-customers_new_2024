@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.component";
 import { CommonModule } from '@angular/common';
-import { CustomeSearchComponent } from "./custome-search/custome-search.component";
+import { CustomeSearchComponent } from "../custome-search/custome-search.component";
 @Component({
     selector: 'app-navigation',
     standalone: true,
