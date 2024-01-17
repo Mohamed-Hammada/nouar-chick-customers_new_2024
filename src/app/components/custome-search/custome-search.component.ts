@@ -1,4 +1,4 @@
-import { Component, computed } from '@angular/core';
+import { Component, EventEmitter, Output, computed } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,7 +16,8 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './custome-search.component.scss'
 })
 export class CustomeSearchComponent {
-
+  @Output() term = new EventEmitter<string>();
+  
   searchWidth = computed(() => {
     // debugger
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
@@ -24,6 +25,7 @@ export class CustomeSearchComponent {
   });
 
   applyFilter(searchValue: string) {
+    this.term.emit(searchValue);
   }
 
   

@@ -53,7 +53,7 @@ export class ProductService {
 
   searchProducts(term = '', page = 1, size = 10): Observable<ProductPage> {
     return this.http.get<ProductPage>(`${this.apiUrl}/search`, {
-      params: { term, page: (page - 1).toString(), size: size.toString() }
+      params: { term, page: page.toString(), size: size.toString() }
     }).pipe(
       catchError((error: HttpErrorResponse) => this.handleError(error))
     );
