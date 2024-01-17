@@ -8,15 +8,16 @@ import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.component";
 import { CommonModule } from '@angular/common';
+import { CustomeSearchComponent } from "./custome-search/custome-search.component";
 @Component({
-  selector: 'app-navigation',
-  standalone: true,
-  templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.scss',
-  imports: [CommonModule, MatToolbarModule,
-    MatSidenavModule, MatIconModule,
-    MatButtonModule, RouterOutlet,
-    CustomSideNavComponent]
+    selector: 'app-navigation',
+    standalone: true,
+    templateUrl: './navigation.component.html',
+    styleUrl: './navigation.component.scss',
+    imports: [CommonModule, MatToolbarModule,
+        MatSidenavModule, MatIconModule,
+        MatButtonModule, RouterOutlet,
+        CustomSideNavComponent, CustomeSearchComponent]
 })
 export class NavigationComponent {
   collapsed = signal(false);
