@@ -8,6 +8,7 @@ import { CreateUpdateProductComponent } from './pages/products/create-update-pro
 import { CreateUpdateCustomersComponent } from './pages/customers/create-update-customers/create-update-customers.component';
 import { StatementHistoryComponent } from './pages/statement-history/statement-history.component';
 import { CreateUpdateStatementHistoryComponent } from './pages/statement-history/create-update-statement-history/create-update-statement-history.component';
+import { CreateUpdateFinancialTransactionComponent } from './pages/financial-transaction/create-update-financial-transaction/create-update-financial-transaction.component';
 
 
  
@@ -24,5 +25,6 @@ export const routes: Routes = [
   { path: 'create-update-product', component: CreateUpdateProductComponent },
   { path: 'create-update-customer', component: CreateUpdateCustomersComponent },
   { path: 'create-update-statement-history', component: CreateUpdateStatementHistoryComponent },
+  { path: 'create-update-financial', component: CreateUpdateFinancialTransactionComponent },
 ];
 

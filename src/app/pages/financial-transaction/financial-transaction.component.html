@@ -1,1 +1,53 @@
-<p>financial-transaction works!</p>
+<mat-toolbar class="mat-elevation-z3">
+  
+    <div class="spacer"></div> 
+    <app-custome-search (term)="handleSearchTermChange($event)" ></app-custome-search>
+    <div class="spacer"></div> 
+  
+  </mat-toolbar>
+  <div class="responsive-grid">
+      <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
+          <mat-card-header>
+            <mat-card-title >{{ card?.customer?.name }} </mat-card-title>
+            <div class="spacer"></div>
+            <button mat-mini-fab color="" (click)="addChildHandler(card,true)" >
+              <mat-icon>visibility_off</mat-icon> 
+            </button>
+              <button mat-mini-fab color="" (click)="addChildHandler(card)" >
+                <mat-icon>edit</mat-icon> 
+              </button>
+            
+            </mat-card-header>
+          <br />
+          <!-- <img mat-card-image [src]="card.imageUrl" /> -->
+          <mat-card-content>
+          
+            <p><strong>ID:</strong> {{ card?.id }}</p>
+            <p><strong>Statement:</strong> {{ card?.statement }}</p>
+            <p><strong>Product:</strong> {{ card?.product?.name }}</p>
+            <p><strong>Count:</strong> {{ card?.count }}</p>
+            <p><strong>Price:</strong> {{ card?.price | currency }}</p>
+            <p><strong>Borrower:</strong> {{ card?.borrower }}</p>
+            <p><strong>Stock:</strong> {{ card?.stock }}</p>
+            <p><strong>Total Borrower:</strong> {{ card?.total_borrower }}</p>
+            <p><strong>Total Stock:</strong> {{ card?.total_stock }}</p>
+           
+         
+          </mat-card-content>
+          <mat-card-content class="footer">
+              Last Modified: {{ card.modification_date | date:'medium' }}
+            </mat-card-content>
+        </mat-card>
+  
+        <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
+          <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
+        </button>
+  
+  
+  
+  </div>
+  <mat-paginator showFirstLastButtons 
+  [pageSize]="pageSize" 
+  [pageSizeOptions]="pageSizeOptions" 
+  (page)="pageEvent($event)" 
+  [length]="totalRecords"></mat-paginator>
