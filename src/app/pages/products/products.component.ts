@@ -3,13 +3,14 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, ViewChild, signal }
 import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { ProductPage, ProductService } from './product.service';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { LanguageService } from '../../_helper/language.service';
 import { Router } from '@angular/router';
+
+import { ProductPage, ProductService } from './product.service';
+import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 
 @Component({

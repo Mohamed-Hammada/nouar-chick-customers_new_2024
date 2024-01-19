@@ -1,1 +1,46 @@
-<p>customers works!</p>
+<mat-toolbar class="mat-elevation-z3">
+  
+    <div class="spacer"></div> 
+    <app-custome-search (term)="handleSearchTermChange($event)" ></app-custome-search>
+    <div class="spacer"></div> 
+  
+  </mat-toolbar>
+  <div class="responsive-grid">
+      <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
+          <mat-card-header>
+            <mat-card-title >{{ card.name }} </mat-card-title>
+            <div class="spacer"></div>
+            <button mat-mini-fab color="" (click)="addChildHandler(card,true)" >
+              <mat-icon>visibility_off</mat-icon> 
+            </button>
+              <button mat-mini-fab color="" (click)="addChildHandler(card)" >
+                <mat-icon>edit</mat-icon> 
+              </button>
+            
+            </mat-card-header>
+          <br />
+          <!-- <img mat-card-image [src]="card.imageUrl" /> -->
+          <mat-card-content>
+        
+            <p>ID: {{ card.id }}</p>
+            <p>Code ID: {{ card.code_id }}</p>
+            <p>Name: {{ card.name }}</p>
+            <p>Contact Details: {{ card.contact_details }}</p>
+          </mat-card-content>
+          <mat-card-content class="footer">
+              Last Modified: {{ card.modification_date | date:'medium' }}
+            </mat-card-content>
+        </mat-card>
+  
+        <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
+          <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
+        </button>
+  
+  
+  
+  </div>
+  <mat-paginator showFirstLastButtons 
+  [pageSize]="pageSize" 
+  [pageSizeOptions]="pageSizeOptions" 
+  (page)="pageEvent($event)" 
+  [length]="totalRecords"></mat-paginator>
