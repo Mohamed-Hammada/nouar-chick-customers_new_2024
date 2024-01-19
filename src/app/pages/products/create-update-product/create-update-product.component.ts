@@ -62,7 +62,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
     }
   }
   onSubmit(): void {
-    if (this.product.id) {
+    if (this.product?.id) {
       // Update existing product
       const updatedProduct: Product = { ...this.product, ...this.productForm.value };
       this.productService.updateProduct(updatedProduct).subscribe(response => {

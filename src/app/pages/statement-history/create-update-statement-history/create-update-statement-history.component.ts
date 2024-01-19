@@ -61,7 +61,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
     }
   }
   onSubmit(): void {
-    if (this.statementHistory.id) {
+    if (this.statementHistory?.id) {
       // Update existing statementHistory
       const updatedStatementHistory: StatementHistory = { ...this.statementHistory, ...this.statementHistoryForm.value };
       this.statementHistoryService.updateStatementHistory(updatedStatementHistory).subscribe(response => {
@@ -78,7 +78,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
       const newStatementHistory: StatementHistory = this.statementHistoryForm.value;
       this.statementHistoryService.createStatementHistory(newStatementHistory).subscribe(response => {
         // Handle add success
-        this.router.navigate(['/statementHistorys']);
+        this.router.navigate(['/statement-history']);
         this.notificationService.success('StatementHistory added successfully');
       }, error => {
         // Handle add error

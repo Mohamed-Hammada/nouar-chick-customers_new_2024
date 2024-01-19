@@ -63,7 +63,7 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
     }
   }
   onSubmit(): void {
-    if (this.customer.id) {
+    if (this.customer?.id) {
       // Update existing customer
       const updatedCustomer: Customer = { ...this.customer, ...this.customerForm.value };
       this.customerService.updateCustomer(updatedCustomer).subscribe(response => {
