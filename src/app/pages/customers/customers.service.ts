@@ -12,7 +12,7 @@ export type Customer = {
   contact_details?: string;
   creation_date?: string; // Assuming you want to use a string representation for Instant
   modification_date?: string; // Assuming you want to use a string representation for Instant
-  is_appear?: number;
+  visible_to_normal_users?: boolean;
   transactions?: FinancialTransaction[]; // Assuming you have a FinancialTransaction type
 }
 

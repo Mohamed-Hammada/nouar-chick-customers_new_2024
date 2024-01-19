@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { DataService } from '../../../_helper/data.service';
@@ -11,11 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Customer, CustomersService } from '../customers.service';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 @Component({
   selector: 'app-create-update-customers',
   standalone: true,
   imports: [FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
-    ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+    ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatCheckboxModule],
   templateUrl: './create-update-customers.component.html',
   styleUrl: './create-update-customers.component.scss'
 })
@@ -51,6 +53,7 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
       id: [this.customer?.id || null],
       code_id: [this.customer?.code_id || null],
       name: [this.customer?.name || '', Validators.required],
+      visible_to_normal_users: new FormControl(false) ,
       contact_details: [this.customer?.contact_details || ''],
     });
   }
