@@ -10,19 +10,16 @@ import { Router } from '@angular/router';
 import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
-
-import { ProductPage, ProductService } from './product.service';
-
-
+import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
 @Component({
-    selector: 'app-products',
-    standalone: true,
-    templateUrl: './products.component.html',
-    styleUrl: './products.component.scss',
-    imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
+  selector: 'app-statement-history',
+  standalone: true,
+  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
+  templateUrl: './statement-history.component.html',
+  styleUrl: './statement-history.component.scss'
 })
-export class ProductsComponent implements OnInit {
-  cards$: Observable<ProductPage>;
+export class StatementHistoryComponent implements OnInit {
+  cards$: Observable<StatementHistoryPage>;
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
@@ -31,13 +28,13 @@ export class ProductsComponent implements OnInit {
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
-  constructor(private service: ProductService,
+  constructor(private service: StatementHistoryService,
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
     private dataService: DataService) {
     this.languageService.setDefaultLanguage();
-    this.cards$ = this.service.getProducts()
+    this.cards$ = this.service.getStatementHistorys()
   }
   ngOnInit(): void {
     this.loadData();
@@ -45,16 +42,16 @@ export class ProductsComponent implements OnInit {
   }
   loadData(searchTerm :string|null = ''): void {
     if(searchTerm){
-      this.cards$ = this.service.searchProducts( searchTerm ,0, this.pageSize);
+      this.cards$ = this.service.searchStatementHistorys( searchTerm ,0, this.pageSize);
     }else{
-    this.cards$ = this.service.getProducts(this.currentPage, this.pageSize);
+    this.cards$ = this.service.getStatementHistorys(this.currentPage, this.pageSize);
     }
-    this.cards$.subscribe((data: ProductPage) => {
+    this.cards$.subscribe((data: StatementHistoryPage) => {
       this.handleDataResponse(data);
     });
   }
 
-  handleDataResponse(data: ProductPage) {
+  handleDataResponse(data: StatementHistoryPage) {
   
     if (!data) { return; }
     if (!data.content) { return; }
@@ -123,7 +120,7 @@ export class ProductsComponent implements OnInit {
       this.dataService.setData({ });
     }
     
-    this.router.navigate(['/create-update-product']);
+    this.router.navigate(['/create-update-statement-history']);
   }
 
   handleSearchTermChange(searchTerm: string): void {

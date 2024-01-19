@@ -23,7 +23,11 @@ export class CustomSideNavComponent {
     this.sidenavCollapsed.set(val);
   }
   menuItems = signal<MenuItem[]>([
-    
+    {
+      label: 'Statment History',
+      icon: 'history',
+      route: '/statement-history'
+    },
     {
       label: 'Products',
       icon: 'local_grocery_store',
