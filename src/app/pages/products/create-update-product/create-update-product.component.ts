@@ -67,6 +67,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
       const updatedProduct: Product = { ...this.product, ...this.productForm.value };
       this.productService.updateProduct(updatedProduct).subscribe(response => {
         // Handle update success
+        this.router.navigate(['/products']);
         this.notificationService.success('Product updated successfully');
       }, error => {
         // Handle update error
@@ -83,6 +84,8 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
       }, error => {
         // Handle add error
         console.error('Add failed:', error);
+        this.notificationService.error('Create failed');
+
       });
     }
   }

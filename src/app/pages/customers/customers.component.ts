@@ -123,7 +123,7 @@ export class CustomersComponent implements OnInit{
       this.dataService.setData({ });
     }
     
-    this.router.navigate(['/create-update-Customer']);
+    this.router.navigate(['/create-update-customer']);
   }
 
   handleSearchTermChange(searchTerm: string): void {

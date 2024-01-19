@@ -5,6 +5,7 @@ import { FinancialTransactionComponent } from './pages/financial-transaction/fin
 import { CustomersComponent } from './pages/customers/customers.component';
 import { ProductsComponent } from './pages/products/products.component';
 import { CreateUpdateProductComponent } from './pages/products/create-update-product/create-update-product.component';
+import { CreateUpdateCustomersComponent } from './pages/customers/create-update-customers/create-update-customers.component';
 
 
  
@@ -18,5 +19,6 @@ export const routes: Routes = [
   { path: 'customers', component: CustomersComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'create-update-product', component: CreateUpdateProductComponent },
+  { path: 'create-update-customer', component: CreateUpdateCustomersComponent },
 ];
 
