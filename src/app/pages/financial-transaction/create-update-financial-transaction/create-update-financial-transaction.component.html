@@ -1,1 +1,62 @@
-<p>create-update-financial-transaction works!</p>
+<div *ngFor="let transaction of transactions">
+<mat-card> 
+    <mat-card-content>
+  
+        <!-- Input fields for user to complete transaction details -->
+        <mat-form-field class="example-full-width">
+            <input matInput [hidden]="true" [(ngModel)]="transaction.id">
+            <mat-label>Statement</mat-label>
+            <input matInput [(ngModel)]="transaction.statement">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Product</mat-label>
+            <input matInput [(ngModel)]="transaction.product">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Count</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.count">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Price</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.price">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Borrower</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.borrower">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Stock</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.stock">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Borrower</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.total_borrower">
+          </mat-form-field>
+          
+          <mat-form-field class="example-full-width">
+            <mat-label>Total Stock</mat-label>
+            <input matInput type="number" [(ngModel)]="transaction.total_stock">
+          </mat-form-field>
+          
+  
+        <!-- You can add more input fields as needed -->
+  
+    
+  
+    </mat-card-content>
+=  </mat-card>
+</div>
+    
+<button mat-raised-button color="primary" (click)="onSubmit()">Save All</button>
+  
+    
+
+  <button mat-fab color="primary" class="floating-button" (click)="addTransaction()">
+    <mat-icon>add</mat-icon>
+  </button>

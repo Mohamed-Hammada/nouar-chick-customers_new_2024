@@ -1,0 +1,17 @@
+.example-full-width {
+    width: 100%;
+  }
+
+  .floating-button {
+    position: fixed;
+    bottom: 80px;
+    right: 30px;
+    z-index: 1000; /* Adjust the z-index as needed */
+  }
+
+  mat-card {
+    text-align: center;  
+    height: auto;
+    width: 100%;
+    margin-top: 20px;
+  }

@@ -5,10 +5,11 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Environment } from '../../../environments/environment';
 import { NotificationService } from '../../../app/components/notification.service'; // Adjust the import path
+import { StatementHistory } from '../statement-history/statement-history.service';
 
 export type FinancialTransaction = {
   id?: number;
-  statement?: string;
+  statement?: StatementHistory;
   product?: Product; // Assuming you have a Product type
   count?: number;
   price?: number;
