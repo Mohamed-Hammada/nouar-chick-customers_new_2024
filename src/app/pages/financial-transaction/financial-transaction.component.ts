@@ -5,7 +5,6 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
-import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
 import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
@@ -13,16 +12,19 @@ import { CustomeSearchComponent } from "../../components/custome-search/custome-
 import { FinancialTransactionPage, FinancialTransactionService } from './financial-transaction.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
-
+import { Customer } from '../customers/customers.service';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list'
+import { CreateUpdateCustomersComponent } from "../customers/create-update-customers/create-update-customers.component";
 @Component({
-  selector: 'app-financial-transaction',
-  standalone: true,
-  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
-  ,
-  templateUrl: './financial-transaction.component.html',
-  styleUrl: './financial-transaction.component.scss'
+    selector: 'app-financial-transaction',
+    standalone: true,
+    templateUrl: './financial-transaction.component.html',
+    styleUrl: './financial-transaction.component.scss',
+    imports: [CommonModule, MatIconModule, MatListModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent, CreateUpdateCustomersComponent]
 })
 export class FinancialTransactionComponent implements OnInit{
+  customer: Customer = {};
   cards$: Observable<FinancialTransactionPage>;
   currentPage: number = 0;
   totalPages: number = -1;
@@ -39,6 +41,8 @@ export class FinancialTransactionComponent implements OnInit{
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
     private dataService: DataService) {
+      if (this.dataService.data)
+      this.customer = this.dataService.data.content; 
     this.languageService.setDefaultLanguage();
     this.cards$ = this.service.getFinancialTransactions()
   }

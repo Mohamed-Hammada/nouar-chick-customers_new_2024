@@ -3,7 +3,7 @@
         <mat-card-title>
             Customer Information
         </mat-card-title>
-        <mat-card-subtitle>
+        <mat-card-subtitle [hidden]="readOnly">
             Enter details for the customer
         </mat-card-subtitle>
     </mat-card-header>
@@ -35,7 +35,8 @@
                 </mat-form-field>
             </div>
             <div class="form-group">
-                <mat-checkbox formControlName="visible_to_normal_users">
+                <mat-checkbox  
+                 formControlName="visible_to_normal_users">
                   Visible to Normal Users
                 </mat-checkbox>
               </div>

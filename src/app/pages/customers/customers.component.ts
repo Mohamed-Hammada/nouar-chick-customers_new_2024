@@ -160,7 +160,7 @@ export class CustomersComponent implements OnInit {
 
   }
   routeToFiniancial(card: any){
-    this.dataService.setData({ customer: card});
+    this.dataService.setData({ content: card});
     this.router.navigate(['/financial']);
   }
 

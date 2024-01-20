@@ -5,6 +5,8 @@
     <div class="spacer"></div> 
   
   </mat-toolbar>
+
+
   <div class="responsive-grid">
       <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
           <mat-card-header >
@@ -27,7 +29,7 @@
           <mat-card-content>
         
             <p>Code ID: {{ card.code_id }}</p>
-            <p>Name: {{ card.name }}</p>
+            <!-- <p>Name: {{ card.name }}</p> -->
             <p>Contact Details: {{ card.contact_details }}</p>
             <p>Is User Visible to Normal Users: {{ card.visible_to_normal_users }}</p>
           </mat-card-content>
