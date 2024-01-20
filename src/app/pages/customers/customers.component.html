@@ -7,15 +7,18 @@
   </mat-toolbar>
   <div class="responsive-grid">
       <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
-          <mat-card-header>
-            <mat-card-title >{{ card.name }} </mat-card-title>
+          <mat-card-header >
+            <mat-card-title >{{ card.name }}
+              <div class="footer">{{ card.creation_date | date:'medium' }} </div>
+            </mat-card-title>
+            
             <div class="spacer"></div>
           
-              <button mat-mini-fab color="" (click)="addChildHandler(card)" >
+              <button mat-mini-fab color="primary" (click)="addChildHandler(card)" >
                 <mat-icon>edit</mat-icon> 
               </button>
-              <button mat-mini-fab color="" (click)="routeToFiniancial(card)" >
-                <mat-icon>attach_money</mat-icon> 
+              <button mat-mini-fab  style="background-color:gold ;" (click)="routeToFiniancial(card)" >
+                <mat-icon >attach_money</mat-icon> 
               </button>
             
             </mat-card-header>
@@ -29,14 +32,15 @@
             <p>Is User Visible to Normal Users: {{ card.visible_to_normal_users }}</p>
           </mat-card-content>
           <mat-card-content class="footer">
-             <p> Last Modified: {{ card.modification_date | date:'medium' }}</p>
+             <p> {{ card.modification_date | date:'medium' }}</p>
 
              <div class="spacer"></div>
-             <button mat-mini-fab color="" (click)="handleDelete(card)" >
-              <mat-icon>delete</mat-icon> 
-            </button>
-            <button mat-mini-fab color="" (click)="addChildHandler(card,true)" >
+           
+            <button mat-mini-fab color="primary" (click)="addChildHandler(card,true)" >
               <mat-icon>visibility_off</mat-icon> 
+            </button>
+            <button mat-mini-fab color="warn" (click)="handleDelete(card)" >
+              <mat-icon>delete</mat-icon> 
             </button>
             </mat-card-content>
         </mat-card>
