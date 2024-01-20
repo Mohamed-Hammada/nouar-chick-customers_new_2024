@@ -38,4 +38,13 @@ img {
     width: 10px;
   }
   
+  .flex-container {
+    display: flex;
+    // justify-content: space-between; /* Adjust as needed */
+    width: 100%;
+  }
+  
+  .form-group {
+    margin-right: 16px; /* Adjust as needed */
+  }
   

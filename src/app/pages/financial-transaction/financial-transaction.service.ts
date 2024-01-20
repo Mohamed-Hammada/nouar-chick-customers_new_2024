@@ -59,20 +59,12 @@ export class FinancialTransactionService {
 
   constructor(private http: HttpClient,private notificationService: NotificationService) { }
 
-
-  searchFinancialTransactions(term = '', page = 1, size = 10): Observable<FinancialTransactionPage> {
-    return this.http.get<FinancialTransactionPage>(`${this.apiUrl}/search`, {
-      params: { term, page: page.toString(), size: size.toString() }
-    }).pipe(
-      catchError((error: HttpErrorResponse) => this.handleError(error))
-    );
+ 
+  getFinancialTransactions( customer_id?: number , from?: Date, to?: Date): Observable<FinancialTransactionPage> {
+    const params: any = {customer_id:customer_id,from:from?.toISOString() , to:to?.toISOString()};
+    return this.http.get<FinancialTransactionPage>(`${this.apiUrl}`, { params });
   }
-
-  getFinancialTransactions(page = 1, size = 10): Observable<FinancialTransactionPage> {
-    return this.http.get<FinancialTransactionPage>(`${this.apiUrl}`, {
-      params: { page: page.toString(), size: size.toString() }
-    });
-  }
+  
 
   getFinancialTransaction(id: number): Observable<FinancialTransaction> {
     return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`);
