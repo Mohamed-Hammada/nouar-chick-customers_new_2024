@@ -12,6 +12,7 @@ import { CustomeSearchComponent } from "../../components/custome-search/custome-
 import { CustomerPage, CustomersService } from './customers.service';
 import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
+import { NotificationService } from '../../components/notification.service';
 
 @Component({
   selector: 'app-customers',
@@ -21,12 +22,12 @@ import { DataService } from '../../_helper/data.service';
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
 })
-export class CustomersComponent implements OnInit{
+export class CustomersComponent implements OnInit {
   cards$: Observable<CustomerPage>;
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
- 
+
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
@@ -35,6 +36,7 @@ export class CustomersComponent implements OnInit{
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
+    private notificationService: NotificationService,
     private dataService: DataService) {
     this.languageService.setDefaultLanguage();
     this.cards$ = this.service.getCustomers()
@@ -43,11 +45,11 @@ export class CustomersComponent implements OnInit{
     this.loadData();
 
   }
-  loadData(searchTerm :string|null = ''): void {
-    if(searchTerm){
-      this.cards$ = this.service.searchCustomers( searchTerm ,0, this.pageSize);
-    }else{
-    this.cards$ = this.service.getCustomers(this.currentPage, this.pageSize);
+  loadData(searchTerm: string | null = ''): void {
+    if (searchTerm) {
+      this.cards$ = this.service.searchCustomers(searchTerm, 0, this.pageSize);
+    } else {
+      this.cards$ = this.service.getCustomers(this.currentPage, this.pageSize);
     }
     this.cards$.subscribe((data: CustomerPage) => {
       this.handleDataResponse(data);
@@ -55,7 +57,7 @@ export class CustomersComponent implements OnInit{
   }
 
   handleDataResponse(data: CustomerPage) {
-  
+
     if (!data) { return; }
     if (!data.content) { return; }
 
@@ -63,7 +65,7 @@ export class CustomersComponent implements OnInit{
     this.totalPages = data.total_pages || -1;
     this.currentPage = data.pageable?.page_number || 0;
     this.pageSize = data.pageable?.page_size || 5;
-  
+
     if (this.paginator) {
       this.paginator.pageIndex = this.currentPage - 1;
       this.paginator.pageSize = this.pageSize;
@@ -116,13 +118,13 @@ export class CustomersComponent implements OnInit{
     return card.id; // Assuming 'id' is a unique identifier for each card
   }
 
-  addChildHandler(card?:any , readOnly:boolean = false): void {
-    if(card){
-      this.dataService.setData({ readOnly:readOnly , content: card });
-    }else{
-      this.dataService.setData({ });
+  addChildHandler(card?: any, readOnly: boolean = false): void {
+    if (card) {
+      this.dataService.setData({ readOnly: readOnly, content: card });
+    } else {
+      this.dataService.setData({});
     }
-    
+
     this.router.navigate(['/create-update-customer']);
   }
 
@@ -131,4 +133,20 @@ export class CustomersComponent implements OnInit{
     this.loadData(searchTerm);
     // Do something with the search term, e.g., trigger a search
   }
+
+  handleDelete(card: any): void {
+    this.service.deleteCustomer(card.id).subscribe(response => {
+      // Handle update success
+      this.notificationService.success('Customer updated successfully');
+    }, error => {
+      // Handle update error
+      console.error('Update failed:', error);
+      this.notificationService.error('Update failed');
+    });
+  }
+
+  routeToFiniancial(card: any){
+    
+  }
+
 }

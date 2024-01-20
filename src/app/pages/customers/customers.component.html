@@ -10,11 +10,12 @@
           <mat-card-header>
             <mat-card-title >{{ card.name }} </mat-card-title>
             <div class="spacer"></div>
-            <button mat-mini-fab color="" (click)="addChildHandler(card,true)" >
-              <mat-icon>visibility_off</mat-icon> 
-            </button>
+          
               <button mat-mini-fab color="" (click)="addChildHandler(card)" >
                 <mat-icon>edit</mat-icon> 
+              </button>
+              <button mat-mini-fab color="" (click)="routeToFiniancial(card)" >
+                <mat-icon>attach_money</mat-icon> 
               </button>
             
             </mat-card-header>
@@ -28,7 +29,15 @@
             <p>Is User Visible to Normal Users: {{ card.visible_to_normal_users }}</p>
           </mat-card-content>
           <mat-card-content class="footer">
-              Last Modified: {{ card.modification_date | date:'medium' }}
+             <p> Last Modified: {{ card.modification_date | date:'medium' }}</p>
+
+             <div class="spacer"></div>
+             <button mat-mini-fab color="" (click)="handleDelete(card)" >
+              <mat-icon>delete</mat-icon> 
+            </button>
+            <button mat-mini-fab color="" (click)="addChildHandler(card,true)" >
+              <mat-icon>visibility_off</mat-icon> 
+            </button>
             </mat-card-content>
         </mat-card>
   
