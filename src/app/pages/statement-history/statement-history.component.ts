@@ -11,6 +11,8 @@ import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
+import { NotificationService } from '../../components/notification.service';
+import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 @Component({
   selector: 'app-statement-history',
   standalone: true,
@@ -29,6 +31,8 @@ export class StatementHistoryComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private service: StatementHistoryService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -128,4 +132,28 @@ export class StatementHistoryComponent implements OnInit {
     this.loadData(searchTerm);
     // Do something with the search term, e.g., trigger a search
   }
+
+  delete(card: any): void {
+    this.service.deleteStatementHistory(card.id).subscribe(response => {
+      this.loadData();
+      // Handle update success
+      this.notificationService.success('Customer Deleted successfully');
+    }, error => {
+      // Handle update error
+      console.error('Delete failed:', error);
+      this.notificationService.error('Delete failed');
+    });
+  }
+  
+handleDelete(card: any): void {
+ this.confirmationDialogService
+   .openConfirmationDialog('Deleting the Statement will also delete associated customer records. Exercise caution before proceeding?')
+   .subscribe((result) => {
+     if (result) {
+       // User confirmed deletion, proceed with delete
+       this.delete(card);
+     }
+   });
+
+}
 }

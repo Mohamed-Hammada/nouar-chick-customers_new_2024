@@ -11,6 +11,8 @@ import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { FinancialTransactionPage, FinancialTransactionService } from './financial-transaction.service';
+import { NotificationService } from '../../components/notification.service';
+import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
   selector: 'app-financial-transaction',
@@ -31,6 +33,8 @@ export class FinancialTransactionComponent implements OnInit{
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private service: FinancialTransactionService,
+    private confirmationDialogService: ConfirmationDialogService,
+    private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -130,4 +134,28 @@ export class FinancialTransactionComponent implements OnInit{
     this.loadData(searchTerm);
     // Do something with the search term, e.g., trigger a search
   }
+
+  delete(card: any): void {
+    this.service.deleteFinancialTransaction(card.id).subscribe(response => {
+      this.loadData();
+      // Handle update success
+      this.notificationService.success('Customer Deleted successfully');
+    }, error => {
+      // Handle update error
+      console.error('Delete failed:', error);
+      this.notificationService.error('Delete failed');
+    });
+  }
+  
+handleDelete(card: any): void {
+ this.confirmationDialogService
+   .openConfirmationDialog('Deleting the product will also delete associated customer records. Exercise caution before proceeding?')
+   .subscribe((result) => {
+     if (result) {
+       // User confirmed deletion, proceed with delete
+       this.delete(card);
+     }
+   });
+
+}
 }
