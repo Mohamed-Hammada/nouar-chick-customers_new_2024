@@ -43,3 +43,14 @@ h2 {
     color: #777;
   }
   
+
+ h2, mat-dialog-title {
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(244, 67, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(244, 67, 54, 0); }
+  }
+  
