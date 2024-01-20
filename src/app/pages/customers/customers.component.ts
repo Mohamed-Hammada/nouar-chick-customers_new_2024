@@ -13,6 +13,7 @@ import { CustomerPage, CustomersService } from './customers.service';
 import { LanguageService } from '../../_helper/language.service';
 import { DataService } from '../../_helper/data.service';
 import { NotificationService } from '../../components/notification.service';
+import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 
 @Component({
   selector: 'app-customers',
@@ -34,6 +35,7 @@ export class CustomersComponent implements OnInit {
 
   constructor(private service: CustomersService,
     private router: Router,
+    private confirmationDialogService: ConfirmationDialogService,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationService: NotificationService,
@@ -134,17 +136,29 @@ export class CustomersComponent implements OnInit {
     // Do something with the search term, e.g., trigger a search
   }
 
-  handleDelete(card: any): void {
+  delete(card: any): void {
     this.service.deleteCustomer(card.id).subscribe(response => {
+      this.loadData();
       // Handle update success
-      this.notificationService.success('Customer updated successfully');
+      this.notificationService.success('Customer Deleted successfully');
     }, error => {
       // Handle update error
-      console.error('Update failed:', error);
-      this.notificationService.error('Update failed');
+      console.error('Delete failed:', error);
+      this.notificationService.error('Delete failed');
     });
   }
 
+  handleDelete(card: any): void {
+    this.confirmationDialogService
+      .openConfirmationDialog('Are you sure you want to delete this customer?')
+      .subscribe((result) => {
+        if (result) {
+          // User confirmed deletion, proceed with delete
+          this.delete(card);
+        }
+      });
+
+  }
   routeToFiniancial(card: any){
     
   }

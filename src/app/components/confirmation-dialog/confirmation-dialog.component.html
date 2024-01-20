@@ -1,0 +1,11 @@
+
+<h2 mat-dialog-title>
+  <mat-icon matPrefix>warning</mat-icon>
+Confirrm
+</h2>
+<button mat-mini-fab class="close-button" [style.color]='"Primary"' (click)="dialogRef.close()">X</button>
+<mat-dialog-content>{{ data.message }}</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()" color="Primary">Cancel</button>
+  <button mat-raised-button (click)="onYesClick()" color="warn">Yes</button>
+</mat-dialog-actions>
