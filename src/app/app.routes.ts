@@ -15,7 +15,7 @@ import { CreateUpdateFinancialTransactionComponent } from './pages/financial-tra
 
 export const routes: Routes = [
   // { path: '' ,component: DashboardComponent },
-  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: 'customers', pathMatch: 'full' },
   { path: 'analytics', component: AnalyticsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'financial', component: FinancialTransactionComponent },

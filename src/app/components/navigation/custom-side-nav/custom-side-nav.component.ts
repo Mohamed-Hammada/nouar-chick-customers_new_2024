@@ -24,9 +24,9 @@ export class CustomSideNavComponent {
   }
   menuItems = signal<MenuItem[]>([
     {
-      label: 'Statment History',
-      icon: 'history',
-      route: '/statement-history'
+      icon: 'person',
+      label: 'Customers',
+      route: '/customers'
     },
     {
       label: 'Products',
@@ -34,35 +34,37 @@ export class CustomSideNavComponent {
       route: '/products'
     },
     {
-      icon: 'person',
-      label: 'Customers',
-      route: '/customers'
+      label: 'Statment History',
+      icon: 'history',
+      route: '/statement-history'
     },
-    {
-      label: 'Financial',
-      icon: 'attach_money',
-      route: '/financial'
-    },
+   
+   
+    // {
+    //   label: 'Financial',
+    //   icon: 'attach_money',
+    //   route: '/financial'
+    // },
     {
       icon: 'dashboard',
       label: 'Dashboard',
       route: '/dashboard'
     },
-    {
-      icon: 'analytics',
-      label: 'Analytics',
-      route: '/analytics'
-    },
-    {
-      icon: 'person_add',
-      label: 'Add Customer',
-      route: '/add-customer'
-    },
-    {
-      icon: 'comments',
-      label: 'Comments',
-      route: '/comments'
-    },
+    // {
+    //   icon: 'analytics',
+    //   label: 'Analytics',
+    //   route: '/analytics'
+    // },
+    // {
+    //   icon: 'person_add',
+    //   label: 'Add Customer',
+    //   route: '/add-customer'
+    // },
+    // {
+    //   icon: 'comments',
+    //   label: 'Comments',
+    //   route: '/comments'
+    // },
   ])
 
   profilePicSize = computed(() => this.sidenavCollapsed()? '32' : '100');
