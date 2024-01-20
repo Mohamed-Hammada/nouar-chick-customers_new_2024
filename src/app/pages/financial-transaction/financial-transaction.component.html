@@ -52,7 +52,10 @@
 <div class="responsive-grid">
   <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
     <mat-card-header>
-      <mat-card-title>{{ card?.customer?.name }} <div class="footer">{{ card.creation_date | date:'medium' }} </div>
+      <mat-card-title>
+        <p><strong>Statement:</strong> {{ card?.statement }}</p>
+        <p><strong>Product:</strong> {{ card?.product?.name }}</p>
+        <div class="footer">{{ card.creation_date | date:'medium' }} </div>
       </mat-card-title>
       <div class="spacer"></div>
 
@@ -64,8 +67,7 @@
     <br />
     <!-- <img mat-card-image [src]="card.imageUrl" /> -->
     <mat-card-content>
-      <p><strong>Statement:</strong> {{ card?.statement }}</p>
-      <p><strong>Product:</strong> {{ card?.product?.name }}</p>
+ 
       <p><strong>Count:</strong> {{ card?.count }}</p>
       <p><strong>Price:</strong> {{ card?.price | currency }}</p>
       <p><strong>Borrower:</strong> {{ card?.borrower }}</p>
