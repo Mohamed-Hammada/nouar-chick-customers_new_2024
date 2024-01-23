@@ -5,6 +5,7 @@
   <div class="spacer"></div> 
 
 </mat-toolbar>
+<br />
 <div class="responsive-grid">
     <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
         <mat-card-header>
