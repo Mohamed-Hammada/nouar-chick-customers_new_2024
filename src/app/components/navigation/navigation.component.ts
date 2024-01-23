@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, computed, signal } from '@angular/core';
+import { Component, Inject, OnInit, afterNextRender, afterRender, computed, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -10,37 +10,47 @@ import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.compon
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../custome-search/custome-search.component";
 @Component({
-    selector: 'app-navigation',
-    standalone: true,
-    templateUrl: './navigation.component.html',
-    styleUrl: './navigation.component.scss',
-    imports: [CommonModule, MatToolbarModule,
-        MatSidenavModule, MatIconModule,
-        MatButtonModule, RouterOutlet,
-        CustomSideNavComponent, CustomeSearchComponent]
+  selector: 'app-navigation',
+  standalone: true,
+  templateUrl: './navigation.component.html',
+  styleUrl: './navigation.component.scss',
+  imports: [CommonModule, MatToolbarModule,
+    MatSidenavModule, MatIconModule,
+    MatButtonModule, RouterOutlet,
+    CustomSideNavComponent, CustomeSearchComponent]
 })
 export class NavigationComponent {
   collapsed = signal(false);
   darkTheme = signal(false);
   constructor(private breakpointObserver: BreakpointObserver) {
     this.setCollapsedForScreenSize();
-    const collapsedStore = localStorage.getItem('collapsed');
-    if(collapsedStore){
-      this.collapsed.set(collapsedStore == 'true');
-    }
-    const storedTheme = localStorage.getItem('theme');
-    if (storedTheme) {
-      this.darkTheme.set(storedTheme === 'dark')
-    }
-    this.loadTheme();
+    afterRender(() => {
+      const collapsedStore = localStorage.getItem('collapsed');
+      if (collapsedStore) {
+        this.collapsed.set(collapsedStore == 'true');
+      }
+      const storedTheme = localStorage.getItem('theme');
+      if (storedTheme) {
+        this.darkTheme.set(storedTheme === 'dark')
+      }
+      this.loadTheme();
+    })
+
   }
 
 
-  sidenaveWidth = computed(() => {
-    // debugger
-    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
-    return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
-  });
+  sidenaveWidth  () {
+    // debugger 
+    if (typeof window !== 'undefined') {
+
+        const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+        return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
+      }else{
+        return '0px';
+      }
+      
+ 
+  }
 
   private setCollapsedForScreenSize() {
     this.breakpointObserver.observe([
@@ -48,9 +58,9 @@ export class NavigationComponent {
     ]).subscribe(result => {
       if (result.matches) {
         this.collapsed.set(true);
-       } else {
+      } else {
         this.collapsed.set(false);
-       }
+      }
     });
   }
 
@@ -72,7 +82,7 @@ export class NavigationComponent {
   }
 
 
-  toggleCollapse(){
+  toggleCollapse() {
     this.collapsed.set(!this.collapsed());
     localStorage.setItem('collapsed', this.collapsed() + "");
   }
