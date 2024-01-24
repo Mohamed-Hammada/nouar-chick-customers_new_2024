@@ -18,7 +18,7 @@
         </mat-chip-row>
         <input #input placeholder="New Item..." #itemInput [formControl]="itemCtrl" [matChipInputFor]="chipGrid"
             [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)" />
+            (matChipInputTokenEnd)="add($event)" [disabled]="items.length >= maxSelections"/>
         <mat-icon style=" position: relative; top: 7px;color: rgb(194, 192, 192);" matPrefix>search</mat-icon>
 
     </mat-chip-grid>

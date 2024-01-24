@@ -38,6 +38,7 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
   filteredItems: Observable<string[]>;
   items: string[] = [];
 
+  @Input() maxSelections: number = Infinity;
 
   @Input() filteredItemsInput: string[] = [];
 
@@ -108,18 +109,24 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    // debugger
+  
+    // Check if the maximum selections limit is reached
+    if (this.items.length >= this.maxSelections) {
+      return;
+    }
+  
     // Add our item
     if (value && !this.items.includes(value)) {
       this.selectedItems.emit(this.items);
       this.items.push(value);
     }
-
+  
     // Clear the input value
     event.chipInput!.clear();
-
+  
     this.itemCtrl.setValue(null);
   }
+  
 
   remove(item: string): void {
     const index = this.items.indexOf(item);
