@@ -10,6 +10,23 @@ import { Observable, map } from 'rxjs';
 import { CustomChipAutocompeleteComponentComponent } from "../../../components/custom-chip-autocompelete-component/custom-chip-autocompelete-component.component";
 import { ProductPage, ProductService } from '../../products/product.service';
 import { StatementHistoryService } from '../../statement-history/statement-history.service';
+import { Customer } from '../../customers/customers.service';
+
+
+export type FinancialTransactionDto = {
+  id?: number;
+  statement?: string;
+  product?: string; // Assuming you have a Product type
+  count?: number;
+  price?: number;
+  borrower?: number;
+  stock?: number;
+  total_borrower?: number;
+  total_stock?: number;
+  customer?: Customer; // Assuming you have a Customer type
+  creation_date?: string; // Assuming you want to use a string representation for Instant
+  modification_date?: string; // Assuming you want to use a string representation for Instant
+}
 
 @Component({
     selector: 'app-create-update-financial-transaction',
@@ -30,7 +47,7 @@ export class CreateUpdateFinancialTransactionComponent {
   
   statement_names: string[] = [];
   product_names: string[] = [];
-  transactions: FinancialTransaction[] = [];
+  transactions: FinancialTransactionDto[] = [];
   constructor( private productService: ProductService, private statementHistoryService : StatementHistoryService) { 
     this.addTransaction()
   } 

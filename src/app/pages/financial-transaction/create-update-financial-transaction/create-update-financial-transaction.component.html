@@ -9,7 +9,7 @@
             <input matInput [(ngModel)]="transaction.statement"> -->
             <!-- <mat-label>Statement</mat-label> -->
         <app-custom-chip-autocompelete-component palceHolderNameStrin="Statement" [filteredItemsInput]="statement_names"
-          [filterFn]="filterStatement" (selectedItems)="statement_names = $event" [maxSelections]="1">
+          [filterFn]="filterStatement" (selectedItems)="transaction.statement = $event[0]" [maxSelections]="1">
           <!-- <mat-icon style="color: #FF4081;">favorite</mat-icon> -->
         </app-custom-chip-autocompelete-component>
 
@@ -21,7 +21,7 @@
       </mat-form-field> -->
      
       <app-custom-chip-autocompelete-component palceHolderNameStrin="Product" [filteredItemsInput]="product_names"
-          [filterFn]="filterProduct" (selectedItems)="product_names = $event" [maxSelections]="1">
+          [filterFn]="filterProduct" (selectedItems)="transaction.product= $event[0]" [maxSelections]="1">
           <!-- <mat-icon style="color: #FF4081;">favorite</mat-icon> -->
         </app-custom-chip-autocompelete-component>
      
