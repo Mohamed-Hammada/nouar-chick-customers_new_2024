@@ -47,12 +47,12 @@ export class CreateUpdateFinancialTransactionComponent {
 
   statement_names: string[] = [];
   product_names: string[] = [];
-  readonly: boolean;
+  readOnly: boolean;
   transactions: FinancialTransactionDto[] = [];
   constructor(private productService: ProductService,
     private statementHistoryService: StatementHistoryService,
     private service: FinancialTransactionService, private dataServise: DataService) {
-      this.readonly =dataServise.data?.readOnly; 
+      this.readOnly =dataServise.data?.readOnly; 
     if (dataServise.data?.content) {
       this.fillTransaction();
     } else {

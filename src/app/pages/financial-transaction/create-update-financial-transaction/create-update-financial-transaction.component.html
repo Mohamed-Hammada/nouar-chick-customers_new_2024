@@ -18,34 +18,34 @@
 
         <mat-form-field class="example-full-width">
           <mat-label>Count</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.count">
+          <input matInput type="number" [(ngModel)]="transaction.count" [readonly]="readOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>Price</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.price">
+          <input matInput type="number" [(ngModel)]="transaction.price" [readonly]="readOnly">
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="example-full-width">
           <mat-label>Borrower</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.borrower">
+          <input matInput type="number" [(ngModel)]="transaction.borrower" [readonly]="readOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>Stock</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.stock">
+          <input matInput type="number" [(ngModel)]="transaction.stock" [readonly]="readOnly">
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="example-full-width">
           <mat-label>Total Borrower</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.total_borrower">
+          <input matInput type="number" [(ngModel)]="transaction.total_borrower" [readonly]="readOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
           <mat-label>Total Stock</mat-label>
-          <input matInput type="number" [(ngModel)]="transaction.total_stock">
+          <input matInput type="number" [(ngModel)]="transaction.total_stock" [readonly]="readOnly">
         </mat-form-field>
       </div>
 
@@ -53,10 +53,10 @@
   </mat-card>
 </div>
 <br/>
-<button mat-raised-button color="primary" (click)="onSubmit()">Save All</button>
+<button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">Save All</button>
 
 
 
-<button mat-fab color="primary" class="floating-button" (click)="addEmptyTransaction()">
+<button mat-fab [hidden]="readOnly" color="primary" class="floating-button" (click)="addEmptyTransaction()">
   <mat-icon>add</mat-icon>
 </button>
