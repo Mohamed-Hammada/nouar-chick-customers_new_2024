@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinancialTransaction } from '../financial-transaction.service';
+import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction.service';
 import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,6 +11,7 @@ import { CustomChipAutocompeleteComponentComponent } from "../../../components/c
 import { ProductPage, ProductService } from '../../products/product.service';
 import { StatementHistoryService } from '../../statement-history/statement-history.service';
 import { Customer } from '../../customers/customers.service';
+import { DataService } from '../../../_helper/data.service';
 
 
 export type FinancialTransactionDto = {
@@ -23,7 +24,6 @@ export type FinancialTransactionDto = {
   stock?: number;
   total_borrower?: number;
   total_stock?: number;
-  customer?: Customer; // Assuming you have a Customer type
   creation_date?: string; // Assuming you want to use a string representation for Instant
   modification_date?: string; // Assuming you want to use a string representation for Instant
 }
@@ -48,7 +48,9 @@ export class CreateUpdateFinancialTransactionComponent {
   statement_names: string[] = [];
   product_names: string[] = [];
   transactions: FinancialTransactionDto[] = [];
-  constructor( private productService: ProductService, private statementHistoryService : StatementHistoryService) { 
+  constructor( private productService: ProductService, 
+    private statementHistoryService : StatementHistoryService, 
+    private service: FinancialTransactionService, private dataServise: DataService){ 
     this.addTransaction()
   } 
   addTransaction() {
@@ -96,6 +98,8 @@ export class CreateUpdateFinancialTransactionComponent {
   }
   onSubmit() {
     // save all transactions
+    console.log(this.transactions);
+    console.log(this.dataServise.data?.content);
   }
   
 }
