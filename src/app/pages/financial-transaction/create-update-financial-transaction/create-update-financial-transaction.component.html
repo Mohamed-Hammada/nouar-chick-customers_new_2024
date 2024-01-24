@@ -2,29 +2,15 @@
   <mat-card>
     <mat-card-content>
 
-      <!-- Input fields for user to complete transaction details -->
-      <!-- <mat-form-field class="example-full-width"> -->
-        <!-- <input matInput [hidden]="true" [(ngModel)]="transaction.id">
-            <mat-label>Statement</mat-label>
-            <input matInput [(ngModel)]="transaction.statement"> -->
-            <!-- <mat-label>Statement</mat-label> -->
-        <app-custom-chip-autocompelete-component palceHolderNameStrin="Statement" [filteredItemsInput]="statement_names"
-          [filterFn]="filterStatement" (selectedItems)="transaction.statement = $event[0]" [maxSelections]="1">
-          <!-- <mat-icon style="color: #FF4081;">favorite</mat-icon> -->
-        </app-custom-chip-autocompelete-component>
+      <app-custom-chip-autocompelete-component palceHolderNameStrin="Statement" [filteredItemsInput]="statement_names"
+        [filterFn]="filterStatement" (selectedItems)="transaction.statement = $event[0]" [maxSelections]="1">
+      </app-custom-chip-autocompelete-component>
 
-      <!-- </mat-form-field> -->
-<!-- 
-      <mat-form-field class="example-full-width">
-        <mat-label>Product</mat-label>
-        <input matInput [(ngModel)]="transaction.product">
-      </mat-form-field> -->
-     
+
       <app-custom-chip-autocompelete-component palceHolderNameStrin="Product" [filteredItemsInput]="product_names"
-          [filterFn]="filterProduct" (selectedItems)="transaction.product= $event[0]" [maxSelections]="1">
-          <!-- <mat-icon style="color: #FF4081;">favorite</mat-icon> -->
-        </app-custom-chip-autocompelete-component>
-     
+        [filterFn]="filterProduct" (selectedItems)="transaction.product= $event[0]" [maxSelections]="1">
+      </app-custom-chip-autocompelete-component>
+
       <div class="row">
 
 
@@ -63,18 +49,14 @@
         </mat-form-field>
       </div>
 
-      <!-- You can add more input fields as needed -->
-
-
-
     </mat-card-content>
   </mat-card>
 </div>
-
+<br/>
 <button mat-raised-button color="primary" (click)="onSubmit()">Save All</button>
 
 
 
-<button mat-fab color="primary" class="floating-button" (click)="addTransaction()">
+<button mat-fab color="primary" class="floating-button" (click)="addEmptyTransaction()">
   <mat-icon>add</mat-icon>
 </button>

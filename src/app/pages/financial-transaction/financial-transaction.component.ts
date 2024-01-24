@@ -91,11 +91,11 @@ export class FinancialTransactionComponent implements OnInit {
   }
 
   addChildHandler(card?: any, readOnly: boolean = false): void {
-    
-
-    this.dataService.setData({ readOnly: true, content: this.customer });
-
-
+    if(card){
+      this.dataService.setData({ readOnly: readOnly, customer: this.customer , content: card });
+    }else{
+      this.dataService.setData({ readOnly: readOnly, customer: this.customer });
+    }
     this.router.navigate(['/create-update-financial']);
   }
 

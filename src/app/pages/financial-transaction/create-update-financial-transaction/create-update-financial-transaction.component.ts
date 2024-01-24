@@ -29,31 +29,52 @@ export type FinancialTransactionDto = {
 }
 
 @Component({
-    selector: 'app-create-update-financial-transaction',
-    standalone: true,
-    templateUrl: './create-update-financial-transaction.component.html',
-    styleUrl: './create-update-financial-transaction.component.scss',
-    imports: [
-        CommonModule,
-        FormsModule, // <-- Add FormsModule here
-        MatCardModule,
-        MatButtonModule,
-        MatIconModule,
-        MatInputModule,
-        CustomChipAutocompeleteComponentComponent
-    ]
+  selector: 'app-create-update-financial-transaction',
+  standalone: true,
+  templateUrl: './create-update-financial-transaction.component.html',
+  styleUrl: './create-update-financial-transaction.component.scss',
+  imports: [
+    CommonModule,
+    FormsModule, // <-- Add FormsModule here
+    MatCardModule,
+    MatButtonModule,
+    MatIconModule,
+    MatInputModule,
+    CustomChipAutocompeleteComponentComponent
+  ]
 })
 export class CreateUpdateFinancialTransactionComponent {
-  
+
   statement_names: string[] = [];
   product_names: string[] = [];
+  readonly: boolean;
   transactions: FinancialTransactionDto[] = [];
-  constructor( private productService: ProductService, 
-    private statementHistoryService : StatementHistoryService, 
-    private service: FinancialTransactionService, private dataServise: DataService){ 
-    this.addTransaction()
-  } 
-  addTransaction() {
+  constructor(private productService: ProductService,
+    private statementHistoryService: StatementHistoryService,
+    private service: FinancialTransactionService, private dataServise: DataService) {
+      this.readonly =dataServise.data?.readOnly; 
+    if (dataServise.data?.content) {
+      this.fillTransaction();
+    } else {
+      this.addEmptyTransaction();
+    }
+  }
+
+  fillTransaction(){
+    this.addEmptyTransaction();
+    this.transactions.push({
+      id: this.dataServise.data?.content.id,
+      statement: this.dataServise.data?.content.statement?.name,
+      product: this.dataServise.data?.content.product?.name,
+      count: this.dataServise.data?.content.count,
+      price: this.dataServise.data?.content.price,
+      borrower: this.dataServise.data?.content.borrower,
+      stock: this.dataServise.data?.content.stock,
+      total_borrower: this.dataServise.data?.content.total_borrower,
+      total_stock: this.dataServise.data?.content.total_stock
+    });
+  }
+  addEmptyTransaction() {
     this.transactions.push({
       id: undefined, // ID is set to undefined to hide it in the form
       statement: undefined,
@@ -73,16 +94,16 @@ export class CreateUpdateFinancialTransactionComponent {
       map(response => {
         if (response && response.content) {
           return response.content
-          .filter(row => row?.name !== undefined)
-          .map(row => row.name as string);
+            .filter(row => row?.name !== undefined)
+            .map(row => row.name as string);
         } else {
           return [];
         }
       })
     );
   }
-  
-  
+
+
   filterProduct = (term: string): Observable<string[]> => {
     return this.productService.searchProducts(term).pipe(
       map(response => {
@@ -99,7 +120,7 @@ export class CreateUpdateFinancialTransactionComponent {
   onSubmit() {
     // save all transactions
     console.log(this.transactions);
-    console.log(this.dataServise.data?.content);
+    console.log(this.dataServise.data?.customer);
   }
-  
+
 }
