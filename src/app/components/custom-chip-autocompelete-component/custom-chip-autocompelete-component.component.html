@@ -16,7 +16,9 @@
                 <mat-icon>cancel</mat-icon>
             </button>
         </mat-chip-row>
-        <input #input placeholder="New Item..." #itemInput [formControl]="itemCtrl" [matChipInputFor]="chipGrid"
+        <input #input placeholder="New Item..." #itemInput [formControl]="itemCtrl" 
+            [readonly]="readOnly"
+            [matChipInputFor]="chipGrid"
             [matAutocomplete]="auto" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             (matChipInputTokenEnd)="add($event)" [disabled]="items.length >= maxSelections"/>
         <mat-icon style=" position: relative; top: 7px;color: rgb(194, 192, 192);" matPrefix>search</mat-icon>

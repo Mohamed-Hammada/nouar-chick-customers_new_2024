@@ -39,6 +39,7 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
   items: string[] = [];
 
   @Input() maxSelections: number = Infinity;
+  @Input() readOnly: boolean = false;
 
   @Input() filteredItemsInput: string[] = [];
 
