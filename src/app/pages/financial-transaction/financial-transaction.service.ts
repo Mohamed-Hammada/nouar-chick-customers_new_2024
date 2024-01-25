@@ -22,34 +22,15 @@ export type FinancialTransaction = {
   modification_date?: string; // Assuming you want to use a string representation for Instant
 }
 
-
-export interface FinancialTransactionPage {
-  content?: FinancialTransaction[];
-  total_elements?: number;
-  total_pages?: number;
-  pageable?: {
-    page_number?: number;
-    page_size?: number;
-    sort?: {
-      empty?: boolean;
-      sorted?: boolean;
-      unsorted?: boolean;
-    };
-    offset?: number;
-    paged?: boolean;
-    unpaged?: boolean;
-  };
-  last?: boolean;
-  number_of_elements?: number;
-  size?: number;
-  number?: number;
-  sort?: {
-    empty?: boolean;
-    sorted?: boolean;
-    unsorted?: boolean;
-  };
-  empty?: boolean;
+export interface FinancialTransactionResponse {
+  content?: FinancialTransaction[] ;
+  total_borrower_on_period?: number ;
+  total_stock_on_period?: number ;
+  total_stock_on_final?: number ;
+  total_stock_on_final_real?: number ;
+  footer_value?: string ;
 }
+ 
 @Injectable({
   providedIn: 'root'
 })
@@ -61,9 +42,9 @@ export class FinancialTransactionService {
   constructor(private http: HttpClient,private notificationService: NotificationService) { }
 
  
-  getFinancialTransactions( customer_id?: number , from?: Date, to?: Date): Observable<FinancialTransactionPage> {
+  getFinancialTransactions( customer_id?: number , from?: Date, to?: Date): Observable<FinancialTransactionResponse> {
     const params: any = {customer_id:customer_id,from:from?.toISOString() , to:to?.toISOString()};
-    return this.http.get<FinancialTransactionPage>(`${this.apiUrl}`, { params });
+    return this.http.get<FinancialTransactionResponse>(`${this.apiUrl}`, { params });
   }
   
 
@@ -71,12 +52,8 @@ export class FinancialTransactionService {
     return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`);
   }
 
-  createFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
+  createOrUpdateFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
     return this.http.post<FinancialTransaction>(`${this.apiUrl}`, financialTransaction);
-  }
-
-  updateFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
-    return this.http.put<FinancialTransaction>(`${this.apiUrl}/${financialTransaction.id}`, financialTransaction);
   }
 
   deleteFinancialTransaction(id: number): Observable<void> {
