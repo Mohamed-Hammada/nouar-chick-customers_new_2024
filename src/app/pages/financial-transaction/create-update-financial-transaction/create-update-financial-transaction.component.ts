@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction.service';
+import { FinancialTransaction, FinancialTransactionDto, FinancialTransactionService } from '../financial-transaction.service';
 import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -12,21 +12,9 @@ import { ProductPage, ProductService } from '../../products/product.service';
 import { StatementHistoryService } from '../../statement-history/statement-history.service';
 import { Customer } from '../../customers/customers.service';
 import { DataService } from '../../../_helper/data.service';
+import { NotificationService } from '../../../components/notification.service';
+import { Router } from '@angular/router';
 
-
-export type FinancialTransactionDto = {
-  id?: number;
-  statement?: string;
-  product?: string; // Assuming you have a Product type
-  count?: number;
-  price?: number;
-  borrower?: number;
-  stock?: number;
-  total_borrower?: number;
-  total_stock?: number;
-  creation_date?: string; // Assuming you want to use a string representation for Instant
-  modification_date?: string; // Assuming you want to use a string representation for Instant
-}
 
 @Component({
   selector: 'app-create-update-financial-transaction',
@@ -44,12 +32,14 @@ export type FinancialTransactionDto = {
   ]
 })
 export class CreateUpdateFinancialTransactionComponent {
-
+  customer: Customer = {};
   statement_names: string[] = [];
   product_names: string[] = [];
   readOnly: boolean;
   transactions: FinancialTransactionDto[] = [];
   constructor(private productService: ProductService,
+    private notificationService: NotificationService,
+    private router: Router,
     private statementHistoryService: StatementHistoryService,
     private service: FinancialTransactionService, private dataServise: DataService) {
       this.readOnly =dataServise.data?.readOnly; 
@@ -58,6 +48,7 @@ export class CreateUpdateFinancialTransactionComponent {
     } else {
       this.addEmptyTransaction();
     }
+    this.customer = dataServise.data?.customer;
   }
 
   fillTransaction(){
@@ -121,6 +112,21 @@ export class CreateUpdateFinancialTransactionComponent {
     // save all transactions
     console.log(this.transactions);
     console.log(this.dataServise.data?.customer);
+    
+    if (this.customer?.id) {
+      // Update existing customer
+       this.service.createOrUpdateFinancialTransaction(this.customer?.id , this.transactions).subscribe(response => {
+        // Handle update success
+        this.router.navigate(['/financial']);
+        this.notificationService.success('Done successfully');
+      }, error => {
+        // Handle update error
+        console.error('Failed:', error);
+        this.notificationService.error('Failed ' + error);
+      });
+    }else{
+      this.notificationService.error('No Customer Selected');
+    }  
   }
 
 }

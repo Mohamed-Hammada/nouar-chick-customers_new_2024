@@ -30,7 +30,23 @@ export interface FinancialTransactionResponse {
   total_stock_on_final_real?: number ;
   footer_value?: string ;
 }
- 
+
+
+
+export type FinancialTransactionDto = {
+  id?: number;
+  statement?: string;
+  product?: string; // Assuming you have a Product type
+  count?: number;
+  price?: number;
+  borrower?: number;
+  stock?: number;
+  total_borrower?: number;
+  total_stock?: number;
+  creation_date?: string; // Assuming you want to use a string representation for Instant
+  modification_date?: string; // Assuming you want to use a string representation for Instant
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -52,8 +68,8 @@ export class FinancialTransactionService {
     return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`);
   }
 
-  createOrUpdateFinancialTransaction(financialTransaction: FinancialTransaction): Observable<FinancialTransaction> {
-    return this.http.post<FinancialTransaction>(`${this.apiUrl}`, financialTransaction);
+  createOrUpdateFinancialTransaction( customer_id: number ,financialTransactions: FinancialTransactionDto[]): Observable<FinancialTransaction> {
+    return this.http.post<FinancialTransaction>(`${this.apiUrl}/${customer_id}`, financialTransactions);
   }
 
   deleteFinancialTransaction(id: number): Observable<void> {
