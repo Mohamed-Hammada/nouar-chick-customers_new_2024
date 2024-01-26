@@ -68,8 +68,12 @@ export class FinancialTransactionService {
     return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`);
   }
 
-  createOrUpdateFinancialTransaction( customer_id: number ,financialTransactions: FinancialTransactionDto[]): Observable<FinancialTransaction> {
-    return this.http.post<FinancialTransaction>(`${this.apiUrl}/${customer_id}`, financialTransactions);
+  createFinancialTransaction( customer_id: number ,financialTransactions: FinancialTransactionDto[]): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/${customer_id}`, financialTransactions);
+  }
+
+  updateFinancialTransaction( customer_id: number ,financialTransaction: FinancialTransactionDto): Observable<string> {
+    return this.http.post<string>(`${this.apiUrl}/${customer_id}`, financialTransaction);
   }
 
   deleteFinancialTransaction(id: number): Observable<void> {

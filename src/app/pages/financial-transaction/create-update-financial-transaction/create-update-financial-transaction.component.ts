@@ -37,6 +37,7 @@ export class CreateUpdateFinancialTransactionComponent {
   product_names: string[] = [];
   readOnly: boolean;
   transactions: FinancialTransactionDto[] = [];
+  isEdit: boolean = false;
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
     private router: Router,
@@ -45,6 +46,7 @@ export class CreateUpdateFinancialTransactionComponent {
       this.readOnly =dataServise.data?.readOnly; 
     if (dataServise.data?.content) {
       this.fillTransaction();
+      this.isEdit = true;
     } else {
       this.addEmptyTransaction();
     }
@@ -114,16 +116,40 @@ export class CreateUpdateFinancialTransactionComponent {
     console.log(this.dataServise.data?.customer);
     
     if (this.customer?.id) {
-      // Update existing customer
-       this.service.createOrUpdateFinancialTransaction(this.customer?.id , this.transactions).subscribe(response => {
-        // Handle update success
-        this.router.navigate(['/financial']);
-        this.notificationService.success('Done successfully');
+      if(this.isEdit){
+        // Update existing customer
+        this.service.updateFinancialTransaction(this.customer?.id , this.transactions[0])
+        .subscribe(response => {
+          if (response && response === 'ok') {
+            // Handle update success
+            this.router.navigate(['/financial']);
+            this.notificationService.success('Updated successfully');
+          }else{
+            this.notificationService.error('Update Failed Something Wrong');    
+          }  
       }, error => {
         // Handle update error
-        console.error('Failed:', error);
-        this.notificationService.error('Failed ' + error);
+        console.error('Update Failed:', error);
+        this.notificationService.error('Update Failed ' + error);
+        });
+      }else{
+        // Update existing customer
+       this.service.createFinancialTransaction(this.customer?.id , this.transactions)
+       .subscribe(response => {
+        if (response && response === 'ok') {
+          // Handle update success
+          this.router.navigate(['/financial']);
+          this.notificationService.success('Created successfully');
+        }else{
+          this.notificationService.error('Create Failed Something Wrong');    
+        } 
+      }, error => {
+        // Handle update error
+        console.error('Create Failed:', error);
+        this.notificationService.error('Create Failed ' + error);
       });
+      }
+      
     }else{
       this.notificationService.error('No Customer Selected');
     }  
