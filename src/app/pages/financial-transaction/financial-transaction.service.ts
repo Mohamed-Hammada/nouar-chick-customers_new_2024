@@ -23,7 +23,7 @@ export type FinancialTransaction = {
 }
 
 export interface FinancialTransactionResponse {
-  content?: FinancialTransaction[] ;
+  financial_transactions?: FinancialTransaction[] ;
   total_borrower_on_period?: number ;
   total_stock_on_period?: number ;
   total_stock_on_final?: number ;
@@ -60,6 +60,7 @@ export class FinancialTransactionService {
  
   getFinancialTransactions( customer_id?: number , from?: Date, to?: Date): Observable<FinancialTransactionResponse> {
     const params: any = {customer_id:customer_id,from:from?.toISOString() , to:to?.toISOString()};
+    debugger
     return this.http.get<FinancialTransactionResponse>(`${this.apiUrl}`, { params });
   }
   

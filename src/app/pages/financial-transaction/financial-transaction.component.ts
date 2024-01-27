@@ -126,6 +126,7 @@ export class FinancialTransactionComponent implements OnInit {
 
   }
   loadData() {    // Custom validation for fromDate and toDate
+    debugger
     const fromDate = this.customerForm?.get('start')?.value as Date;
     const toDate = this.customerForm?.get('end')?.value as Date;
 
@@ -291,7 +292,7 @@ export class FinancialTransactionComponent implements OnInit {
     s.push("</tr>");
     let i = 0;
     let var0 = "";
-    for (const accountableDTON of financialTransactionResponse.content || []) {
+    for (const accountableDTON of financialTransactionResponse.financial_transactions || []) {
       
       if (headers.has(i) && headers.size > 0) {
           s.push("<tr style=\" text-shadow: 2px 2px 20px ; font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#FEFAFD\">");

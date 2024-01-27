@@ -42,9 +42,8 @@
             
           </div>
 
-          <button mat-fab color="primary"  (click)="loadData()">Load</button>
-          <hr/>
-          <button mat-fab color="primary"  (click)="openPrinterWindow()">Invoice printing</button>
+          <button mat-fab color="primary" style="margin-left: 25px;"  (click)="loadData()">Load</button>
+          <button mat-fab color="primary" style="margin-left: 25px;" (click)="openPrinterWindow()">Invoice printing</button>
       </div>
       </form>
   </mat-card-content>
@@ -52,10 +51,10 @@
 
 <br/>
 <div class="responsive-grid">
-  <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
+  <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
       <mat-card-title>
-        <p><strong>Statement:</strong> {{ card?.statement }}</p>
+        <p><strong>Statement:</strong> {{ card?.statement?.name }}</p>
         <p><strong>Product:</strong> {{ card?.product?.name }}</p>
         <div class="footer">{{ card.creation_date | date:'medium' }} </div>
       </mat-card-title>
