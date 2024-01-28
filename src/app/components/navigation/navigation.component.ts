@@ -47,7 +47,7 @@ export class NavigationComponent implements OnInit {
   ngOnInit() {
     this.resizeObservable$ = fromEvent(window, 'resize')
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
-      console.log('event: ', evt);
+      // console.log('event: ', evt);
       const isSmallDevice = window.innerWidth <= 500; // Check for small devices
        
       this.sidenaveWidth.apply( this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px');
