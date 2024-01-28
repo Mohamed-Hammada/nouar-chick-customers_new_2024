@@ -1,7 +1,7 @@
 import { Product } from '../products/product.service';
 import { Customer } from '../customers/customers.service';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Environment } from '../../../environments/environment';
 import { NotificationService } from '../../../app/components/notification.service'; // Adjust the import path
@@ -31,7 +31,9 @@ export interface FinancialTransactionResponse {
   footer_value?: string ;
 }
 
-
+export type Response = {
+  content: string;
+}
 
 export type FinancialTransactionDto = {
   id?: number;
@@ -69,16 +71,17 @@ export class FinancialTransactionService {
     return this.http.get<FinancialTransaction>(`${this.apiUrl}/${id}`);
   }
 
-  createFinancialTransaction( customer_id: number ,financialTransactions: FinancialTransactionDto[]): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/${customer_id}`, financialTransactions);
+  createFinancialTransaction( customer_id: number ,financialTransactions: FinancialTransactionDto[]): Observable<Response> {
+ 
+    return this.http.post<Response>(`${this.apiUrl}/${customer_id}`, financialTransactions );
   }
 
-  updateFinancialTransaction( customer_id: number ,financialTransaction: FinancialTransactionDto): Observable<string> {
-    return this.http.post<string>(`${this.apiUrl}/${customer_id}`, financialTransaction);
+  updateFinancialTransaction( customer_id: number ,financialTransaction: FinancialTransactionDto): Observable<Response> {
+    return this.http.post<Response>(`${this.apiUrl}/${customer_id}`, financialTransaction);
   }
 
-  deleteFinancialTransaction(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  deleteFinancialTransaction(id: number): Observable<Response> {
+    return this.http.delete<Response>(`${this.apiUrl}/${id}`);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

@@ -54,7 +54,6 @@ export class CreateUpdateFinancialTransactionComponent {
   }
 
   fillTransaction(){
-    this.addEmptyTransaction();
     this.transactions.push({
       id: this.dataServise.data?.content.id,
       statement: this.dataServise.data?.content.statement?.name,
@@ -120,7 +119,7 @@ export class CreateUpdateFinancialTransactionComponent {
         // Update existing customer
         this.service.updateFinancialTransaction(this.customer?.id , this.transactions[0])
         .subscribe(response => {
-          if (response && response === 'ok') {
+          if (response && response.content === 'ok') {
             // Handle update success
             this.router.navigate(['/financial']);
             this.notificationService.success('Updated successfully');
@@ -136,7 +135,8 @@ export class CreateUpdateFinancialTransactionComponent {
         // Update existing customer
        this.service.createFinancialTransaction(this.customer?.id , this.transactions)
        .subscribe(response => {
-        if (response && response === 'ok') {
+        debugger
+        if (response && response.content === 'ok') {
           // Handle update success
           this.router.navigate(['/financial']);
           this.notificationService.success('Created successfully');
@@ -144,6 +144,7 @@ export class CreateUpdateFinancialTransactionComponent {
           this.notificationService.error('Create Failed Something Wrong');    
         } 
       }, error => {
+        debugger
         // Handle update error
         console.error('Create Failed:', error);
         this.notificationService.error('Create Failed ' + error);
