@@ -48,11 +48,11 @@ export class CustomersComponent implements OnInit {
 
   }
   loadData(searchTerm: string | null = ''): void {
-    if (searchTerm) {
-      this.cards$ = this.service.searchCustomers(searchTerm, 0, this.pageSize);
-    } else {
-      this.cards$ = this.service.getCustomers(this.currentPage, this.pageSize);
-    }
+    // if (searchTerm) {
+      this.cards$ = this.service.searchCustomers(searchTerm?searchTerm:'', 0, this.pageSize);
+    // } else {
+    //   this.cards$ = this.service.getCustomers(this.currentPage, this.pageSize);
+    // }
     this.cards$.subscribe((data: CustomerPage) => {
       this.handleDataResponse(data);
     });

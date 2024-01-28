@@ -45,11 +45,11 @@ export class StatementHistoryComponent implements OnInit {
 
   }
   loadData(searchTerm :string|null = ''): void {
-    if(searchTerm){
-      this.cards$ = this.service.searchStatementHistorys( searchTerm ,0, this.pageSize);
-    }else{
-    this.cards$ = this.service.getStatementHistorys(this.currentPage, this.pageSize);
-    }
+    // if(searchTerm){
+      this.cards$ = this.service.searchStatementHistorys( searchTerm?searchTerm:'' ,0, this.pageSize);
+    // }else{
+    // this.cards$ = this.service.getStatementHistorys(this.currentPage, this.pageSize);
+    // }
     this.cards$.subscribe((data: StatementHistoryPage) => {
       this.handleDataResponse(data);
     });

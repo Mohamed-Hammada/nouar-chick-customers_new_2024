@@ -48,11 +48,11 @@ export class ProductsComponent implements OnInit {
 
   }
   loadData(searchTerm :string|null = ''): void {
-    if(searchTerm){
-      this.cards$ = this.service.searchProducts( searchTerm ,0, this.pageSize);
-    }else{
-    this.cards$ = this.service.getProducts(this.currentPage, this.pageSize);
-    }
+    // if(searchTerm){
+      this.cards$ = this.service.searchProducts( searchTerm?searchTerm:'' ,0, this.pageSize);
+    // }else{
+    // this.cards$ = this.service.getProducts(this.currentPage, this.pageSize);
+    // }
     this.cards$.subscribe((data: ProductPage) => {
       this.handleDataResponse(data);
     });
