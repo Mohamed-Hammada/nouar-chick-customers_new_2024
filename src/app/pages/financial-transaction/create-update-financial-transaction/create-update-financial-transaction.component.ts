@@ -135,7 +135,6 @@ export class CreateUpdateFinancialTransactionComponent {
         // Update existing customer
        this.service.createFinancialTransaction(this.customer?.id , this.transactions)
        .subscribe(response => {
-        debugger
         if (response && response.content === 'ok') {
           // Handle update success
           this.router.navigate(['/financial']);
@@ -144,7 +143,6 @@ export class CreateUpdateFinancialTransactionComponent {
           this.notificationService.error('Create Failed Something Wrong');    
         } 
       }, error => {
-        debugger
         // Handle update error
         console.error('Create Failed:', error);
         this.notificationService.error('Create Failed ' + error);

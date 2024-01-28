@@ -125,8 +125,8 @@ export class FinancialTransactionComponent implements OnInit {
       });
 
   }
-  loadData() {    // Custom validation for fromDate and toDate
-    debugger
+  loadData() {    
+    // Custom validation for fromDate and toDate  
     const fromDate = this.customerForm?.get('start')?.value as Date;
     const toDate = this.customerForm?.get('end')?.value as Date;
     // Set fromDate to the start of the day (00:00:00.000)
