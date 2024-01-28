@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.component";
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../custome-search/custome-search.component";
+import { fromEvent , Observable, Subscription } from 'rxjs';
 @Component({
     selector: 'app-navigation',
     standalone: true,
@@ -19,9 +20,17 @@ import { CustomeSearchComponent } from "../custome-search/custome-search.compone
         MatButtonModule, RouterOutlet,
         CustomSideNavComponent, CustomeSearchComponent]
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit {
   collapsed = signal(false);
   darkTheme = signal(false);
+  resizeObservable$!: Observable<Event>;
+  resizeSubscription$!: Subscription;
+  sidenaveWidth = computed(() => {
+    // debugger
+    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+    return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
+  });
+
   constructor(private breakpointObserver: BreakpointObserver) {
     this.setCollapsedForScreenSize();
     const collapsedStore = localStorage.getItem('collapsed');
@@ -35,12 +44,18 @@ export class NavigationComponent {
     this.loadTheme();
   }
 
+  ngOnInit() {
+    this.resizeObservable$ = fromEvent(window, 'resize')
+    this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
+      console.log('event: ', evt);
+      const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+       
+      this.sidenaveWidth.apply( this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px');
+    });
+  
+}
 
-  sidenaveWidth = computed(() => {
-    // debugger
-    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
-    return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
-  });
+ 
 
   private setCollapsedForScreenSize() {
     this.breakpointObserver.observe([
@@ -75,5 +90,9 @@ export class NavigationComponent {
   toggleCollapse(){
     this.collapsed.set(!this.collapsed());
     localStorage.setItem('collapsed', this.collapsed() + "");
+  }
+
+  ngOnDestroy() {
+    this.resizeSubscription$.unsubscribe()
   }
 }
