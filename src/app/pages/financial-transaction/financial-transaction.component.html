@@ -1,55 +1,60 @@
 <mat-card>
   <mat-card-content>
-    <form [formGroup]="customerForm"  >
+    <form [formGroup]="customerForm">
       <div class="flex-container">
-          <input hidden formControlName="id">
+        <input hidden formControlName="id">
 
-          <div class="form-group">
-              <mat-form-field class="form-group" style="display: flex; align-items: center;">
-                  <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>code</mat-icon>
-                  <mat-label>Code Id</mat-label>
-                  <input [readonly]="true" matInput formControlName="code_id">
-              </mat-form-field>
-          </div>
-
-          <div class="form-group">
-              <mat-form-field class="form-group" style="display: flex; align-items: center;">
-                  <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>person</mat-icon>
-                  <mat-label>Customer Name</mat-label>
-                  <input [readonly]="true" matInput formControlName="name">
-              </mat-form-field>
-          </div>
+        <div class="form-group">
+          <mat-form-field class="form-group"  >
+            <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>code</mat-icon>
+            <mat-label>Code Id</mat-label>
+            <input [readonly]="true" matInput formControlName="code_id">
+          </mat-form-field>
         </div>
-          <div class="flex-container">
-          <div class="form-group">
-            <mat-form-field class="flex-container">
-              <mat-label>Enter a date range</mat-label>
-              <mat-date-range-input [formGroup]="customerForm" [rangePicker]="picker">
-                <input matStartDate formControlName="start" placeholder="Start date">
-                <input matEndDate formControlName="end" placeholder="End date">
-              </mat-date-range-input>
-              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-              <mat-date-range-picker #picker></mat-date-range-picker>
-            
-              @if (customerForm.controls['start'].hasError('matStartDateInvalid')) {
-                <mat-error>Invalid start date</mat-error>
-              }
-              @if (customerForm.controls['end'].hasError('matEndDateInvalid')) {
-                <mat-error>Invalid end date</mat-error>
-              }
-            </mat-form-field>
-            
-          </div>
 
-          <button mat-fab color="primary" style="margin-left: 25px;"  (click)="loadData()">Load</button>
-          <button mat-fab color="primary" style="margin-left: 25px;" (click)="openPrinterWindow()">Invoice printing</button>
+        <div class="form-group">
+          <mat-form-field class="form-group">
+            <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>person</mat-icon>
+            <mat-label>Customer Name</mat-label>
+            <input [readonly]="true" matInput formControlName="name">
+          </mat-form-field>
+        </div>
       </div>
-      </form>
+      <div class="flex-container">
+        <div class="form-group">
+          <mat-form-field class="flex-container">
+            <mat-label>Enter a date range</mat-label>
+            <mat-date-range-input [formGroup]="customerForm" [rangePicker]="picker">
+              <input matStartDate formControlName="start" placeholder="Start date">
+              <input matEndDate formControlName="end" placeholder="End date">
+            </mat-date-range-input>
+            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker touchUi #picker>
+              <mat-date-range-picker-actions>
+                <button mat-button matDateRangePickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" (click)="loadData()" matDateRangePickerApply>Apply</button>
+              </mat-date-range-picker-actions>
+            </mat-date-range-picker>
+
+            @if (customerForm.controls['start'].hasError('matStartDateInvalid')) {
+            <mat-error>Invalid start date</mat-error>
+            }
+            @if (customerForm.controls['end'].hasError('matEndDateInvalid')) {
+            <mat-error>Invalid end date</mat-error>
+            }
+          </mat-form-field>
+
+        </div>
+
+        <button mat-raised-button color="primary" class="align-button" (click)="openPrinterWindow()">Invoice printing</button>
+
+      </div>
+    </form>
   </mat-card-content>
 </mat-card>
 
-<br/>
+<br />
 <div class="responsive-grid">
   <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
@@ -68,7 +73,7 @@
     <br />
     <!-- <img mat-card-image [src]="card.imageUrl" /> -->
     <mat-card-content>
- 
+
       <p><strong>Count:</strong> {{ card?.count }}</p>
       <p><strong>Price:</strong> {{ card?.price | currency }}</p>
       <p><strong>Borrower:</strong> {{ card?.borrower }}</p>

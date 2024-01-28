@@ -46,5 +46,31 @@ img {
   
   .form-group {
     margin-right: 16px; /* Adjust as needed */
+    flex: 1; 
   }
   
+  .align-button {
+    margin-top: 1.4em;
+    padding: 0.55em 2;
+    // line-height: 1.135;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  
+  @media only screen and (max-width: 600px) {
+    .flex-container {
+      flex-direction: column; /* Change to column layout on smaller screens */
+      width: 100%;
+    }
+
+    .align-button {
+      margin-top: 1.4em;
+      padding: 0.55em 2;
+      width: 95%;
+    }
+  
+    
+  }
