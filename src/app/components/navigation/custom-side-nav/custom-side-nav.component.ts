@@ -75,7 +75,7 @@ export class CustomSideNavComponent {
 
   onMenuItemClick(item: any): void {
     // Emit the clicked item as an event
-    debugger
+    // debugger
     this.menuItemClicked.emit(item);
   }
 

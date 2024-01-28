@@ -60,7 +60,7 @@ export class FinancialTransactionService {
  
   getFinancialTransactions( customer_id?: number , from?: Date, to?: Date): Observable<FinancialTransactionResponse> {
     const params: any = {customer_id:customer_id,from:from?.toISOString() , to:to?.toISOString()};
-    debugger
+    // debugger
     return this.http.get<FinancialTransactionResponse>(`${this.apiUrl}`, { params });
   }
   

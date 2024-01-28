@@ -99,7 +99,7 @@ export class NavigationComponent implements OnInit {
   onLinkClicked($event:any): void {
     // Update side nav width when a link is clicked
     // You can adjust the logic based on your requirements
-    debugger
+    // debugger
     if($event){
       const isSmallDevice = window.innerWidth <= 500; // Check for small devices
       if(isSmallDevice){
