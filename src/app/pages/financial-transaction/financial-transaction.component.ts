@@ -231,6 +231,7 @@ export class FinancialTransactionComponent implements OnInit {
     const headers: Map<number, number> = this.getHeaderRepeaterRows(headerRepeaterRows.trim().replace(/ /g, ''));
 
     let s: string[] = [];
+    
     let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
     let formatter2 = new Intl.NumberFormat('en-US');
 
@@ -244,7 +245,7 @@ export class FinancialTransactionComponent implements OnInit {
       hour12: false
     });
     
-    s.push("<table background-color: #EEEEEE; align=\"center\" style=\" height: 68px; padding: 8px; border-bottom: 1px solid #ddd; border: 1px solid #ddd; border-collapse: collapse;\" border=\"0\">");
+    s.push("<table style=\"background-color: #EEEEEE;\" align=\"center\" style=\" height: 68px; padding: 8px; border-bottom: 1px solid #ddd; border: 1px solid #ddd; border-collapse: collapse;\" border=\"0\">");
     s.push("<tbody>");
     s.push("<tr text-shadow= \"2px 2px 5px red\";  font-size=\"18px;\" style=\"text-shadow: 2px 2px 5px red; border-bottom: 1px solid #dddddd; height: 3px;\">");
     s.push("<td text-shadow= \"2px 2px 5px red\"; style=\"width: 20px; text-align: center; height: 4px;\" colspan=\"3\">");
@@ -353,7 +354,7 @@ export class FinancialTransactionComponent implements OnInit {
     s.push("</tr>");
     s.push("</tbody>");
     s.push("</table>");
-    return s.toString().replaceAll("\n", " ") 
+    return s.join(" ").replaceAll("\n", " ") 
  }
 
 }

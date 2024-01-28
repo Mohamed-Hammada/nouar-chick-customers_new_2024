@@ -69,25 +69,23 @@
     </mat-card-header>
     <mat-card-content>
       <div class="card-values">
-        <span class="card-value">
+        <span class="bold-custom">
           Total Borrower on Period: {{ cardsData.total_borrower_on_period }}
         </span>
         <br>
-        <span class="card-value">
+        <span class="bold-custom">
           Total Stock on Period: {{ cardsData.total_stock_on_period }}
         </span>
         <br>
-        <span class="card-value">
-          Total Stock on Final: {{ cardsData.total_stock_on_final }}
+        <span class="bold-custom">
+          Total Stock on Final: {{ cardsData.total_stock_on_final + ' ' + cardsData.footer_value}}
         </span>
         <br>
-        <span class="card-value">
-          Total Stock on Final Real: {{ cardsData.total_stock_on_final_real }}
+        <span class="bold-custom">
+          Total Stock on Final Real: {{ cardsData.total_stock_on_final_real + ' ' + cardsData.footer_value}}
         </span>
         <br>
-        <span class="card-value">
-          Footer Value: {{ cardsData.footer_value === 'له' ? 'له' : 'عليه' }}
-        </span>
+ 
       </div>
     </mat-card-content>
   </mat-card>
@@ -102,8 +100,8 @@
   <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
       <mat-card-title>
-        <p><strong>Statement:</strong> {{ card?.statement?.name }}</p>
-        <p><strong>Product:</strong> {{ card?.product?.name }}</p>
+        <span><div class="bold-custom"> Statement:</div> {{ card?.statement?.name }}</span>
+        <span><div class="bold-custom"> Product:</div> {{ card?.product?.name }}</span>
         <div class="footer">{{ card.creation_date | date:'medium' }} </div>
       </mat-card-title>
       <div class="spacer"></div>
@@ -117,18 +115,18 @@
     <!-- <img mat-card-image [src]="card.imageUrl" /> -->
     <mat-card-content>
 
-      <p><strong>Count:</strong> {{ card?.count }}</p>
-      <p><strong>Price:</strong> {{ card?.price | currency }}</p>
-      <p><strong>Borrower:</strong> {{ card?.borrower }}</p>
-      <p><strong>Stock:</strong> {{ card?.stock }}</p>
-      <p><strong>Total Borrower:</strong> {{ card?.total_borrower }}</p>
-      <p><strong>Total Stock:</strong> {{ card?.total_stock }}</p>
+     <div> <span><div class="bold-custom"> Count:</div> {{ card?.count }}</span></div>
+     <div> <span><div class="bold-custom"> Price:</div> {{ card?.price | currency }}</span></div>
+     <div> <span><div class="bold-custom"> Borrower:</div> {{ card?.borrower }}</span></div>
+     <div> <span><div class="bold-custom"> Stock:</div> {{ card?.stock }}</span></div>
+     <div> <span><div class="bold-custom"> Total Borrower:</div> {{ card?.total_borrower }}</span></div>
+     <div> <span><div class="bold-custom"> Total Stock:</div> {{ card?.total_stock }}</span></div>
 
 
     </mat-card-content>
     <mat-card-content class="footer">
 
-      <p> {{ card.modification_date | date:'medium' }}</p>
+      <span> {{ card.modification_date | date:'medium' }}</span>
 
       <div class="spacer"></div>
 
