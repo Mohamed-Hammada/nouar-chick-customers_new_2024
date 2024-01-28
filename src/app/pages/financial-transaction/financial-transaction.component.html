@@ -55,6 +55,49 @@
 </mat-card>
 
 <br />
+
+<ng-container *ngIf="cards$ | async as cardsData">
+  <mat-card *ngIf="cardsData.financial_transactions && cardsData.financial_transactions.length > 0">
+    <mat-card-header>
+ 
+      <mat-card-title>
+        Financial Summary
+      </mat-card-title>
+      <mat-card-subtitle>
+        Overview of Borrower and Stock Data
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="card-values">
+        <span class="card-value">
+          Total Borrower on Period: {{ cardsData.total_borrower_on_period }}
+        </span>
+        <br>
+        <span class="card-value">
+          Total Stock on Period: {{ cardsData.total_stock_on_period }}
+        </span>
+        <br>
+        <span class="card-value">
+          Total Stock on Final: {{ cardsData.total_stock_on_final }}
+        </span>
+        <br>
+        <span class="card-value">
+          Total Stock on Final Real: {{ cardsData.total_stock_on_final_real }}
+        </span>
+        <br>
+        <span class="card-value">
+          Footer Value: {{ cardsData.footer_value === 'له' ? 'له' : 'عليه' }}
+        </span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</ng-container>
+
+ 
+<br>
+
+
+
 <div class="responsive-grid">
   <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
