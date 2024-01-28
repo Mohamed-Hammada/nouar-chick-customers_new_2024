@@ -129,7 +129,11 @@ export class FinancialTransactionComponent implements OnInit {
     debugger
     const fromDate = this.customerForm?.get('start')?.value as Date;
     const toDate = this.customerForm?.get('end')?.value as Date;
+    // Set fromDate to the start of the day (00:00:00.000)
+    fromDate.setHours(0, 0, 0, 0);
 
+    // Set toDate to the end of the day (23:59:59.999)
+    toDate.setHours(23, 59, 59, 999);
     if (fromDate && toDate && fromDate > toDate) {
       // Handle validation error, for example, show an error message
       console.log("Validation Error: From Date must be less than or equal to To Date");
