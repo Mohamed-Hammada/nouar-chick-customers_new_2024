@@ -95,4 +95,18 @@ export class NavigationComponent implements OnInit {
   ngOnDestroy() {
     this.resizeSubscription$.unsubscribe()
   }
+
+  onLinkClicked($event:any): void {
+    // Update side nav width when a link is clicked
+    // You can adjust the logic based on your requirements
+    debugger
+    if($event){
+      const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+      if(isSmallDevice){
+        this.collapsed.set(true);
+        this.sidenaveWidth.apply( this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px');
+      
+      }
+    }
+  }
 }
