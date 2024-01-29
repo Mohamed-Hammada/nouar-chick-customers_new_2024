@@ -11,9 +11,8 @@ import { CustomChipAutocompeleteComponentComponent } from "../../../components/c
 import { ProductPage, ProductService } from '../../products/product.service';
 import { StatementHistoryService } from '../../statement-history/statement-history.service';
 import { Customer } from '../../customers/customers.service';
-import { DataService } from '../../../_helper/data.service';
 import { NotificationService } from '../../../components/notification.service';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 
 
 @Component({
@@ -38,32 +37,38 @@ export class CreateUpdateFinancialTransactionComponent {
   readOnly: boolean;
   transactions: FinancialTransactionDto[] = [];
   isEdit: boolean = false;
+  data : any;
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
     private router: Router,
     private statementHistoryService: StatementHistoryService,
-    private service: FinancialTransactionService, private dataServise: DataService) {
-      this.readOnly =dataServise.data?.readOnly; 
-    if (dataServise.data?.content) {
+    private service: FinancialTransactionService) {
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state;
+      this.data = state;
+      this.readOnly =this.data?.readOnly; 
+    if (this.data?.content) {
       this.fillTransaction();
       this.isEdit = true;
     } else {
       this.addEmptyTransaction();
     }
-    this.customer = dataServise.data?.customer;
+    this.customer = this.data?.customer;
+  
   }
 
   fillTransaction(){
+    debugger
     this.transactions.push({
-      id: this.dataServise.data?.content.id,
-      statement: this.dataServise.data?.content.statement?.name,
-      product: this.dataServise.data?.content.product?.name,
-      count: this.dataServise.data?.content.count,
-      price: this.dataServise.data?.content.price,
-      borrower: this.dataServise.data?.content.borrower,
-      stock: this.dataServise.data?.content.stock,
-      total_borrower: this.dataServise.data?.content.total_borrower,
-      total_stock: this.dataServise.data?.content.total_stock
+      id: this.data?.content.id,
+      statement: this.data?.content.statement?.name,
+      product: this.data?.content.product?.name,
+      count: this.data?.content.count,
+      price: this.data?.content.price,
+      borrower: this.data?.content.borrower,
+      stock: this.data?.content.stock,
+      total_borrower: this.data?.content.total_borrower,
+      total_stock: this.data?.content.total_stock
     });
   }
   addEmptyTransaction() {
@@ -112,8 +117,7 @@ export class CreateUpdateFinancialTransactionComponent {
   onSubmit() {
     // save all transactions
     console.log(this.transactions);
-    console.log(this.dataServise.data?.customer);
-    
+  
     if (this.customer?.id) {
       if(this.isEdit){
         // Update existing customer
@@ -121,7 +125,15 @@ export class CreateUpdateFinancialTransactionComponent {
         .subscribe(response => {
           if (response && response.content === 'ok') {
             // Handle update success
-            this.router.navigate(['/financial']);
+
+
+
+            const navigationExtras: NavigationExtras = {
+              state: this.data
+            };
+
+
+            this.router.navigate(['/financial'] , navigationExtras);
             this.notificationService.success('Updated successfully');
           }else{
             this.notificationService.error('Update Failed Something Wrong');    
@@ -137,7 +149,10 @@ export class CreateUpdateFinancialTransactionComponent {
        .subscribe(response => {
         if (response && response.content === 'ok') {
           // Handle update success
-          this.router.navigate(['/financial']);
+          const navigationExtras: NavigationExtras = {
+            state: this.data
+          };
+          this.router.navigate(['/financial'],navigationExtras);
           this.notificationService.success('Created successfully');
         }else{
           this.notificationService.error('Create Failed Something Wrong');    

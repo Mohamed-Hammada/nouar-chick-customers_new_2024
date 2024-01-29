@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DataService } from '../../../_helper/data.service';
 import { NotificationService } from '../../../components/notification.service';
 import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,16 +25,19 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
   customer: Customer = {};
   readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
-
+  data:any;
 
   customerForm!: FormGroup;
-  constructor(private fb: FormBuilder, private dataService: DataService,
+  constructor(private fb: FormBuilder,
     private customerService: CustomersService,
     private notificationService: NotificationService,
     private router: Router) {
-    if (this.dataService.data)
-      this.customer = this.dataService.data.content; 
-    if(this.dataService.data.readOnly){
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state;
+      this.data = state;
+  
+      this.customer = this.data?.content||{}; 
+    if(this.data?.readOnly){
       this.readOnly = true;
     }
   }

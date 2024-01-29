@@ -6,9 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { LanguageService } from '../../_helper/language.service';
-import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 
 import { ProductPage, ProductService } from './product.service';
@@ -38,8 +37,7 @@ export class ProductsComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private dataService: DataService) {
+    private changeDetectorRef: ChangeDetectorRef) {
     this.languageService.setDefaultLanguage();
     this.cards$ = this.service.getProducts()
   }
@@ -121,13 +119,18 @@ export class ProductsComponent implements OnInit {
   }
 
   addChildHandler(card?:any , readOnly:boolean = false): void {
+    let navigationExtras : NavigationExtras;
     if(card){
-      this.dataService.setData({ readOnly:readOnly , content: card });
-    }else{
-      this.dataService.setData({ });
+      navigationExtras  = {
+        state: { readOnly:readOnly , content: card }
+      };
+     }else{
+      navigationExtras  = {
+        state: { }
+      };
     }
     
-    this.router.navigate(['/create-update-product']);
+    this.router.navigate(['/create-update-product'],navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {

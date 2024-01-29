@@ -12,9 +12,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { LanguageService } from '../../_helper/language.service';
-import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { FinancialTransactionResponse, FinancialTransactionService } from './financial-transaction.service';
 import { NotificationService } from '../../components/notification.service';
@@ -55,10 +54,10 @@ export class FinancialTransactionComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private notificationService: NotificationService,
     private router: Router,
-    private languageService: LanguageService,
-    private dataService: DataService) {
-    if (this.dataService.data)
-      this.customer = this.dataService.data.content;
+    private languageService: LanguageService) {
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras.state;
+    this.customer = state?.['content'] || {};
     this.languageService.setDefaultLanguage();
 
   }
@@ -94,12 +93,21 @@ export class FinancialTransactionComponent implements OnInit {
   }
 
   addChildHandler(card?: any, readOnly: boolean = false): void {
+    let navigationExtras: NavigationExtras;
     if (card) {
-      this.dataService.setData({ readOnly: readOnly, customer: this.customer, content: card });
-    } else {
-      this.dataService.setData({ readOnly: readOnly, customer: this.customer });
-    }
-    this.router.navigate(['/create-update-financial']);
+      navigationExtras  = {
+        state: {
+          readOnly: readOnly, customer: this.customer, content: card
+        }
+      };
+     } else {
+      navigationExtras  = {
+        state: {
+          readOnly: readOnly, customer: this.customer
+        }
+      };
+     }
+    this.router.navigate(['/create-update-financial'], navigationExtras);
   }
 
   delete(card: any): void {
@@ -125,7 +133,7 @@ export class FinancialTransactionComponent implements OnInit {
       });
 
   }
-  loadData() {    
+  loadData() {
     // Custom validation for fromDate and toDate  
     const fromDate = this.customerForm?.get('start')?.value as Date;
     const toDate = this.customerForm?.get('end')?.value as Date;
@@ -153,23 +161,23 @@ export class FinancialTransactionComponent implements OnInit {
     this.cards$.subscribe((financialTransactionPage: FinancialTransactionResponse) => {
       // Call the function with the actual value and other parameters
       //@TODO you may needs to add " ad the start and end of the string 
-      this.printItNew( this.prepareTableForPrint(financialTransactionPage, fromDate, toDate));
+      this.printItNew(this.prepareTableForPrint(financialTransactionPage, fromDate, toDate));
     });
   }
 
   printItNew(printThis: string) {
 
-						
+
     var win = window.open();
     self.focus();
-  
-   
-    
+
+
+
     var html = "<!DOCTYPE html>";
     html += '<html>';
     html += '<head>';
-   // html += '<title>طباعه فاتوره</title>';
-    html +=  '<style>'; 
+    // html += '<title>طباعه فاتوره</title>';
+    html += '<style>';
     html += 'table {';
     html += 'font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;';
     html += 'border: 1px solid #1C6EA4;';
@@ -178,56 +186,56 @@ export class FinancialTransactionComponent implements OnInit {
     //html += 'background-color: #EEEEEE;';
     //html += 'border-collapse: collapse;';
     html += '}';
-    
-  //  html += 'tr:nth-child(even) {';
-   // html += 'text-shadow: 2px 2px 5px ;';
-   // html += '}';
-    
-    
-    html +='</style></head>';
+
+    //  html += 'tr:nth-child(even) {';
+    // html += 'text-shadow: 2px 2px 5px ;';
+    // html += '}';
+
+
+    html += '</style></head>';
     html += "<body>";
-    html +=printThis
+    html += printThis
     html += "</body>";
     win?.document.write(html);
     win?.window.print();
     win?.document.close();
-  
-    
+
+
   }
 
   getHeaderRepeaterRows(headerRepeaterRows: string): Map<number, number> {
     const headers: Map<number, number> = new Map();
 
     try {
-        let num: number | null;
+      let num: number | null;
 
-        if (headerRepeaterRows.includes(",")) {
-            const arr: string[] = headerRepeaterRows.split(",");
+      if (headerRepeaterRows.includes(",")) {
+        const arr: string[] = headerRepeaterRows.split(",");
 
-            for (let i = 0; i < arr.length; ++i) {
-                try {
-                    num = parseInt(arr[i].replace(/[^0-9]/g, ''));
-                    if (num !== null && num > 0) {
-                        headers.set(num, num);
-                    }
-                } catch (var7) {
-                    // Handle the exception (if needed) - Currently, it's ignored in the Java code.
-                }
-            }
-        } else {
-            num = parseInt(headerRepeaterRows.replace(/[^0-9]/g, ''));
+        for (let i = 0; i < arr.length; ++i) {
+          try {
+            num = parseInt(arr[i].replace(/[^0-9]/g, ''));
             if (num !== null && num > 0) {
-                headers.set(num, num);
+              headers.set(num, num);
             }
+          } catch (var7) {
+            // Handle the exception (if needed) - Currently, it's ignored in the Java code.
+          }
         }
+      } else {
+        num = parseInt(headerRepeaterRows.replace(/[^0-9]/g, ''));
+        if (num !== null && num > 0) {
+          headers.set(num, num);
+        }
+      }
     } catch (var8) {
-        // Handle the exception (if needed) - Currently, it's ignored in the Java code.
+      // Handle the exception (if needed) - Currently, it's ignored in the Java code.
     }
 
     return headers;
-}
+  }
 
- 
+
 
   prepareTableForPrint(financialTransactionResponse: FinancialTransactionResponse
     , dateFrom: Date, dateTo: Date) {
@@ -235,7 +243,7 @@ export class FinancialTransactionComponent implements OnInit {
     const headers: Map<number, number> = this.getHeaderRepeaterRows(headerRepeaterRows.trim().replace(/ /g, ''));
 
     let s: string[] = [];
-    
+
     let formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
     let formatter2 = new Intl.NumberFormat('en-US');
 
@@ -248,7 +256,7 @@ export class FinancialTransactionComponent implements OnInit {
       second: '2-digit',
       hour12: false
     });
-    
+
     s.push("<table style=\"background-color: #EEEEEE;\" align=\"center\" style=\" height: 68px; padding: 8px; border-bottom: 1px solid #ddd; border: 1px solid #ddd; border-collapse: collapse;\" border=\"0\">");
     s.push("<tbody>");
     s.push("<tr text-shadow= \"2px 2px 5px red\";  font-size=\"18px;\" style=\"text-shadow: 2px 2px 5px red; border-bottom: 1px solid #dddddd; height: 3px;\">");
@@ -298,49 +306,49 @@ export class FinancialTransactionComponent implements OnInit {
     let i = 0;
     let var0 = "";
     for (const accountableDTON of financialTransactionResponse.financial_transactions || []) {
-      
+
       if (headers.has(i) && headers.size > 0) {
-          s.push("<tr style=\" text-shadow: 2px 2px 20px ; font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#FEFAFD\">");
-          s.push("<th style=\"text-align: center;\">\u0644\u0647</th>");
-          s.push("<th style=\"text-align: center;\">\u0639\u0644\u064a\u0647</th>");
-          s.push("<th style=\"text-align: center;\">\u0644\u0647</th>");
-          s.push("<th style=\"text-align: center;\">\u0639\u0644\u064a\u0647</th>");
-          s.push("<th style=\"text-align: center;\">\u0627\u0644\u0633\u0639\u0631</th>");
-          s.push("<th style=\"text-align: center;\">\u0639\u062f\u062f</th>");
-          s.push("<th style=\"text-align: center;\">\u0627\u0644\u0635\u0646\u0641</th>");
-          s.push("<th style=\"text-align: center;\">\u0627\u0644\u0628\u064a\u0627\u0646</th>");
-          s.push("<th style=\"text-align: center;\">\u0627\u0644\u062a\u0627\u0631\u064a\u062e</th>");
-          s.push("</tr>");
-       }
+        s.push("<tr style=\" text-shadow: 2px 2px 20px ; font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#FEFAFD\">");
+        s.push("<th style=\"text-align: center;\">\u0644\u0647</th>");
+        s.push("<th style=\"text-align: center;\">\u0639\u0644\u064a\u0647</th>");
+        s.push("<th style=\"text-align: center;\">\u0644\u0647</th>");
+        s.push("<th style=\"text-align: center;\">\u0639\u0644\u064a\u0647</th>");
+        s.push("<th style=\"text-align: center;\">\u0627\u0644\u0633\u0639\u0631</th>");
+        s.push("<th style=\"text-align: center;\">\u0639\u062f\u062f</th>");
+        s.push("<th style=\"text-align: center;\">\u0627\u0644\u0635\u0646\u0641</th>");
+        s.push("<th style=\"text-align: center;\">\u0627\u0644\u0628\u064a\u0627\u0646</th>");
+        s.push("<th style=\"text-align: center;\">\u0627\u0644\u062a\u0627\u0631\u064a\u062e</th>");
+        s.push("</tr>");
+      }
 
-       i = i + 1;
-       if (accountableDTON.statement?.name?.includes("\u0645\u0634\u062a\u0631\u064a\u0627\u062a")) {
-          s.push("<tr  " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  >");
-       } else if (accountableDTON.statement?.name?.includes("\u0645\u0628\u064a\u0639\u0627\u062a")) {
-          s.push("<tr " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#D3FCD5\">");
-       } else {
-          s.push("<tr " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#cee0ed\">");
-       }
+      i = i + 1;
+      if (accountableDTON.statement?.name?.includes("\u0645\u0634\u062a\u0631\u064a\u0627\u062a")) {
+        s.push("<tr  " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  >");
+      } else if (accountableDTON.statement?.name?.includes("\u0645\u0628\u064a\u0639\u0627\u062a")) {
+        s.push("<tr " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#D3FCD5\">");
+      } else {
+        s.push("<tr " + var0 + " font-size=\"14px;\" border-top = \" 3px solid #444444;\"  bgcolor=\"#cee0ed\">");
+      }
 
-       s.push("<td style=\"text-align: center;\">");
-       s.push(formatter.format(accountableDTON.total_stock || 0));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(formatter.format(accountableDTON.total_borrower || 0));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(formatter.format(accountableDTON.stock || 0 ));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(formatter.format(accountableDTON.borrower || 0));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(formatter.format(accountableDTON.price || 0));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(formatter2.format(accountableDTON.count || 0));
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(accountableDTON.product?.name || '');
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(accountableDTON.statement?.name || '');
-       s.push("</td>\n<td style=\"text-align: center;\">");
-       s.push(accountableDTON.creation_date || '');
-       s.push("</td>\n</tr>\n  ");
+      s.push("<td style=\"text-align: center;\">");
+      s.push(formatter.format(accountableDTON.total_stock || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(formatter.format(accountableDTON.total_borrower || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(formatter.format(accountableDTON.stock || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(formatter.format(accountableDTON.borrower || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(formatter.format(accountableDTON.price || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(formatter2.format(accountableDTON.count || 0));
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(accountableDTON.product?.name || '');
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(accountableDTON.statement?.name || '');
+      s.push("</td>\n<td style=\"text-align: center;\">");
+      s.push(accountableDTON.creation_date || '');
+      s.push("</td>\n</tr>\n  ");
     }
 
     s.push("<tr bgcolor=\"#CDCECD\">");
@@ -358,7 +366,7 @@ export class FinancialTransactionComponent implements OnInit {
     s.push("</tr>");
     s.push("</tbody>");
     s.push("</table>");
-    return s.join(" ").replaceAll("\n", " ") 
- }
+    return s.join(" ").replaceAll("\n", " ")
+  }
 
 }

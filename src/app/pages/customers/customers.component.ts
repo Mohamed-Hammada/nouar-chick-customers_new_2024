@@ -6,12 +6,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { CustomerPage, CustomersService } from './customers.service';
 import { LanguageService } from '../../_helper/language.service';
-import { DataService } from '../../_helper/data.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 
@@ -38,8 +37,7 @@ export class CustomersComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
-    private notificationService: NotificationService,
-    private dataService: DataService) {
+    private notificationService: NotificationService) {
     this.languageService.setDefaultLanguage();
     this.cards$ = this.service.getCustomers()
   }
@@ -121,13 +119,18 @@ export class CustomersComponent implements OnInit {
   }
 
   addChildHandler(card?: any, readOnly: boolean = false): void {
+    let navigationExtras: NavigationExtras;
     if (card) {
-      this.dataService.setData({ readOnly: readOnly, content: card });
-    } else {
-      this.dataService.setData({});
+        navigationExtras  = {
+        state: { readOnly: readOnly, content: card }
+      };
+     } else {
+      navigationExtras  = {
+        state: { }
+      };
     }
 
-    this.router.navigate(['/create-update-customer']);
+    this.router.navigate(['/create-update-customer'],navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {
@@ -160,8 +163,16 @@ export class CustomersComponent implements OnInit {
 
   }
   routeToFiniancial(card: any){
-    this.dataService.setData({ content: card});
-    this.router.navigate(['/financial']);
+
+    const navigationExtras: NavigationExtras = {
+      state: {
+        content: card
+      }
+    };
+    
+    // this.dataService.setData({ content: card});
+
+    this.router.navigate(['/financial'],navigationExtras);
   }
 
 }

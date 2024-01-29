@@ -77,7 +77,7 @@ export class FinancialTransactionService {
   }
 
   updateFinancialTransaction( customer_id: number ,financialTransaction: FinancialTransactionDto): Observable<Response> {
-    return this.http.post<Response>(`${this.apiUrl}/${customer_id}`, financialTransaction);
+    return this.http.put<Response>(`${this.apiUrl}/${customer_id}`, financialTransaction);
   }
 
   deleteFinancialTransaction(id: number): Observable<Response> {

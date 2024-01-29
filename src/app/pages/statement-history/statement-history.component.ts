@@ -6,9 +6,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { LanguageService } from '../../_helper/language.service';
-import { DataService } from '../../_helper/data.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
 import { NotificationService } from '../../components/notification.service';
@@ -35,8 +34,7 @@ export class StatementHistoryComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private dataService: DataService) {
+    private changeDetectorRef: ChangeDetectorRef) {
     this.languageService.setDefaultLanguage();
     this.cards$ = this.service.getStatementHistorys()
   }
@@ -118,13 +116,18 @@ export class StatementHistoryComponent implements OnInit {
   }
 
   addChildHandler(card?:any , readOnly:boolean = false): void {
+    let navigationExtras : NavigationExtras;
     if(card){
-      this.dataService.setData({ readOnly:readOnly , content: card });
-    }else{
-      this.dataService.setData({ });
-    }
+      navigationExtras  = {
+        state: { readOnly:readOnly , content: card }
+      };
+     }else{
+      navigationExtras  = {
+        state: { readOnly:readOnly , content: card }
+      };
+     }
     
-    this.router.navigate(['/create-update-statement-history']);
+    this.router.navigate(['/create-update-statement-history'],navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {

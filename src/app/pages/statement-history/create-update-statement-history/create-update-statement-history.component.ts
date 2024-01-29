@@ -2,7 +2,6 @@ import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Outp
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { DataService } from '../../../_helper/data.service';
 import { NotificationService } from '../../../components/notification.service';
 import { Router } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -25,17 +24,18 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
   readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
 
-
+  data:any;
   statementHistoryForm!: FormGroup;
-  constructor(private fb: FormBuilder, private dataService: DataService,
+  constructor(private fb: FormBuilder,
     private statementHistoryService: StatementHistoryService,
     private notificationService: NotificationService,
     private router: Router) {
-    if (this.dataService.data)
-      this.statementHistory = this.dataService.data.content; 
-    if(this.dataService.data.readOnly){
-      this.readOnly = true;
-    }
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state;
+      this.data = state;
+      this.statementHistory = this.data?.content || {}; 
+      this.readOnly = this.data?.readOnly;
+   
   }
   ngAfterViewInit(): void {
     if (this.descriptionTextarea) {
