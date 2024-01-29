@@ -58,7 +58,6 @@ export class CreateUpdateFinancialTransactionComponent {
   }
 
   fillTransaction(){
-    debugger
     this.transactions.push({
       id: this.data?.content.id,
       statement: this.data?.content.statement?.name,
@@ -129,7 +128,7 @@ export class CreateUpdateFinancialTransactionComponent {
 
 
             const navigationExtras: NavigationExtras = {
-              state: this.data
+              state:  { content: this.customer}
             };
 
 
@@ -150,7 +149,7 @@ export class CreateUpdateFinancialTransactionComponent {
         if (response && response.content === 'ok') {
           // Handle update success
           const navigationExtras: NavigationExtras = {
-            state: this.data
+            state:  { content: this.customer}
           };
           this.router.navigate(['/financial'],navigationExtras);
           this.notificationService.success('Created successfully');
