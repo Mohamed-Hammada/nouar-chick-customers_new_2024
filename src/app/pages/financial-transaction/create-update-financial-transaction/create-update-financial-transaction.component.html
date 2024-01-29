@@ -2,14 +2,14 @@
   <mat-card>
     <mat-card-content>
 
-      <app-custom-chip-autocompelete-component palceHolderNameStrin="Statement" [filteredItemsInput]="statement_names"
+      <app-custom-chip-autocompelete-component palceHolderNameStrin="Statement" [filteredOneItemsInput]="transaction.statement ?? ''"
         [filterFn]="filterStatement" (selectedItems)="transaction.statement = $event[0]" 
         [maxSelections]="1"
         [isRequired]="true">
       </app-custom-chip-autocompelete-component>
 
 
-      <app-custom-chip-autocompelete-component palceHolderNameStrin="Product" [filteredItemsInput]="product_names"
+      <app-custom-chip-autocompelete-component palceHolderNameStrin="Product" [filteredOneItemsInput]="transaction.product ?? ''"
         [filterFn]="filterProduct" (selectedItems)="transaction.product= $event[0]" 
         [maxSelections]="1"
         [isRequired]="true">

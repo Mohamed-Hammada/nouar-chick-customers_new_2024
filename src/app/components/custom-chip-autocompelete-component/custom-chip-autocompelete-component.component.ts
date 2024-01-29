@@ -42,7 +42,7 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
   @Input() readOnly: boolean = false;
   @Input() isRequired: boolean = false;
   @Input() filteredItemsInput: string[] = [];
-
+  @Input() filteredOneItemsInput: string = '';
   @Input() allItems: string[] = [];
   @Input() inSelectedItems: string[] = [];
   @Input() filterFn!: (term: string) => Observable<string[]>;
@@ -101,6 +101,11 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
     // Set the initial value from filteredItemsInput
     //  this.matAutocomplete.options = this.allItems; 
     // debugger
+
+    if(this.filteredOneItemsInput && this.filteredOneItemsInput.length > 0){
+      this.filteredItemsInput.push(this.filteredOneItemsInput);
+    }
+
     if (this.filteredItemsInput && this.filteredItemsInput.length > 0) {
       for (let i = 0; i < this.filteredItemsInput.length; i++) { 
         this.items.push(this.filteredItemsInput[i]);
