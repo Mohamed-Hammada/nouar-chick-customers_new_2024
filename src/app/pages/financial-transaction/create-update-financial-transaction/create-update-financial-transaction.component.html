@@ -57,10 +57,11 @@
   </mat-card>
 </div>
 <br/>
-<button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">Save All</button>
+<button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">Save</button>
 
 
-
+<div [hidden]="isEdit">
 <button mat-fab [hidden]="readOnly" color="primary" class="floating-button" (click)="addEmptyTransaction()">
   <mat-icon>add</mat-icon>
 </button>
+</div>
