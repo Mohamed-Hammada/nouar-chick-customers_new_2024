@@ -13,6 +13,7 @@ import { CustomerPage, CustomersService } from './customers.service';
 import { LanguageService } from '../../_helper/language.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
+import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction/financial-transaction.service';
 
 @Component({
   selector: 'app-customers',
@@ -34,6 +35,7 @@ export class CustomersComponent implements OnInit {
 
   constructor(private service: CustomersService,
     private router: Router,
+    private financilaService: FinancialTransactionService,
     private confirmationDialogService: ConfirmationDialogService,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -174,5 +176,26 @@ export class CustomersComponent implements OnInit {
 
     this.router.navigate(['/financial'],navigationExtras);
   }
+
+
+  downloadData(): void {
+    this.financilaService.downloadAllData().subscribe(response => {
+      // Handle the response, e.g., trigger a download
+      this.downloadFile(response);
+    });
+  }
+
+  private downloadFile(response: any): void {
+    const blob = new Blob([response.body], { type: 'application/zip' });
+    const downloadLink = document.createElement('a');
+
+    downloadLink.href = window.URL.createObjectURL(blob);
+    downloadLink.download = 'All_Data.zip';
+
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  }
+
 
 }

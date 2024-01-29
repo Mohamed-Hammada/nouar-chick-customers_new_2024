@@ -94,4 +94,18 @@ export class FinancialTransactionService {
     // You can return a custom error message or throw the original error
     return throwError('Something went wrong. Please try again later.');
   }
+
+  downloadAllData(): Observable<HttpResponse<Blob>> {
+    const url = `${this.apiUrl}/download`;
+  
+    return this.http.get(url, {
+      observe: 'response',
+      responseType: 'blob' as 'json', // This is important for downloading binary data (e.g., a ZIP file)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    }) as Observable<HttpResponse<Blob>>;
+  }
+  
+
 }
