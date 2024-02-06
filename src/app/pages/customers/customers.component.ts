@@ -14,6 +14,7 @@ import { LanguageService } from '../../_helper/language.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction/financial-transaction.service';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-customers',
@@ -35,6 +36,7 @@ export class CustomersComponent implements OnInit {
 
   constructor(private service: CustomersService,
     private router: Router,
+    private keycloakService: KeycloakService,
     private financilaService: FinancialTransactionService,
     private confirmationDialogService: ConfirmationDialogService,
     private languageService: LanguageService,
@@ -44,6 +46,12 @@ export class CustomersComponent implements OnInit {
     this.cards$ = this.service.getCustomers()
   }
   ngOnInit(): void {
+    debugger
+   const isLoggedIn =  this.keycloakService.isLoggedIn();
+    if(!isLoggedIn)
+      this.keycloakService.login();
+
+    if(isLoggedIn)
     this.loadData();
 
   }
