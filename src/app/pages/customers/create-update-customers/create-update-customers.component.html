@@ -34,7 +34,7 @@
                     <textarea matInput [readonly]="readOnly" formControlName="contact_details"></textarea>
                 </mat-form-field>
             </div>
-            <div class="form-group">
+            <div class="form-group" *ngIf="isAdminUser">
                 <mat-checkbox  
                  formControlName="visible_to_normal_users">
                   Visible to Normal Users

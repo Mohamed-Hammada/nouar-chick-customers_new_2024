@@ -12,11 +12,12 @@ import { MatInputModule } from '@angular/material/input';
 import { Customer, CustomersService } from '../customers.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { KeycloakService } from 'keycloak-angular';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-create-update-customers',
   standalone: true,
-  imports: [FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
+  imports: [CommonModule , FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
     ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatCheckboxModule],
   templateUrl: './create-update-customers.component.html',
   styleUrl: './create-update-customers.component.scss'
@@ -27,7 +28,7 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
   readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
   data:any;
-
+  isAdminUser:boolean = false;
   customerForm!: FormGroup;
   constructor(private fb: FormBuilder,
     private customerService: CustomersService,
@@ -50,6 +51,10 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
     const isLoggedIn = this.keycloakService.isLoggedIn();
     if (!isLoggedIn)
       this.keycloakService.login();
+
+    const userRoles = this.keycloakService.getUserRoles();
+    this.isAdminUser = userRoles.includes('admin');
+
     this.customerForm = this.fb.group({
       id: [this.customer?.id || null],
       code_id: [this.customer?.code_id || null],
