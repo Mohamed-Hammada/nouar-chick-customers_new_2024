@@ -31,7 +31,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
       },
       // Options for Keycloak initialization
       initOptions: {
-        onLoad: 'check-sso', // Action to take on load
+        onLoad: 'login-required', // Action to take on load
         silentCheckSsoRedirectUri:
           window.location.origin + '/assets/silent-check-sso.html' // URI for silent SSO checks
       },
