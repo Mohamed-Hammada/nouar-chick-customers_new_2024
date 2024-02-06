@@ -12,6 +12,7 @@ import { CustomeSearchComponent } from "../../components/custome-search/custome-
 import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-statement-history',
   standalone: true,
@@ -20,31 +21,38 @@ import { ConfirmationDialogService } from '../../components/confirmation-dialog/
   styleUrl: './statement-history.component.scss'
 })
 export class StatementHistoryComponent implements OnInit {
-  cards$: Observable<StatementHistoryPage>;
+  cards$!: Observable<StatementHistoryPage>;
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
- 
+
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private service: StatementHistoryService,
+    private keycloakService: KeycloakService,
     private confirmationDialogService: ConfirmationDialogService,
     private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef) {
     this.languageService.setDefaultLanguage();
-    this.cards$ = this.service.getStatementHistorys()
-  }
-  ngOnInit(): void {
-    this.loadData();
 
   }
-  loadData(searchTerm :string|null = ''): void {
+  ngOnInit(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
+    if (isLoggedIn) {
+      this.cards$ = this.service.getStatementHistorys()
+      this.loadData();
+    }
+
+  }
+  loadData(searchTerm: string | null = ''): void {
     // if(searchTerm){
-      this.cards$ = this.service.searchStatementHistorys( searchTerm?searchTerm:'' ,0, this.pageSize);
+    this.cards$ = this.service.searchStatementHistorys(searchTerm ? searchTerm : '', 0, this.pageSize);
     // }else{
     // this.cards$ = this.service.getStatementHistorys(this.currentPage, this.pageSize);
     // }
@@ -54,7 +62,7 @@ export class StatementHistoryComponent implements OnInit {
   }
 
   handleDataResponse(data: StatementHistoryPage) {
-  
+
     if (!data) { return; }
     if (!data.content) { return; }
 
@@ -62,7 +70,7 @@ export class StatementHistoryComponent implements OnInit {
     this.totalPages = data.total_pages || -1;
     this.currentPage = data.pageable?.page_number || 0;
     this.pageSize = data.pageable?.page_size || 5;
-  
+
     if (this.paginator) {
       this.paginator.pageIndex = this.currentPage - 1;
       this.paginator.pageSize = this.pageSize;
@@ -115,19 +123,19 @@ export class StatementHistoryComponent implements OnInit {
     return card.id; // Assuming 'id' is a unique identifier for each card
   }
 
-  addChildHandler(card?:any , readOnly:boolean = false): void {
-    let navigationExtras : NavigationExtras;
-    if(card){
-      navigationExtras  = {
-        state: { readOnly:readOnly , content: card }
+  addChildHandler(card?: any, readOnly: boolean = false): void {
+    let navigationExtras: NavigationExtras;
+    if (card) {
+      navigationExtras = {
+        state: { readOnly: readOnly, content: card }
       };
-     }else{
-      navigationExtras  = {
-        state: { readOnly:readOnly , content: card }
+    } else {
+      navigationExtras = {
+        state: { readOnly: readOnly, content: card }
       };
-     }
-    
-    this.router.navigate(['/create-update-statement-history'],navigationExtras);
+    }
+
+    this.router.navigate(['/create-update-statement-history'], navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {
@@ -147,16 +155,16 @@ export class StatementHistoryComponent implements OnInit {
       this.notificationService.error('Delete failed');
     });
   }
-  
-handleDelete(card: any): void {
- this.confirmationDialogService
-   .openConfirmationDialog('Deleting the Statement will also delete associated customer records. Exercise caution before proceeding?')
-   .subscribe((result) => {
-     if (result) {
-       // User confirmed deletion, proceed with delete
-       this.delete(card);
-     }
-   });
 
-}
+  handleDelete(card: any): void {
+    this.confirmationDialogService
+      .openConfirmationDialog('Deleting the Statement will also delete associated customer records. Exercise caution before proceeding?')
+      .subscribe((result) => {
+        if (result) {
+          // User confirmed deletion, proceed with delete
+          this.delete(card);
+        }
+      });
+
+  }
 }

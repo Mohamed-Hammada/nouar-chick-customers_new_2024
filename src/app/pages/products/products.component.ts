@@ -13,41 +13,50 @@ import { CustomeSearchComponent } from "../../components/custome-search/custome-
 import { ProductPage, ProductService } from './product.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { NotificationService } from '../../components/notification.service';
+import { KeycloakService } from 'keycloak-angular';
 
 
 @Component({
-    selector: 'app-products',
-    standalone: true,
-    templateUrl: './products.component.html',
-    styleUrl: './products.component.scss',
-    imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
+  selector: 'app-products',
+  standalone: true,
+  templateUrl: './products.component.html',
+  styleUrl: './products.component.scss',
+  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
 })
 export class ProductsComponent implements OnInit {
-  cards$: Observable<ProductPage>;
+  cards$!: Observable<ProductPage>;
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
- 
+
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
 
   constructor(private service: ProductService,
     private confirmationDialogService: ConfirmationDialogService,
+    private keycloakService: KeycloakService,
+
     private notificationService: NotificationService,
     private router: Router,
     private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef) {
     this.languageService.setDefaultLanguage();
-    this.cards$ = this.service.getProducts()
-  }
-  ngOnInit(): void {
-    this.loadData();
 
   }
-  loadData(searchTerm :string|null = ''): void {
+  ngOnInit(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
+
+    if (isLoggedIn) {
+      this.cards$ = this.service.getProducts()
+      this.loadData();
+    }
+  }
+  loadData(searchTerm: string | null = ''): void {
     // if(searchTerm){
-      this.cards$ = this.service.searchProducts( searchTerm?searchTerm:'' ,0, this.pageSize);
+    this.cards$ = this.service.searchProducts(searchTerm ? searchTerm : '', 0, this.pageSize);
     // }else{
     // this.cards$ = this.service.getProducts(this.currentPage, this.pageSize);
     // }
@@ -57,7 +66,7 @@ export class ProductsComponent implements OnInit {
   }
 
   handleDataResponse(data: ProductPage) {
-  
+
     if (!data) { return; }
     if (!data.content) { return; }
 
@@ -65,7 +74,7 @@ export class ProductsComponent implements OnInit {
     this.totalPages = data.total_pages || -1;
     this.currentPage = data.pageable?.page_number || 0;
     this.pageSize = data.pageable?.page_size || 5;
-  
+
     if (this.paginator) {
       this.paginator.pageIndex = this.currentPage - 1;
       this.paginator.pageSize = this.pageSize;
@@ -118,19 +127,19 @@ export class ProductsComponent implements OnInit {
     return card.id; // Assuming 'id' is a unique identifier for each card
   }
 
-  addChildHandler(card?:any , readOnly:boolean = false): void {
-    let navigationExtras : NavigationExtras;
-    if(card){
-      navigationExtras  = {
-        state: { readOnly:readOnly , content: card }
+  addChildHandler(card?: any, readOnly: boolean = false): void {
+    let navigationExtras: NavigationExtras;
+    if (card) {
+      navigationExtras = {
+        state: { readOnly: readOnly, content: card }
       };
-     }else{
-      navigationExtras  = {
-        state: { }
+    } else {
+      navigationExtras = {
+        state: {}
       };
     }
-    
-    this.router.navigate(['/create-update-product'],navigationExtras);
+
+    this.router.navigate(['/create-update-product'], navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {
@@ -139,7 +148,7 @@ export class ProductsComponent implements OnInit {
     // Do something with the search term, e.g., trigger a search
   }
 
-  
+
   delete(card: any): void {
     this.service.deleteProduct(card.id).subscribe(response => {
       this.loadData();
@@ -152,15 +161,15 @@ export class ProductsComponent implements OnInit {
     });
   }
 
-handleDelete(card: any): void {
- this.confirmationDialogService
-   .openConfirmationDialog('Deleting the product will also delete associated customer records. Exercise caution before proceeding?')
-   .subscribe((result) => {
-     if (result) {
-       // User confirmed deletion, proceed with delete
-       this.delete(card);
-     }
-   });
+  handleDelete(card: any): void {
+    this.confirmationDialogService
+      .openConfirmationDialog('Deleting the product will also delete associated customer records. Exercise caution before proceeding?')
+      .subscribe((result) => {
+        if (result) {
+          // User confirmed deletion, proceed with delete
+          this.delete(card);
+        }
+      });
 
-}
+  }
 }

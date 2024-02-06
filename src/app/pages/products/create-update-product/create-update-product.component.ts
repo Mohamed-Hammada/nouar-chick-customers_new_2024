@@ -10,6 +10,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-create-update-product',
@@ -28,6 +29,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
   data:any;
   productForm!: FormGroup;
   constructor(private fb: FormBuilder,
+    private keycloakService: KeycloakService,
     private productService: ProductService,
     private notificationService: NotificationService,
     private router: Router) {
@@ -40,21 +42,28 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
       this.readOnly = true;
     }
   }
+
+
+
+  ngOnInit(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
+
+
+    this.productForm = this.fb.group({
+      id: [this.product?.id || null],
+      name: [this.product?.name || '', Validators.required],
+      description: [this.product?.description || '']
+    });
+  }
+
   ngAfterViewInit(): void {
     if (this.descriptionTextarea) {
       const target = this.descriptionTextarea.nativeElement as HTMLTextAreaElement;
       target.style.height = "0px";
       target.style.height = (target.scrollHeight + 25) + "px";
     }
-  }
-
-
-  ngOnInit(): void {
-    this.productForm = this.fb.group({
-      id: [this.product?.id || null],
-      name: [this.product?.name || '', Validators.required],
-      description: [this.product?.description || '']
-    });
   }
   autoGrowTextZone(e: Event) {
     const target = (e as any)?.target as HTMLElement | undefined;

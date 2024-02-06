@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { StatementHistory, StatementHistoryService } from '../statement-history.service';
+import { KeycloakService } from 'keycloak-angular';
 @Component({
   selector: 'app-create-update-statement-history',
   standalone: true,
@@ -27,6 +28,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
   data:any;
   statementHistoryForm!: FormGroup;
   constructor(private fb: FormBuilder,
+    private keycloakService: KeycloakService,
     private statementHistoryService: StatementHistoryService,
     private notificationService: NotificationService,
     private router: Router) {
@@ -37,21 +39,27 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
       this.readOnly = this.data?.readOnly;
    
   }
+
+
+
+  ngOnInit(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
+    
+    this.statementHistoryForm = this.fb.group({
+      id: [this.statementHistory?.id || null],
+      name: [this.statementHistory?.name || '', Validators.required],
+      description: [this.statementHistory?.description || '']
+    });
+  }
+
   ngAfterViewInit(): void {
     if (this.descriptionTextarea) {
       const target = this.descriptionTextarea.nativeElement as HTMLTextAreaElement;
       target.style.height = "0px";
       target.style.height = (target.scrollHeight + 25) + "px";
     }
-  }
-
-
-  ngOnInit(): void {
-    this.statementHistoryForm = this.fb.group({
-      id: [this.statementHistory?.id || null],
-      name: [this.statementHistory?.name || '', Validators.required],
-      description: [this.statementHistory?.description || '']
-    });
   }
   autoGrowTextZone(e: Event) {
     const target = (e as any)?.target as HTMLElement | undefined;

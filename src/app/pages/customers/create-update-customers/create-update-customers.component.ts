@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { Customer, CustomersService } from '../customers.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { KeycloakService } from 'keycloak-angular';
 
 @Component({
   selector: 'app-create-update-customers',
@@ -30,6 +31,7 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
   customerForm!: FormGroup;
   constructor(private fb: FormBuilder,
     private customerService: CustomersService,
+    private keycloakService: KeycloakService,
     private notificationService: NotificationService,
     private router: Router) {
       const navigation = this.router.getCurrentNavigation();
@@ -41,16 +43,13 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
       this.readOnly = true;
     }
   }
-  ngAfterViewInit(): void {
-    if (this.descriptionTextarea) {
-      const target = this.descriptionTextarea.nativeElement as HTMLTextAreaElement;
-      target.style.height = "0px";
-      target.style.height = (target.scrollHeight + 25) + "px";
-    }
-  }
+
 
 
   ngOnInit(): void {
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
     this.customerForm = this.fb.group({
       id: [this.customer?.id || null],
       code_id: [this.customer?.code_id || null],
@@ -58,6 +57,14 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
       visible_to_normal_users: new FormControl(false) ,
       contact_details: [this.customer?.contact_details || ''],
     });
+  }
+
+  ngAfterViewInit(): void {
+    if (this.descriptionTextarea) {
+      const target = this.descriptionTextarea.nativeElement as HTMLTextAreaElement;
+      target.style.height = "0px";
+      target.style.height = (target.scrollHeight + 25) + "px";
+    }
   }
   
   autoGrowTextZone(e: Event) {

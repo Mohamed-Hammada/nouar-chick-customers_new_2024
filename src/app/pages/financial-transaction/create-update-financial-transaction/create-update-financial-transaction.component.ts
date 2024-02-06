@@ -13,6 +13,7 @@ import { StatementHistoryService } from '../../statement-history/statement-histo
 import { Customer } from '../../customers/customers.service';
 import { NotificationService } from '../../../components/notification.service';
 import { NavigationExtras, Router } from '@angular/router';
+import { KeycloakService } from 'keycloak-angular';
 
 
 @Component({
@@ -40,9 +41,16 @@ export class CreateUpdateFinancialTransactionComponent {
   data : any;
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
+    private keycloakService: KeycloakService,
     private router: Router,
     private statementHistoryService: StatementHistoryService,
     private service: FinancialTransactionService) {
+      const isLoggedIn = this.keycloakService.isLoggedIn();
+      if (!isLoggedIn)
+        this.keycloakService.login();
+  
+
+
       const navigation = this.router.getCurrentNavigation();
       const state = navigation?.extras.state;
       this.data = state;

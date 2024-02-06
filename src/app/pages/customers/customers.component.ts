@@ -25,7 +25,7 @@ import { KeycloakService } from 'keycloak-angular';
   styleUrl: './customers.component.scss'
 })
 export class CustomersComponent implements OnInit {
-  cards$: Observable<CustomerPage>;
+  cards$!: Observable<CustomerPage>;
   currentPage: number = 0;
   totalPages: number = -1;
   pageSize: number = 5;
@@ -43,21 +43,21 @@ export class CustomersComponent implements OnInit {
     private changeDetectorRef: ChangeDetectorRef,
     private notificationService: NotificationService) {
     this.languageService.setDefaultLanguage();
-    this.cards$ = this.service.getCustomers()
+
   }
   ngOnInit(): void {
-    debugger
-   const isLoggedIn =  this.keycloakService.isLoggedIn();
-    if(!isLoggedIn)
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
       this.keycloakService.login();
 
-    if(isLoggedIn)
-    this.loadData();
-
+    if (isLoggedIn){
+      this.cards$ = this.service.getCustomers();
+      this.loadData();
+    }      
   }
   loadData(searchTerm: string | null = ''): void {
     // if (searchTerm) {
-      this.cards$ = this.service.searchCustomers(searchTerm?searchTerm:'', 0, this.pageSize);
+    this.cards$ = this.service.searchCustomers(searchTerm ? searchTerm : '', 0, this.pageSize);
     // } else {
     //   this.cards$ = this.service.getCustomers(this.currentPage, this.pageSize);
     // }
@@ -131,16 +131,16 @@ export class CustomersComponent implements OnInit {
   addChildHandler(card?: any, readOnly: boolean = false): void {
     let navigationExtras: NavigationExtras;
     if (card) {
-        navigationExtras  = {
+      navigationExtras = {
         state: { readOnly: readOnly, content: card }
       };
-     } else {
-      navigationExtras  = {
-        state: { }
+    } else {
+      navigationExtras = {
+        state: {}
       };
     }
 
-    this.router.navigate(['/create-update-customer'],navigationExtras);
+    this.router.navigate(['/create-update-customer'], navigationExtras);
   }
 
   handleSearchTermChange(searchTerm: string): void {
@@ -172,17 +172,17 @@ export class CustomersComponent implements OnInit {
       });
 
   }
-  routeToFiniancial(card: any){
+  routeToFiniancial(card: any) {
 
     const navigationExtras: NavigationExtras = {
       state: {
         content: card
       }
     };
-    
+
     // this.dataService.setData({ content: card});
 
-    this.router.navigate(['/financial'],navigationExtras);
+    this.router.navigate(['/financial'], navigationExtras);
   }
 
 

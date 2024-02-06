@@ -22,6 +22,7 @@ import { Customer } from '../customers/customers.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list'
 import { CreateUpdateCustomersComponent } from "../customers/create-update-customers/create-update-customers.component";
+import { KeycloakService } from 'keycloak-angular';
 
 
 
@@ -51,6 +52,7 @@ export class FinancialTransactionComponent implements OnInit {
 
   constructor(private service: FinancialTransactionService,
     private fb: FormBuilder,
+    private keycloakService: KeycloakService,
     private confirmationDialogService: ConfirmationDialogService,
     private notificationService: NotificationService,
     private router: Router,
@@ -62,9 +64,18 @@ export class FinancialTransactionComponent implements OnInit {
 
   }
   ngOnInit(): void {
-    this.initForm();
 
-    this.loadData();
+    const isLoggedIn = this.keycloakService.isLoggedIn();
+    if (!isLoggedIn)
+      this.keycloakService.login();
+
+    if (isLoggedIn){
+      this.initForm();
+
+      this.loadData();
+    }      
+
+
 
   }
 
