@@ -27,6 +27,7 @@ export class CustomSideNavComponent {
     this.sidenavCollapsed.set(val);
   }
   menuItems = signal<MenuItem[]>([
+ 
     {
       icon: 'person',
       label: 'Customers',
@@ -69,6 +70,11 @@ export class CustomSideNavComponent {
     //   label: 'Comments',
     //   route: '/comments'
     // },
+    {
+      label: 'Logout',
+      icon: 'logout',
+      route: '/logout'
+    },
   ])
 
   profilePicSize = computed(() => this.sidenavCollapsed()? '32' : '100');

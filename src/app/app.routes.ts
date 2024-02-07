@@ -9,6 +9,7 @@ import { CreateUpdateCustomersComponent } from './pages/customers/create-update-
 import { StatementHistoryComponent } from './pages/statement-history/statement-history.component';
 import { CreateUpdateStatementHistoryComponent } from './pages/statement-history/create-update-statement-history/create-update-statement-history.component';
 import { CreateUpdateFinancialTransactionComponent } from './pages/financial-transaction/create-update-financial-transaction/create-update-financial-transaction.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 
  
@@ -26,5 +27,6 @@ export const routes: Routes = [
   { path: 'create-update-customer', component: CreateUpdateCustomersComponent },
   { path: 'create-update-statement-history', component: CreateUpdateStatementHistoryComponent },
   { path: 'create-update-financial', component: CreateUpdateFinancialTransactionComponent },
+  { path: 'logout', component: LogoutComponent },
 ];
 
