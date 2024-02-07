@@ -49,6 +49,8 @@ export class NavigationComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit() {
+
+
     this.resizeObservable$ = fromEvent(window, 'resize')
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
       // console.log('event: ', evt);
@@ -118,6 +120,7 @@ export class NavigationComponent implements OnInit , OnDestroy {
     const currentLanguage = localStorage.getItem('langCode');
     const newLanguage = currentLanguage === 'ar' ? 'en' : 'ar'; // Toggle between 'ar' and 'en'
     localStorage.setItem('langCode', newLanguage);
+    this.langCode.set(newLanguage);
     this.translationService.changeLanguage(newLanguage);
   }
 

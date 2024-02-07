@@ -9,7 +9,7 @@
         <mat-icon>{{ darkTheme() ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
       </button>
       <button mat-icon-button (click)="toggleLanguage()">
-        <mat-icon>{{ langCode() ? 'ar' : 'en' }}</mat-icon>
+        <mat-icon style="font-size: 16px;">{{ langCode() === "ar" ? "AR":"EN" }}</mat-icon>
       </button>
 </mat-toolbar>
 <mat-sidenav-container class="content">
