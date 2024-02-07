@@ -11,11 +11,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslationService } from '../../../_helper/translation.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-update-product',
   standalone: true,
-  imports: [FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
+  imports: [FormsModule,TranslateModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
     ReactiveFormsModule, MatFormFieldModule, MatInputModule],
   templateUrl: './create-update-product.component.html',
   styleUrl: './create-update-product.component.scss'
@@ -31,6 +33,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
   constructor(private fb: FormBuilder,
     private keycloakService: KeycloakService,
     private productService: ProductService,
+    private translationService: TranslationService,
     private notificationService: NotificationService,
     private router: Router) {
       const navigation = this.router.getCurrentNavigation();

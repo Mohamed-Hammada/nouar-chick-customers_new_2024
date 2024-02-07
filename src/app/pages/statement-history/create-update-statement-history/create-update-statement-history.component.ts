@@ -11,11 +11,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { StatementHistory, StatementHistoryService } from '../statement-history.service';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslationService } from '../../../_helper/translation.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-create-update-statement-history',
   standalone: true,
   imports: [FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
-    ReactiveFormsModule, MatFormFieldModule, MatInputModule],
+    ReactiveFormsModule,TranslateModule, MatFormFieldModule, MatInputModule],
   templateUrl: './create-update-statement-history.component.html',
   styleUrl: './create-update-statement-history.component.scss'
 })
@@ -29,6 +32,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
   statementHistoryForm!: FormGroup;
   constructor(private fb: FormBuilder,
     private keycloakService: KeycloakService,
+    private translationService: TranslationService,
     private statementHistoryService: StatementHistoryService,
     private notificationService: NotificationService,
     private router: Router) {
@@ -46,7 +50,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
     const isLoggedIn = this.keycloakService.isLoggedIn();
     if (!isLoggedIn)
       this.keycloakService.login();
-    
+
     this.statementHistoryForm = this.fb.group({
       id: [this.statementHistory?.id || null],
       name: [this.statementHistory?.name || '', Validators.required],

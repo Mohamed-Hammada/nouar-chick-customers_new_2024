@@ -14,6 +14,8 @@ import { Customer } from '../../customers/customers.service';
 import { NotificationService } from '../../../components/notification.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslationService } from '../../../_helper/translation.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 
 @Component({
@@ -27,6 +29,7 @@ import { KeycloakService } from 'keycloak-angular';
     MatCardModule,
     MatButtonModule,
     MatIconModule,
+    TranslateModule,
     MatInputModule,
     CustomChipAutocompeleteComponentComponent
   ]
@@ -41,6 +44,7 @@ export class CreateUpdateFinancialTransactionComponent {
   data : any;
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
+    private translationService: TranslationService,
     private keycloakService: KeycloakService,
     private router: Router,
     private statementHistoryService: StatementHistoryService,

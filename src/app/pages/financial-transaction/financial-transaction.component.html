@@ -7,7 +7,7 @@
         <div class="form-group">
           <mat-form-field class="form-group"  >
             <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>code</mat-icon>
-            <mat-label>Code Id</mat-label>
+            <mat-label>{{"code_id" | translate}}</mat-label>
             <input [readonly]="true" matInput formControlName="code_id">
           </mat-form-field>
         </div>
@@ -15,7 +15,7 @@
         <div class="form-group">
           <mat-form-field class="form-group">
             <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>person</mat-icon>
-            <mat-label>Customer Name</mat-label>
+            <mat-label>{{"customer_name" | translate}}</mat-label>
             <input [readonly]="true" matInput formControlName="name">
           </mat-form-field>
         </div>
@@ -23,7 +23,7 @@
       <div class="flex-container">
         <div class="form-group">
           <mat-form-field class="flex-container">
-            <mat-label>Enter a date range</mat-label>
+            <mat-label>{{"enter_a_date_range" | translate}}</mat-label>
             <mat-date-range-input [formGroup]="customerForm" [rangePicker]="picker">
               <input matStartDate formControlName="start" placeholder="Start date">
               <input matEndDate formControlName="end" placeholder="End date">
@@ -32,22 +32,22 @@
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker touchUi #picker>
               <mat-date-range-picker-actions>
-                <button mat-button matDateRangePickerCancel>Cancel</button>
+                <button mat-button matDateRangePickerCancel>{{"cancel"|translate}}</button>
                 <button mat-raised-button color="primary" (click)="loadData()" matDateRangePickerApply>Apply</button>
               </mat-date-range-picker-actions>
             </mat-date-range-picker>
 
             @if (customerForm.controls['start'].hasError('matStartDateInvalid')) {
-            <mat-error>Invalid start date</mat-error>
+            <mat-error>{{"invalid_start_date" | translate}}</mat-error>
             }
             @if (customerForm.controls['end'].hasError('matEndDateInvalid')) {
-            <mat-error>Invalid end date</mat-error>
+            <mat-error>{{"invalid_end_date" | translate}}</mat-error>
             }
           </mat-form-field>
 
         </div>
 
-        <button mat-raised-button color="primary" class="align-button" (click)="openPrinterWindow()">Invoice printing</button>
+        <button mat-raised-button color="primary" class="align-button" (click)="openPrinterWindow()">{{"invoice_printing" | translate}}</button>
 
       </div>
     </form>

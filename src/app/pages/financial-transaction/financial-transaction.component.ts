@@ -13,7 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { Observable } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
-import { LanguageService } from '../../_helper/language.service';
+import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { FinancialTransactionResponse, FinancialTransactionService } from './financial-transaction.service';
 import { NotificationService } from '../../components/notification.service';
@@ -24,6 +24,7 @@ import { MatListModule } from '@angular/material/list'
 import { CreateUpdateCustomersComponent } from "../customers/create-update-customers/create-update-customers.component";
 import { KeycloakService } from 'keycloak-angular';
 
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 
 @Component({
@@ -36,6 +37,7 @@ import { KeycloakService } from 'keycloak-angular';
     CustomeSearchComponent, CreateUpdateCustomersComponent,
     MatFormFieldModule,
     MatInputModule,
+    TranslateModule,
     MatDatepickerModule,
     MatNativeDateModule,
     FormsModule,
@@ -56,12 +58,11 @@ export class FinancialTransactionComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private notificationService: NotificationService,
     private router: Router,
-    private languageService: LanguageService) {
+    private translationService: TranslationService) {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state;
     this.customer = state?.['content'] || {};
-    this.languageService.setDefaultLanguage();
-
+ 
   }
   ngOnInit(): void {
 

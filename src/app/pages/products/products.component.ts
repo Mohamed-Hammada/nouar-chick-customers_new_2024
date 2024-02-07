@@ -7,13 +7,14 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationExtras, Router } from '@angular/router';
-import { LanguageService } from '../../_helper/language.service';
+import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 
 import { ProductPage, ProductService } from './product.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { NotificationService } from '../../components/notification.service';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 
 @Component({
@@ -39,10 +40,9 @@ export class ProductsComponent implements OnInit {
 
     private notificationService: NotificationService,
     private router: Router,
-    private languageService: LanguageService,
+    private translationService: TranslationService,
     private changeDetectorRef: ChangeDetectorRef) {
-    this.languageService.setDefaultLanguage();
-
+ 
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();

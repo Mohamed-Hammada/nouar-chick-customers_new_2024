@@ -21,34 +21,34 @@
 
 
         <mat-form-field class="example-full-width">
-          <mat-label>Count</mat-label>
+          <mat-label>{{"count" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.count" [readonly]="readOnly" required>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <mat-label>Price</mat-label>
+          <mat-label>{{"price" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.price" [readonly]="readOnly" required>
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="example-full-width">
-          <mat-label>Borrower</mat-label>
+          <mat-label>{{"borrower" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.borrower" [readonly]="readOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <mat-label>Stock</mat-label>
+          <mat-label>{{"stock" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.stock" [readonly]="readOnly">
         </mat-form-field>
       </div>
       <div class="row">
         <mat-form-field class="example-full-width">
-          <mat-label>Total Borrower</mat-label>
+          <mat-label>{{"total_borrower" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.total_borrower" [readonly]="readOnly">
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <mat-label>Total Stock</mat-label>
+          <mat-label>{{"total_stock" | translate}}</mat-label>
           <input matInput type="number" [(ngModel)]="transaction.total_stock" [readonly]="readOnly">
         </mat-form-field>
       </div>
@@ -57,7 +57,7 @@
   </mat-card>
 </div>
 <br/>
-<button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">Save</button>
+<button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">{{"submit" | translate}}</button>
 
 
 <div [hidden]="isEdit">

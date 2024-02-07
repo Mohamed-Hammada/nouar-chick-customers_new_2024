@@ -1,8 +1,8 @@
 <div class="sidenav-header">
-    <img  [width]="profilePicSize()" [height]="profilePicSize()" src="/assets/hamada.PNG" />
+    <img  [width]="profilePicSize()" [height]="profilePicSize()" src="/assets/logo.jpg" />
     <div class="header-text" [class.hide-header-text]="sidenavCollapsed()">
-        <h2>Nouar Customers</h2>
-        <p matListItemTitle>Mohamed Mansour</p>
+        <h2>{{ "title" | translate }}</h2>
+        <p matListItemTitle>{{ "sub_title" | translate }}</p>
     </div>
 </div>
 <mat-nav-list>

@@ -10,6 +10,7 @@ import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.compon
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../custome-search/custome-search.component";
 import { fromEvent , Observable, Subscription } from 'rxjs';
+import { TranslationService } from '../../_helper/translation.service';
 @Component({
     selector: 'app-navigation',
     standalone: true,
@@ -23,6 +24,7 @@ import { fromEvent , Observable, Subscription } from 'rxjs';
 export class NavigationComponent implements OnInit {
   collapsed = signal(false);
   darkTheme = signal(false);
+  langCode = signal('ar');
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
   sidenaveWidth = computed(() => {
@@ -31,7 +33,7 @@ export class NavigationComponent implements OnInit {
     return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
   });
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private breakpointObserver: BreakpointObserver, private translationService: TranslationService) {
     this.setCollapsedForScreenSize();
     const collapsedStore = localStorage.getItem('collapsed');
     if(collapsedStore){
@@ -41,6 +43,8 @@ export class NavigationComponent implements OnInit {
     if (storedTheme) {
       this.darkTheme.set(storedTheme === 'dark')
     }
+    const currentLanguage = localStorage.getItem('langCode');
+    this.langCode.set(currentLanguage || 'ar');
     this.loadTheme();
   }
 
@@ -109,4 +113,12 @@ export class NavigationComponent implements OnInit {
       }
     }
   }
+
+  toggleLanguage() {
+    const currentLanguage = localStorage.getItem('langCode');
+    const newLanguage = currentLanguage === 'ar' ? 'en' : 'ar'; // Toggle between 'ar' and 'en'
+    localStorage.setItem('langCode', newLanguage);
+    this.translationService.changeLanguage(newLanguage);
+  }
+
 }

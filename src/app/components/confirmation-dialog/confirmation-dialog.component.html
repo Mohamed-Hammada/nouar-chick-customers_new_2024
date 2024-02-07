@@ -1,11 +1,13 @@
 
 <h2 mat-dialog-title>
   <mat-icon matPrefix>warning</mat-icon>
-  Warning
+  {{ "warning" | translate }}
 </h2>
 <button mat-mini-fab class="close-button" [style.color]='"primary"' (click)="dialogRef.close()">X</button>
 <mat-dialog-content>{{ data.message }}</mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()" color="primary">Cancel</button>
-  <button mat-raised-button (click)="onYesClick()" color="warn">Yes</button>
+  <button mat-raised-button (click)="onNoClick()" color="primary">Cancel
+    {{ "cancel" | translate }}
+  </button>
+  <button mat-raised-button (click)="onYesClick()" color="warn">    {{ "yes" | translate }}</button>
 </mat-dialog-actions>

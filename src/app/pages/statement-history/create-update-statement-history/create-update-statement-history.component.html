@@ -3,10 +3,10 @@
 <mat-card>
     <mat-card-header>
       <mat-card-title>
-        Statement History Information
+        {{"statement_history_information" | translate}}
       </mat-card-title>
       <mat-card-subtitle [hidden]="readOnly">
-        Enter details for the statement history
+        {{"enter_details_for_the_statement_history" | translate}}
       </mat-card-subtitle>
     </mat-card-header>
   
@@ -17,7 +17,7 @@
         <div class="form-group">
           <mat-form-field class="form-group" style="display: flex; align-items: center;">
             <mat-icon style="position: relative; color: #bfdbf7;" matPrefix>history</mat-icon>
-            <mat-label>Statement History Name</mat-label>
+            <mat-label>{{"statement_history_name" | translate}}</mat-label>
             <input [readonly]="readOnly" matInput formControlName="name">
           </mat-form-field>
         </div>
@@ -25,13 +25,13 @@
         <div class="form-group">
           <mat-form-field>
             <mat-icon style="position: relative; top: 3px; color: #a4b0f5;" matPrefix>description</mat-icon>
-            <mat-label>Description</mat-label>
+            <mat-label>{{"description" | translate}}</mat-label>
             <textarea #descriptionTextarea matInput [readonly]="readOnly" formControlName="description" (keyup)="autoGrowTextZone($event)"></textarea>
           </mat-form-field>
         </div>
   
         <button  [hidden]="readOnly"  mat-raised-button color="primary" type="submit" [disabled]="!statementHistoryForm.valid">
-          <mat-icon style="color: #00f0b5;">check_circle</mat-icon> Submit
+          <mat-icon style="color: #00f0b5;">check_circle</mat-icon>  {{ "submit" | translate }}
         </button>
       </form>
     </mat-card-content>

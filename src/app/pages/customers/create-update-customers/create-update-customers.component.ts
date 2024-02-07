@@ -13,12 +13,14 @@ import { Customer, CustomersService } from '../customers.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { KeycloakService } from 'keycloak-angular';
 import { CommonModule } from '@angular/common';
+import { TranslationService } from '../../../_helper/translation.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-update-customers',
   standalone: true,
   imports: [CommonModule , FormsModule, MatButtonModule, MatIconModule, MatCardModule, MatToolbarModule,
-    ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatCheckboxModule],
+    ReactiveFormsModule, MatFormFieldModule, MatInputModule,MatCheckboxModule,TranslateModule],
   templateUrl: './create-update-customers.component.html',
   styleUrl: './create-update-customers.component.scss'
 })
@@ -32,6 +34,7 @@ export class CreateUpdateCustomersComponent implements OnInit,AfterViewInit{
   customerForm!: FormGroup;
   constructor(private fb: FormBuilder,
     private customerService: CustomersService,
+    private translationService: TranslationService,
     private keycloakService: KeycloakService,
     private notificationService: NotificationService,
     private router: Router) {

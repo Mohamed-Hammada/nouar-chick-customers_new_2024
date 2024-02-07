@@ -7,16 +7,18 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { Observable } from 'rxjs';
 import { MatIconModule } from '@angular/material/icon';
 import { NavigationExtras, Router } from '@angular/router';
-import { LanguageService } from '../../_helper/language.service';
+import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+
 @Component({
   selector: 'app-statement-history',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
+  imports: [CommonModule,TranslateModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
   templateUrl: './statement-history.component.html',
   styleUrl: './statement-history.component.scss'
 })
@@ -35,10 +37,9 @@ export class StatementHistoryComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private notificationService: NotificationService,
     private router: Router,
-    private languageService: LanguageService,
+    private translationService: TranslationService,
     private changeDetectorRef: ChangeDetectorRef) {
-    this.languageService.setDefaultLanguage();
-
+ 
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();

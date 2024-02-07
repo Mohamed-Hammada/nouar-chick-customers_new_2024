@@ -3,6 +3,8 @@ import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list'
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { TranslationService } from '../../../_helper/translation.service';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 export type MenuItem = {
   icon: string,
@@ -13,7 +15,7 @@ export type MenuItem = {
 @Component({
   selector: 'app-custom-side-nav',
   standalone: true,
-  imports: [CommonModule, MatListModule, MatIconModule,RouterOutlet,RouterLink,RouterLinkActive],
+  imports: [CommonModule, MatListModule,TranslateModule,MatIconModule,RouterOutlet,RouterLink,RouterLinkActive],
   templateUrl: './custom-side-nav.component.html',
   styleUrl: './custom-side-nav.component.scss'
 })
@@ -50,11 +52,11 @@ export class CustomSideNavComponent {
     //   icon: 'attach_money',
     //   route: '/financial'
     // },
-    {
-      icon: 'dashboard',
-      label: 'Dashboard',
-      route: '/dashboard'
-    },
+    // {
+    //   icon: 'dashboard',
+    //   label: 'Dashboard',
+    //   route: '/dashboard'
+    // },
     // {
     //   icon: 'analytics',
     //   label: 'Analytics',
@@ -78,6 +80,8 @@ export class CustomSideNavComponent {
   ])
 
   profilePicSize = computed(() => this.sidenavCollapsed()? '32' : '100');
+
+  constructor(private translationService: TranslationService) { } 
 
   onMenuItemClick(item: any): void {
     // Emit the clicked item as an event

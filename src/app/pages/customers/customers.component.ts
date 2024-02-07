@@ -10,16 +10,17 @@ import { NavigationExtras, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 import { CustomerPage, CustomersService } from './customers.service';
-import { LanguageService } from '../../_helper/language.service';
+import { TranslationService } from '../../_helper/translation.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction/financial-transaction.service';
 import { KeycloakService } from 'keycloak-angular';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
+  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule,TranslateModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
 
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
@@ -36,14 +37,13 @@ export class CustomersComponent implements OnInit {
 
   constructor(private service: CustomersService,
     private router: Router,
+    private translationService: TranslationService,
     private keycloakService: KeycloakService,
     private financilaService: FinancialTransactionService,
     private confirmationDialogService: ConfirmationDialogService,
-    private languageService: LanguageService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationService: NotificationService) {
-    this.languageService.setDefaultLanguage();
-
+ 
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();

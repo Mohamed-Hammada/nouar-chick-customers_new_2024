@@ -30,12 +30,12 @@
           <!-- <img mat-card-image [src]="card.imageUrl" /> -->
           <mat-card-content>
         
-            <p>Code ID: {{ card.code_id }}</p>
+            <p>{{"code_id" | translate}}: {{ card.code_id }}</p>
             <!-- <p>Name: {{ card.name }}</p> -->
-            <p>Contact Details: {{ card.contact_details }}</p>
+            <p>{{"contact_details" | translate}}: {{ card.contact_details }}</p>
 
 
-            <p *ngIf="isAdminUser">Is User Visible to Normal Users: {{ card.visible_to_normal_users }}</p>
+            <p *ngIf="isAdminUser">{{"visible_to_normal_users" | translate}}: {{ card.visible_to_normal_users }}</p>
           
           </mat-card-content>
           <mat-card-content class="footer">
