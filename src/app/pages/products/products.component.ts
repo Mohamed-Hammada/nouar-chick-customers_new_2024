@@ -22,7 +22,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
   standalone: true,
   templateUrl: './products.component.html',
   styleUrl: './products.component.scss',
-  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
+  imports: [CommonModule, MatIconModule, TranslateModule,MatPaginatorModule, MatCardModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent]
 })
 export class ProductsComponent implements OnInit {
   cards$!: Observable<ProductPage>;

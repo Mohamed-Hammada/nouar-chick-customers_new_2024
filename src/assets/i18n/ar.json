@@ -1,6 +1,6 @@
 {
-  "like": "أعجبني",
-  "share": "مشاركة",
+  "like": "LIKE",
+  "share": "SHARE",
   "customer_information": "معلومات العميل",
   "enter_details_for_the_customer": "أدخل تفاصيل العميل",
   "code_id": "رمز العميل",
@@ -44,9 +44,13 @@
   "enter_details_for_the_statement_history": "أدخل تفاصيل تاريخ البيان",
   "statement_history_name": "اسم تاريخ البيان",
   "title": "عملاء نور",
-  "sub_title": "محمد منصور",
+  "sub_title": "تصميم بواسطة محمد منصور",
   "warning": "تحذير",
   "search_for": "البحث عن",
   "cancel": "إلغاء",
-  "yes": "نعم"
+  "yes": "نعم",
+  "customers": "العملاء",
+  "products": "المنتجات",
+  "statment_history": "تاريخ البيان",
+  "logout": "تسجيل الخروج"
 }

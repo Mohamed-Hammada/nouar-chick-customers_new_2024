@@ -32,16 +32,16 @@ export class CustomSideNavComponent {
  
     {
       icon: 'person',
-      label: 'Customers',
+      label: 'customers',
       route: '/customers'
     },
     {
-      label: 'Products',
+      label: 'products',
       icon: 'local_grocery_store',
       route: '/products'
     },
     {
-      label: 'Statment History',
+      label: 'statment_history',
       icon: 'history',
       route: '/statement-history'
     },
@@ -73,7 +73,7 @@ export class CustomSideNavComponent {
     //   route: '/comments'
     // },
     {
-      label: 'Logout',
+      label: 'logout',
       icon: 'logout',
       route: '/logout'
     },

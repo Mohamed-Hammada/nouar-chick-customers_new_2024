@@ -20,6 +20,6 @@
         rla.isActive ? 'material-icons' : 'material-icons-outlined'
         " 
         matListItemIcon>{{item.icon}}</mat-icon>
-        <span matListItemTitle *ngIf="!sidenavCollapsed()">{{item.label}}</span>
+        <span matListItemTitle *ngIf="!sidenavCollapsed()">{{item.label | translate}}</span>
     </a>
 </mat-nav-list>

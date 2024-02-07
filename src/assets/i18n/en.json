@@ -44,9 +44,13 @@
   "enter_details_for_the_statement_history": "Enter details for the statement history",
   "statement_history_name": "Statement History Name",
   "title": "Nouar Customers",
-  "sub_title": "Mohamed Mansour",
+  "sub_title": "Desinged By Mohamed Mansour",
   "warning": "Warning",
   "search_for": "Search for",
   "cancel": "Cancel",
-  "yes":"Yes"
+  "yes":"Yes",
+  "customers" : "Customers",
+  "products" : "Products",
+  "statment_history": "Statment History",
+  "logout": "Logout"
 }
