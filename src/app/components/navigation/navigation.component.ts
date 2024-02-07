@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, computed, signal } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, computed, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -21,7 +21,7 @@ import { TranslationService } from '../../_helper/translation.service';
         MatButtonModule, RouterOutlet,
         CustomSideNavComponent, CustomeSearchComponent]
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit , OnDestroy {
   collapsed = signal(false);
   darkTheme = signal(false);
   langCode = signal('ar');
