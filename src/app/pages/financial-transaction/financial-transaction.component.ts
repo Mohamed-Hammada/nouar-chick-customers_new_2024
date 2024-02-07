@@ -136,7 +136,7 @@ export class FinancialTransactionComponent implements OnInit {
 
   handleDelete(card: any): void {
     this.confirmationDialogService
-      .openConfirmationDialog('Deleting the product will also delete associated customer records. Exercise caution before proceeding?')
+      .openConfirmationDialog(this.translationService.instant('delete_transaction_confirmation'))
       .subscribe((result) => {
         if (result) {
           // User confirmed deletion, proceed with delete

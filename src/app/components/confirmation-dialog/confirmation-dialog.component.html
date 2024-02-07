@@ -6,7 +6,7 @@
 <button mat-mini-fab class="close-button" [style.color]='"primary"' (click)="dialogRef.close()">X</button>
 <mat-dialog-content>{{ data.message }}</mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-raised-button (click)="onNoClick()" color="primary">Cancel
+  <button mat-raised-button (click)="onNoClick()" color="primary">
     {{ "cancel" | translate }}
   </button>
   <button mat-raised-button (click)="onYesClick()" color="warn">    {{ "yes" | translate }}</button>

@@ -27,4 +27,8 @@ export class TranslationService {
     const direction = isRtl ? 'rtl' : 'ltr';
     this.renderer.setAttribute(document.body, 'dir', direction);
   }
+
+  instant(key: string): string {
+    return this.translateService.instant(key);
+  }
 }

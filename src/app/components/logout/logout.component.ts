@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ConfirmationDialogService } from '../confirmation-dialog/confirmation-dialog.service';
 import { KeycloakService } from 'keycloak-angular';
 import { Location } from '@angular/common';
+import { TranslationService } from '../../_helper/translation.service';
 
 @Component({
   selector: 'app-logout',
@@ -13,10 +14,11 @@ import { Location } from '@angular/common';
 export class LogoutComponent implements OnInit{
   constructor(private confirmationDialogService: ConfirmationDialogService,
     private keycloakService: KeycloakService,
-    private location: Location) { }
+    private location: Location,
+    private translationService: TranslationService) { }
   ngOnInit(): void {
     this.confirmationDialogService
-      .openConfirmationDialog('Are you sure you want to Logout?')
+      .openConfirmationDialog(this.translationService.instant('logout_confirmation'))
       .subscribe((result) => {
         if (result) {
           // User confirmed deletion, proceed with delete

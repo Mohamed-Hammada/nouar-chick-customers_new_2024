@@ -166,7 +166,7 @@ export class CustomersComponent implements OnInit {
 
   handleDelete(card: any): void {
     this.confirmationDialogService
-      .openConfirmationDialog('Are you sure you want to delete this customer?')
+      .openConfirmationDialog(this.translationService.instant('delete_customer_confirmation'))
       .subscribe((result) => {
         if (result) {
           // User confirmed deletion, proceed with delete
