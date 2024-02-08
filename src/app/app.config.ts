@@ -14,7 +14,8 @@ import {
 } from '@angular/common/http';
 import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
 import {HTTP_INTERCEPTORS, withInterceptorsFromDi} from "@angular/common/http";
-import {APP_INITIALIZER, Provider} from '@angular/core';
+import {APP_INITIALIZER, Provider, isDevMode} from '@angular/core';
+import { provideServiceWorker } from '@angular/service-worker';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -66,18 +67,22 @@ export const appConfig: ApplicationConfig = {
     KeycloakInitializerProvider, // Initializes Keycloak
     KeycloakBearerInterceptorProvider, // Provides Keycloak Bearer Interceptor
     KeycloakService, // Service for Keycloak 
-    provideRouter(routes,withViewTransitions(),withComponentInputBinding()), 
-    provideClientHydration(), 
+    provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
+    provideClientHydration(),
     // provideHttpClient(withFetch()),
-    provideAnimations(), 
+    provideAnimations(),
     { provide: Document, useExisting: DOCUMENT },
     TranslateModule.forRoot({
-      defaultLanguage: 'ar',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
-      }
-    }).providers!
-  ]
+        defaultLanguage: 'ar',
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [HttpClient]
+        }
+    }).providers!,
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
+]
 };
