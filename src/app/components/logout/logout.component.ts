@@ -21,8 +21,11 @@ export class LogoutComponent implements OnInit{
       .openConfirmationDialog(this.translationService.instant('logout_confirmation'))
       .subscribe((result) => {
         if (result) {
-          // User confirmed deletion, proceed with delete
-          this.keycloakService.logout(`http://${window.location.host}`);
+          if(typeof window !== 'undefined'){
+    // User confirmed deletion, proceed with delete
+    this.keycloakService.logout(`http://${window.location.host}`);
+          }
+      
         }else{
           
           this.location.back();

@@ -179,7 +179,7 @@ export class FinancialTransactionComponent implements OnInit {
 
   printItNew(printThis: string) {
 
-
+    if(typeof window !== 'undefined'){
     var win = window.open();
     self.focus();
 
@@ -212,7 +212,7 @@ export class FinancialTransactionComponent implements OnInit {
     win?.window.print();
     win?.document.close();
 
-
+    }
   }
 
   getHeaderRepeaterRows(headerRepeaterRows: string): Map<number, number> {

@@ -196,6 +196,8 @@ export class CustomersComponent implements OnInit {
   }
 
   private downloadFile(response: any): void {
+    if(typeof window !== 'undefined'){
+
     const blob = new Blob([response.body], { type: 'application/zip' });
     const downloadLink = document.createElement('a');
 
@@ -205,6 +207,7 @@ export class CustomersComponent implements OnInit {
     document.body.appendChild(downloadLink);
     downloadLink.click();
     document.body.removeChild(downloadLink);
+    }
   }
 
 

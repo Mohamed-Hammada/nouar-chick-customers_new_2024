@@ -21,8 +21,11 @@ export class CustomeSearchComponent {
   
   searchWidth = computed(() => {
     // debugger
-    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
-    return isSmallDevice ? 300 : 500;
+    if(typeof window !== 'undefined'){
+      const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+      return isSmallDevice ? 300 : 500;
+    }
+    return 500;
   });
 
   applyFilter(searchValue: string) {

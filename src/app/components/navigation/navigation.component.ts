@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit, computed, signal } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, afterRender, computed, signal } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,12 +29,17 @@ export class NavigationComponent implements OnInit , OnDestroy {
   resizeSubscription$!: Subscription;
   sidenaveWidth = computed(() => {
     // debugger
+    if(typeof window !== 'undefined'){
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
     return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
+    }else{
+      return '250px';
+    }
   });
 
   constructor(private breakpointObserver: BreakpointObserver, private translationService: TranslationService) {
     this.setCollapsedForScreenSize();
+    if(typeof localStorage !== 'undefined'){
     const collapsedStore = localStorage.getItem('collapsed');
     if(collapsedStore){
       this.collapsed.set(collapsedStore == 'true');
@@ -47,17 +52,21 @@ export class NavigationComponent implements OnInit , OnDestroy {
     this.langCode.set(currentLanguage || 'ar');
     this.loadTheme();
   }
+  }
 
   ngOnInit() {
 
-
+    if(typeof window !== 'undefined'){
     this.resizeObservable$ = fromEvent(window, 'resize')
     this.resizeSubscription$ = this.resizeObservable$.subscribe( evt => {
       // console.log('event: ', evt);
+  
       const isSmallDevice = window.innerWidth <= 500; // Check for small devices
        
       this.sidenaveWidth.apply( this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px');
+     
     });
+  }
   
 }
 
@@ -81,6 +90,7 @@ export class NavigationComponent implements OnInit , OnDestroy {
   }
 
   loadTheme() {
+    if(typeof localStorage !== 'undefined'){
     if (this.darkTheme()) {
       document.body.classList.add('theme-dark');
       document.body.classList.remove('theme-light'); // Fix the typo here
@@ -91,11 +101,14 @@ export class NavigationComponent implements OnInit , OnDestroy {
       localStorage.setItem('theme', 'light');
     }
   }
+  }
 
 
   toggleCollapse(){
+    if(typeof localStorage !== 'undefined'){
     this.collapsed.set(!this.collapsed());
     localStorage.setItem('collapsed', this.collapsed() + "");
+    }
   }
 
   ngOnDestroy() {
@@ -106,7 +119,7 @@ export class NavigationComponent implements OnInit , OnDestroy {
     // Update side nav width when a link is clicked
     // You can adjust the logic based on your requirements
     // debugger
-    if($event){
+    if($event&&     typeof window !== 'undefined'){
       const isSmallDevice = window.innerWidth <= 500; // Check for small devices
       if(isSmallDevice){
         this.collapsed.set(true);
@@ -117,11 +130,13 @@ export class NavigationComponent implements OnInit , OnDestroy {
   }
 
   toggleLanguage() {
+    if(typeof localStorage !== 'undefined'){
     const currentLanguage = localStorage.getItem('langCode');
     const newLanguage = currentLanguage === 'ar' ? 'en' : 'ar'; // Toggle between 'ar' and 'en'
     localStorage.setItem('langCode', newLanguage);
     this.langCode.set(newLanguage);
     this.translationService.changeLanguage(newLanguage);
   }
+}
 
 }

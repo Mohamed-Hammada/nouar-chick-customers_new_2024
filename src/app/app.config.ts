@@ -22,6 +22,7 @@ export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http,'./assets/i18n/', '.json');
 }
 function initializeKeycloak(keycloak: KeycloakService) {
+  if(typeof window !== 'undefined' && keycloak !== null && keycloak !== undefined ){
   return () =>
     keycloak.init({
       // Configuration details for Keycloak
@@ -42,7 +43,13 @@ function initializeKeycloak(keycloak: KeycloakService) {
       bearerPrefix: 'Bearer',
       // URLs excluded from Bearer token addition (empty by default)
       //bearerExcludedUrls: []
-    });
+    }); }else{
+      return ()=>{
+        return new Promise<Boolean>((resolve,reject)=>{
+          resolve(true);
+        });
+      }
+    }
  }
  
  // Provider for Keycloak Bearer Interceptor
