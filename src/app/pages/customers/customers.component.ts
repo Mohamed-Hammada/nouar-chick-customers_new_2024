@@ -54,7 +54,6 @@ export class CustomersComponent implements OnInit {
     this.isAdminUser = userRoles.includes('admin');
 
     if (isLoggedIn){
-      this.cards$ = this.service.getCustomers();
       this.loadData();
     }      
   }
