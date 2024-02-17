@@ -33,6 +33,10 @@ export class NavigationComponent implements OnInit , OnDestroy {
     return this.collapsed() ? (isSmallDevice ? '0' : '65px') : '250px';
   });
 
+  opened = computed(() => {
+    const isSmallDevice = window.innerWidth <= 500; // Check for small devices
+    return this.collapsed() ? (isSmallDevice ? false : true) : true;
+  })
   constructor(private breakpointObserver: BreakpointObserver, private translationService: TranslationService) {
     this.setCollapsedForScreenSize();
     const collapsedStore = localStorage.getItem('collapsed');

@@ -17,7 +17,7 @@
       </button>
 </mat-toolbar>
 <mat-sidenav-container class="content">
-    <mat-sidenav opened  mode="side" [style.width]="sidenaveWidth()">
+    <mat-sidenav [opened]="opened()"  mode="side" [style.width]="sidenaveWidth()">
         <app-custom-side-nav [collapsed]="collapsed()" (menuItemClicked)="onLinkClicked($event)"></app-custom-side-nav>
     </mat-sidenav>
     <mat-sidenav-content class="content" [style.margin-left]="sidenaveWidth()">
