@@ -65,7 +65,6 @@ export class FinancialTransactionComponent implements OnInit {
  
   }
   ngOnInit(): void {
-
     const isLoggedIn = this.keycloakService.isLoggedIn();
     if (!isLoggedIn)
       this.keycloakService.login();

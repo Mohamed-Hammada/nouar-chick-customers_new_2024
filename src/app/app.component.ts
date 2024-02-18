@@ -11,5 +11,5 @@ import { NavigationComponent } from './components/navigation/navigation.componen
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'nouar-chick-customers';
+  title = 'Nouar Customers';
 }

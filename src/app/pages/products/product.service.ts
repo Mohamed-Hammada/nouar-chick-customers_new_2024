@@ -51,7 +51,7 @@ export class ProductService {
   constructor(private http: HttpClient,private notificationService: NotificationService) { }
 
 
-  searchProducts(term = '', page = 1, size = 10): Observable<ProductPage> {
+  searchProducts(term = '', page = 0, size = 10): Observable<ProductPage> {
     return this.http.get<ProductPage>(`${this.apiUrl}/search`, {
       params: { term, page: page.toString(), size: size.toString() }
     }).pipe(
@@ -59,7 +59,7 @@ export class ProductService {
     );
   }
 
-  getProducts(page = 1, size = 10): Observable<ProductPage> {
+  getProducts(page = 0, size = 10): Observable<ProductPage> {
     return this.http.get<ProductPage>(`${this.apiUrl}`, {
       params: { page: page.toString(), size: size.toString() }
     });

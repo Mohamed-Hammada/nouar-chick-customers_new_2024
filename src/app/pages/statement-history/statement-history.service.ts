@@ -51,7 +51,7 @@ export class StatementHistoryService {
   constructor(private http: HttpClient,private notificationService: NotificationService) { }
 
 
-  searchStatementHistorys(term = '', page = 1, size = 10): Observable<StatementHistoryPage> {
+  searchStatementHistorys(term = '', page = 0, size = 10): Observable<StatementHistoryPage> {
     return this.http.get<StatementHistoryPage>(`${this.apiUrl}/search`, {
       params: { term, page: page.toString(), size: size.toString() }
     }).pipe(
@@ -59,7 +59,7 @@ export class StatementHistoryService {
     );
   }
 
-  getStatementHistorys(page = 1, size = 10): Observable<StatementHistoryPage> {
+  getStatementHistorys(page = 0, size = 10): Observable<StatementHistoryPage> {
     return this.http.get<StatementHistoryPage>(`${this.apiUrl}`, {
       params: { page: page.toString(), size: size.toString() }
     });

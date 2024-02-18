@@ -61,28 +61,28 @@
     <mat-card-header>
  
       <mat-card-title>
-        Financial Summary
+        {{ "financial_summary" | translate }}
       </mat-card-title>
       <mat-card-subtitle>
-        Overview of Borrower and Stock Data
+        {{ "overview_of_borrower_and_stock_data" | translate }}
       </mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div class="card-values">
         <span class="bold-custom">
-          Total Borrower on Period: {{ cardsData.total_borrower_on_period }}
+          {{ "total_borrower_on_period" | translate }} : {{ cardsData.total_borrower_on_period }}
         </span>
         <br>
         <span class="bold-custom">
-          Total Stock on Period: {{ cardsData.total_stock_on_period }}
+          {{ "total_stock_on_period" | translate }} : {{ cardsData.total_stock_on_period }}
         </span>
         <br>
         <span class="bold-custom">
-          Total Stock on Final: {{ cardsData.total_stock_on_final + ' ' + cardsData.footer_value}}
+          {{ "total_stock_on_final" | translate }} : {{ cardsData.total_stock_on_final + ' ' + cardsData.footer_value}}
         </span>
         <br>
         <span class="bold-custom">
-          Total Stock on Final Real: {{ cardsData.total_stock_on_final_real + ' ' + cardsData.footer_value}}
+          {{ "total_stock_on_final_real" | translate }} : {{ cardsData.total_stock_on_final_real + ' ' + cardsData.footer_value}}
         </span>
         <br>
  
@@ -100,8 +100,8 @@
   <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
       <mat-card-title>
-        <span><div class="bold-custom"> Statement:</div> {{ card?.statement?.name }}</span>
-        <span><div class="bold-custom"> Product:</div> {{ card?.product?.name }}</span>
+        <span><div class="bold-custom">  {{ "statement" | translate }}:</div> {{ card?.statement?.name }}</span>
+        <span><div class="bold-custom">{{ "product" | translate }}:</div> {{ card?.product?.name }}</span>
         <div class="footer">{{ card.creation_date | date:'medium' }} </div>
       </mat-card-title>
       <div class="spacer"></div>
@@ -115,12 +115,12 @@
     <!-- <img mat-card-image [src]="card.imageUrl" /> -->
     <mat-card-content>
 
-     <div> <span><div class="bold-custom"> Count:</div> {{ card?.count }}</span></div>
-     <div> <span><div class="bold-custom"> Price:</div> {{ card?.price | currency }}</span></div>
-     <div> <span><div class="bold-custom"> Borrower:</div> {{ card?.borrower }}</span></div>
-     <div> <span><div class="bold-custom"> Stock:</div> {{ card?.stock }}</span></div>
-     <div> <span><div class="bold-custom"> Total Borrower:</div> {{ card?.total_borrower }}</span></div>
-     <div> <span><div class="bold-custom"> Total Stock:</div> {{ card?.total_stock }}</span></div>
+     <div> <span><div class="bold-custom">{{ "count" | translate }}:</div> {{ card?.count }}</span></div>
+     <div> <span><div class="bold-custom">{{ "price" | translate }}:</div> {{ card?.price | currency }}</span></div>
+     <div> <span><div class="bold-custom">{{ "borrower" | translate }}:</div> {{ card?.borrower }}</span></div>
+     <div> <span><div class="bold-custom">{{ "stock" | translate }}:</div> {{ card?.stock }}</span></div>
+     <div> <span><div class="bold-custom">{{ "total_borrower" | translate }}:</div> {{ card?.total_borrower }}</span></div>
+     <div> <span><div class="bold-custom">{{ "total_stock" | translate }}:</div> {{ card?.total_stock }}</span></div>
 
 
     </mat-card-content>
