@@ -38,6 +38,7 @@
               "src/manifest.webmanifest"
             ],
             "styles": [
+              "./node_modules/material-icons-font/material-icons-font.css",
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss"
             ],

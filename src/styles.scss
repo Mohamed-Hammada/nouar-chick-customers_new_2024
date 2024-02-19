@@ -3,6 +3,13 @@
 @use '@angular/material' as mat;
 @include mat.core();
 
+// @import '../node_modules/material-design-icons/iconfont/material-icons.css';
+@import '../node_modules/material-icons-font/sass/variables';
+ @import '../node_modules/material-icons-font/sass/mixins';
+ $MaterialIcons_FontPath: "../node_modules/material-icons-font/fonts";
+ @import '../node_modules/material-icons-font/sass/main';
+ @import '../node_modules/material-icons-font/sass/Regular';
+
 
 
 html,
