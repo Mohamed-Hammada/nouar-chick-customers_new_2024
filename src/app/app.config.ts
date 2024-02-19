@@ -16,6 +16,8 @@ import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
 import {HTTP_INTERCEPTORS, withInterceptorsFromDi} from "@angular/common/http";
 import {APP_INITIALIZER, Provider, isDevMode} from '@angular/core';
 import { provideServiceWorker } from '@angular/service-worker';
+import { CorrelationIdService } from './services/correlation-id.service';
+import { LoggingInterceptor } from './services/logging-interceptor';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -68,6 +70,9 @@ export const appConfig: ApplicationConfig = {
     KeycloakBearerInterceptorProvider, // Provides Keycloak Bearer Interceptor
     KeycloakService, // Service for Keycloak 
     provideRouter(routes, withViewTransitions(), withComponentInputBinding()),
+    CorrelationIdService,
+    { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
+
     provideClientHydration(),
     // provideHttpClient(withFetch()),
     provideAnimations(),
