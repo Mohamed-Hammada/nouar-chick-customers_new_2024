@@ -74,7 +74,7 @@ export const appConfig: ApplicationConfig = {
     { provide: HTTP_INTERCEPTORS, useClass: LoggingInterceptor, multi: true },
 
     provideClientHydration(),
-    provideHttpClient(withFetch()),
+    // provideHttpClient(withFetch()),
     provideAnimations(),
     { provide: Document, useExisting: DOCUMENT },
     TranslateModule.forRoot({

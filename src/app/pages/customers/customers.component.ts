@@ -191,27 +191,16 @@ export class CustomersComponent implements OnInit {
 
   downloadData(event:any): void {
     // event.preventdefault()
-    this.financilaService.downloadBatch2()
-      .subscribe(response => {
-        debugger
-
-        // Handle the response, e.g., trigger a download
-        // this.downloadFile(response);
-        // this.downloadFileBatch(response);
-        var BOM = "\uFEFF";
-        this.logBlobContent(response);
-        // this.arrayBufferToString(response);
-          // var data = new Blob([  response], { type: 'text/csv;charset=utf-8' });
-          // FileSaver.saveAs(data, 'customer_information.csv');
-    
-      });
+    this.financilaService.downloadStream() .subscribe(response => {
+        this.downloadContentToUser(response);
+    });
   }
   arrayBufferToString(arrayBuffer: ArrayBuffer): string {
     const decoder = new TextDecoder('utf-8');
     return decoder.decode(arrayBuffer);
   }
 
-  logBlobContent(blob: Blob) {
+  downloadContentToUser(blob: Blob) {
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result;

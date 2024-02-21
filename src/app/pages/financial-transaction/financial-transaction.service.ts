@@ -97,26 +97,47 @@ export class FinancialTransactionService {
   }
 
   downloadAllData(): Observable<HttpResponse<Blob>> {
-    const url = `${this.apiUrl}/download`;
+    const url = `${this.apiUrl}/download?${new Date().getTime()}`;
 
     return this.http.get(url, {
       observe: 'response',
       responseType: 'blob' as 'json', // This is important for downloading binary data (e.g., a ZIP file)
       headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'application/octet-stream;charset=utf-8',
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Accept': 'application/octet-stream;charset=utf-8',
       })
     }) as Observable<HttpResponse<Blob>>;
   }
 
-  downloadBatch2(): Observable<Blob> {
-    const url = `${this.apiUrl}/download/batch`;
+  downloadStream(): Observable<Blob> {
+    const url = `${this.apiUrl}/download/stream?${new Date().getTime()}`;
 
     return this.http.get(url, {
       responseType: 'blob' as 'json', // This is important for downloading binary data (e.g., a ZIP file)
       headers: new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/octet-stream;charset=utf-8',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Accept': 'application/octet-stream;charset=utf-8',
+      })
+    }) as Observable<Blob>;
+  }
+
+  downloadBatch2(): Observable<Blob> {
+    const url = `${this.apiUrl}/download/batch?${new Date().getTime()}`;
+
+    return this.http.get(url, {
+      responseType: 'blob' as 'json', // This is important for downloading binary data (e.g., a ZIP file)
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json; charset=utf-8',
+        'Cache-Control':  'no-cache, no-store, must-revalidate, post-check=0, pre-check=0',
+        'Pragma': 'no-cache',
+        'Expires': '0',
+        'Accept': 'application/octet-stream;charset=utf-8',
       })
     }) as Observable<Blob>;
   }
