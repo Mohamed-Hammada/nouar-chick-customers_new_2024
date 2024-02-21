@@ -12,13 +12,13 @@
     <button mat-icon-button (click)="toggleTheme()">
         <mat-icon>{{ darkTheme() ? 'wb_sunny' : 'nights_stay' }}</mat-icon>
       </button>
-      <button mat-icon-button (click)="toggleLanguage()">
+      <button mat-icon-button (click)="toggleLanguage() ; $event.stopPropagation()">
         <mat-icon style="font-size: 16px;">{{ langCode() === "ar" ? "AR":"EN" }}</mat-icon>
       </button>
 </mat-toolbar>
 <mat-sidenav-container class="content">
     <mat-sidenav [opened]="opened()"  mode="side" [style.width]="sidenaveWidth()">
-        <app-custom-side-nav [collapsed]="collapsed()" (menuItemClicked)="onLinkClicked($event)"></app-custom-side-nav>
+        <app-custom-side-nav dir="auto" [collapsed]="collapsed()" (menuItemClicked)="onLinkClicked($event)"></app-custom-side-nav>
     </mat-sidenav>
     <mat-sidenav-content class="content" [style.margin-left]="sidenaveWidth()">
         <router-outlet></router-outlet>

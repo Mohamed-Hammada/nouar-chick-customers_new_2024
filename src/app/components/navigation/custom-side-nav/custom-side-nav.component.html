@@ -5,7 +5,7 @@
         <p matListItemTitle>{{ "sub_title" | translate }}</p>
     </div>
 </div>
-<mat-nav-list>
+<mat-nav-list >
     <a mat-list-item 
     class="menu-item"
     *ngFor="let item of menuItems()" 
@@ -20,6 +20,6 @@
         rla.isActive ? 'material-icons' : 'material-icons-outlined'
         " 
         matListItemIcon>{{item.icon}}</mat-icon>
-        <span matListItemTitle *ngIf="!sidenavCollapsed()">{{item.label | translate}}</span>
+        <span matListItemTitle *ngIf="!sidenavCollapsed()" dir="auto">{{item.label | translate}}</span>
     </a>
 </mat-nav-list>

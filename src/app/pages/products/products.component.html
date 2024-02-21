@@ -6,7 +6,7 @@
 
 </mat-toolbar>
 <br />
-<div class="responsive-grid">
+<div class="responsive-grid" dir="auto">
     <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
         <mat-card-header>
           <mat-card-title >{{ card.name }}   <div class="footer">{{ card.creation_date | date:'medium' }} </div></mat-card-title>

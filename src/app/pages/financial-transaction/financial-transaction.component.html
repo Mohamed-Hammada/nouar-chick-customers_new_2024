@@ -20,7 +20,7 @@
           </mat-form-field>
         </div>
       </div>
-      <div class="flex-container">
+      <div class="flex-container" >
         <div class="form-group">
           <mat-form-field class="flex-container">
             <mat-label>{{"enter_a_date_range" | translate}}</mat-label>
@@ -56,18 +56,18 @@
 
 <br />
 
-<ng-container *ngIf="cards$ | async as cardsData">
+<ng-container *ngIf="cards$ | async as cardsData" >
   <mat-card *ngIf="cardsData.financial_transactions && cardsData.financial_transactions.length > 0">
     <mat-card-header>
  
-      <mat-card-title>
+      <mat-card-title dir="auto">
         {{ "financial_summary" | translate }}
       </mat-card-title>
       <mat-card-subtitle>
         {{ "overview_of_borrower_and_stock_data" | translate }}
       </mat-card-subtitle>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content dir="auto">
       <div class="card-values">
         <span class="bold-custom">
           {{ "total_borrower_on_period" | translate }} : {{ cardsData.total_borrower_on_period }}
@@ -96,7 +96,7 @@
 
 
 
-<div class="responsive-grid">
+<div class="responsive-grid" dir="auto">
   <mat-card *ngFor="let card of (cards$ | async)?.financial_transactions;trackBy: myTrackByFunc">
     <mat-card-header>
       <mat-card-title>
@@ -113,7 +113,7 @@
     </mat-card-header>
     <br />
     <!-- <img mat-card-image [src]="card.imageUrl" /> -->
-    <mat-card-content>
+    <mat-card-content dir="auto">
 
      <div> <span><div class="bold-custom">{{ "count" | translate }}:</div> {{ card?.count }}</span></div>
      <div> <span><div class="bold-custom">{{ "price" | translate }}:</div> {{ card?.price | currency }}</span></div>

@@ -10,7 +10,7 @@
   </mat-toolbar>
   <br />
 
-  <div class="responsive-grid">
+  <div class="responsive-grid"  dir="auto">
       <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
           <mat-card-header >
             <mat-card-title >{{ card.name }}
@@ -29,7 +29,7 @@
             </mat-card-header>
           <br />
           <!-- <img mat-card-image [src]="card.imageUrl" /> -->
-          <mat-card-content>
+          <mat-card-content dir="auto">
         
             <p>{{"code_id" | translate}}: {{ card.code_id }}</p>
             <!-- <p>Name: {{ card.name }}</p> -->
@@ -39,7 +39,7 @@
             <p *ngIf="isAdminUser">{{"visible_to_normal_users" | translate}}: {{ card.visible_to_normal_users }}</p>
           
           </mat-card-content>
-          <mat-card-content class="footer">
+          <mat-card-content class="footer" >
              <p> {{ card.modification_date | date:'medium' }}</p>
 
              <div class="spacer"></div>
