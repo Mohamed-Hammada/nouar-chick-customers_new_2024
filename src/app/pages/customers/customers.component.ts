@@ -16,11 +16,12 @@ import { ConfirmationDialogService } from '../../components/confirmation-dialog/
 import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction/financial-transaction.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
-
+import { FileSaverModule } from 'ngx-filesaver';
+import FileSaver from 'file-saver';
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [CommonModule, MatIconModule, MatPaginatorModule, MatCardModule,TranslateModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
+  imports: [CommonModule, FileSaverModule, MatIconModule, MatPaginatorModule, MatCardModule, TranslateModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
 
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
@@ -43,7 +44,7 @@ export class CustomersComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationService: NotificationService) {
- 
+
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();
@@ -53,9 +54,9 @@ export class CustomersComponent implements OnInit {
     const userRoles = this.keycloakService.getUserRoles();
     this.isAdminUser = userRoles.includes('admin');
 
-    if (isLoggedIn){
+    if (isLoggedIn) {
       this.loadData();
-    }      
+    }
   }
   loadData(searchTerm: string | null = ''): void {
     // if (searchTerm) {
@@ -188,11 +189,44 @@ export class CustomersComponent implements OnInit {
   }
 
 
-  downloadData(): void {
-    this.financilaService.downloadAllData().subscribe(response => {
-      // Handle the response, e.g., trigger a download
-      this.downloadFile(response);
-    });
+  downloadData(event:any): void {
+    // event.preventdefault()
+    this.financilaService.downloadBatch2()
+      .subscribe(response => {
+        debugger
+
+        // Handle the response, e.g., trigger a download
+        // this.downloadFile(response);
+        // this.downloadFileBatch(response);
+        var BOM = "\uFEFF";
+        this.logBlobContent(response);
+        // this.arrayBufferToString(response);
+          // var data = new Blob([  response], { type: 'text/csv;charset=utf-8' });
+          // FileSaver.saveAs(data, 'customer_information.csv');
+    
+      });
+  }
+  arrayBufferToString(arrayBuffer: ArrayBuffer): string {
+    const decoder = new TextDecoder('utf-8');
+    return decoder.decode(arrayBuffer);
+  }
+
+  logBlobContent(blob: Blob) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result;
+      if (result && typeof result === 'string') {
+        // Create a new blob with the UTF-8 encoded text
+        const utf8Blob = new Blob([new Uint8Array([0xEF, 0xBB, 0xBF]), result], { type: 'text/csv;charset=utf-8' });
+        // Trigger the download
+        FileSaver.saveAs(utf8Blob, 'customer_information.csv');
+      } else {
+        console.error('Invalid or null result from FileReader');
+      }
+
+      console.log(reader.result);
+    };
+    reader.readAsText(blob);
   }
 
   private downloadFile(response: any): void {
@@ -206,6 +240,19 @@ export class CustomersComponent implements OnInit {
     downloadLink.click();
     document.body.removeChild(downloadLink);
   }
+
+  downloadFileBatch(response: any) {
+    // Replace 'your-endpoint-url' with the actual endpoint URL
+    const blob = new Blob([response.body], { type: 'application/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'customer_information.csv'; // Set desired file name here
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }
+
 
 
 }
