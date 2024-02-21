@@ -62,7 +62,7 @@ export class FinancialTransactionService {
 
 
   getFinancialTransactions(customer_id?: number, from?: Date, to?: Date): Observable<FinancialTransactionResponse> {
-    const params: any = { customer_id: customer_id, from: from?.toISOString(), to: to?.toISOString() };
+    const params: any = { customer_id: customer_id, from: from?.toISOString(), to: to?.toISOString() , x:`#${new Date().getTime()}` };
     // debugger
     return this.http.get<FinancialTransactionResponse>(`${this.apiUrl}`, { params });
   }
@@ -97,7 +97,7 @@ export class FinancialTransactionService {
   }
 
   downloadAllData(): Observable<HttpResponse<Blob>> {
-    const url = `${this.apiUrl}/download?${new Date().getTime()}`;
+    const url = `${this.apiUrl}/download/#${new Date().getTime()}`;
 
     return this.http.get(url, {
       observe: 'response',
@@ -150,7 +150,7 @@ export class FinancialTransactionService {
       'Content-Type': 'application/json',
       Accept: 'application/octet-stream;charset=utf-8',
     }) }).subscribe((response: Blob) => {
-      debugger
+      // debugger
       response.text().then((text) => {
         console.log(text)
       })

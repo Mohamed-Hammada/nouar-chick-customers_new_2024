@@ -59,12 +59,12 @@ export class FinancialTransactionComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private translationService: TranslationService) {
-    const navigation = this.router.getCurrentNavigation();
-    const state = navigation?.extras.state;
-    this.customer = state?.['content'] || {};
- 
+      const navigation = this.router.getCurrentNavigation();
+      const state = navigation?.extras.state;
+      this.customer = state?.['content'] || {};
   }
   ngOnInit(): void {
+    // debugger;
     const isLoggedIn = this.keycloakService.isLoggedIn();
     if (!isLoggedIn)
       this.keycloakService.login();
@@ -73,19 +73,17 @@ export class FinancialTransactionComponent implements OnInit {
       this.initForm();
 
       this.loadData();
-    }      
-
-
-
+    }    
   }
+ 
 
   initForm(): void {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
+    today.setHours(23, 59, 59, 999); // Set hours, minutes, seconds, and milliseconds to 0
 
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
-
+    yesterday.setHours(0, 0, 0, 0); // Set hours, minutes, seconds, and milliseconds to 0
     this.customerForm = this.fb.group({
       id: [this.customer.id], // You can set default values or leave them empty
       code_id: [this.customer.code_id],
