@@ -2,7 +2,8 @@
   
     <div class="spacer"></div> 
     <app-custome-search (term)="handleSearchTermChange($event)" ></app-custome-search>
-    <button mat-fab color="primary" class="small-mat-fab" (click)="downloadData($event)"><mat-icon>get_app</mat-icon></button>
+    <button mat-fab color="primary" class="small-mat-fab" *ngIf="!showSpinner" (click)="downloadData($event)"><mat-icon>get_app</mat-icon></button>
+    <mat-spinner *ngIf="showSpinner"></mat-spinner>
 
     <div class="spacer"></div> 
   

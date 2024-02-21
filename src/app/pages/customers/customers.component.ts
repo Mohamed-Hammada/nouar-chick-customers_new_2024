@@ -18,10 +18,12 @@ import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FileSaverModule } from 'ngx-filesaver';
 import FileSaver from 'file-saver';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 @Component({
   selector: 'app-customers',
   standalone: true,
-  imports: [CommonModule, FileSaverModule, MatIconModule, MatPaginatorModule, MatCardModule, TranslateModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
+  imports: [MatProgressSpinnerModule,CommonModule, FileSaverModule, MatIconModule, MatPaginatorModule, MatCardModule, TranslateModule, MatToolbarModule, MatButtonModule, CustomeSearchComponent],
 
   templateUrl: './customers.component.html',
   styleUrl: './customers.component.scss'
@@ -30,6 +32,7 @@ export class CustomersComponent implements OnInit {
   cards$!: Observable<CustomerPage>;
   currentPage: number = 0;
   totalPages: number = -1;
+  showSpinner: boolean = false;
   pageSize: number = 5;
   isAdminUser: boolean = false;
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
@@ -190,9 +193,12 @@ export class CustomersComponent implements OnInit {
 
 
   downloadData(event:any): void {
+    this.showSpinner = true;
+
     // event.preventdefault()
     this.financilaService.downloadStream() .subscribe(response => {
         this.downloadContentToUser(response);
+        this.showSpinner = false;
     });
   }
   arrayBufferToString(arrayBuffer: ArrayBuffer): string {
