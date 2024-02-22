@@ -145,7 +145,7 @@ export class CreateUpdateFinancialTransactionComponent {
             this.router.navigate(['/financial'] , navigationExtras);
             this.notificationService.success('Updated successfully');
           }else{
-            // debugger
+            console.error(response);
             this.notificationService.error('Update Failed Something Wrong');    
           }  
       }, error => {
@@ -166,6 +166,7 @@ export class CreateUpdateFinancialTransactionComponent {
           this.notificationService.success('Created successfully');
         }else{
           // debugger
+          console.error(response);
           this.notificationService.error('Create Failed Something Wrong');    
         } 
       }, error => {
