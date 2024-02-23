@@ -16,6 +16,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class CreateUpdateFinancialTransactionComponent {
   transactions: FinancialTransactionDto[] = [];
   isEdit: boolean = false;
   data : any;
+  direction: Direction = 'ltr';
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
     private translationService: TranslationService,
@@ -49,6 +51,8 @@ export class CreateUpdateFinancialTransactionComponent {
     private router: Router,
     private statementHistoryService: StatementHistoryService,
     private service: FinancialTransactionService) {
+      this.direction = this.translationService.currentLangDirection();
+
       const isLoggedIn = this.keycloakService.isLoggedIn();
       if (!isLoggedIn)
         this.keycloakService.login();

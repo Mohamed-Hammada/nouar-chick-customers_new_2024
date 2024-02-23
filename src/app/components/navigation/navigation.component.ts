@@ -3,7 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DOCUMENT } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { RouterOutlet } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { CustomSideNavComponent } from "./custom-side-nav/custom-side-nav.component";
@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../custome-search/custome-search.component";
 import { fromEvent , Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../_helper/translation.service';
+import { Direction } from '@angular/cdk/bidi';
 @Component({
     selector: 'app-navigation',
     standalone: true,
@@ -37,6 +38,7 @@ export class NavigationComponent implements OnInit , OnDestroy {
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
     return this.collapsed() ? (isSmallDevice ? false : true) : true;
   })
+  direction: Direction = 'rtl';
   constructor(private breakpointObserver: BreakpointObserver, private translationService: TranslationService) {
     this.setCollapsedForScreenSize();
     const collapsedStore = localStorage.getItem('collapsed');
@@ -47,8 +49,8 @@ export class NavigationComponent implements OnInit , OnDestroy {
     if (storedTheme) {
       this.darkTheme.set(storedTheme === 'dark')
     }
-    const currentLanguage = localStorage.getItem('langCode');
-    this.langCode.set(currentLanguage || 'ar');
+    this.langCode.set(translationService.currentLangCode());
+    this.direction = this.translationService.currentLangDirection();
     this.loadTheme();
   }
 
@@ -126,6 +128,10 @@ export class NavigationComponent implements OnInit , OnDestroy {
     localStorage.setItem('langCode', newLanguage);
     this.langCode.set(newLanguage);
     this.translationService.changeLanguage(newLanguage);
+  }
+  sidenavPosition()  {
+    // Logic for determining the position of the sidenav based on direction
+    return this.direction === 'rtl' ? 'end' : 'start';
   }
 
 }

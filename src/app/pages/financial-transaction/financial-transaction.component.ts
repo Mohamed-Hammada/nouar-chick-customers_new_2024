@@ -25,6 +25,7 @@ import { CreateUpdateCustomersComponent } from "../customers/create-update-custo
 import { KeycloakService } from 'keycloak-angular';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 
 @Component({
@@ -50,7 +51,7 @@ export class FinancialTransactionComponent implements OnInit {
   customer: Customer = {};
   cards$!: Observable<FinancialTransactionResponse>;
 
-
+  direction: Direction = 'rtl';
 
   constructor(private service: FinancialTransactionService,
     private fb: FormBuilder,
@@ -59,9 +60,11 @@ export class FinancialTransactionComponent implements OnInit {
     private notificationService: NotificationService,
     private router: Router,
     private translationService: TranslationService) {
+      this.direction = this.translationService.currentLangDirection();
       const navigation = this.router.getCurrentNavigation();
       const state = navigation?.extras.state;
       this.customer = state?.['content'] || {};
+
   }
   ngOnInit(): void {
     // debugger;

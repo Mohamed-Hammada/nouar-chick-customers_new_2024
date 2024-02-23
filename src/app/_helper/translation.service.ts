@@ -1,3 +1,4 @@
+import { Direction } from '@angular/cdk/bidi';
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -31,4 +32,14 @@ export class TranslationService {
   instant(key: string): string {
     return this.translateService.instant(key);
   }
+
+  currentLangDirection(): Direction {
+    const languageCode = localStorage.getItem('langCode') || 'ar'; 
+    return (languageCode === 'ar' || languageCode === 'he') === true? 'rtl' : 'ltr';
+  }
+
+  currentLangCode(): string {
+    return localStorage.getItem('langCode') || 'ar'; 
+  }
+
 }

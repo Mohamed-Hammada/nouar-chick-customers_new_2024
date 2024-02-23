@@ -15,6 +15,7 @@ import { ConfirmationDialogService } from '../../components/confirmation-dialog/
 import { NotificationService } from '../../components/notification.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 
 @Component({
@@ -33,7 +34,7 @@ export class ProductsComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-
+  direction: Direction = 'rtl';
   constructor(private service: ProductService,
     private confirmationDialogService: ConfirmationDialogService,
     private keycloakService: KeycloakService,
@@ -42,7 +43,7 @@ export class ProductsComponent implements OnInit {
     private router: Router,
     private translationService: TranslationService,
     private changeDetectorRef: ChangeDetectorRef) {
- 
+      this.direction = this.translationService.currentLangDirection();
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();

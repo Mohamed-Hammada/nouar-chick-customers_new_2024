@@ -38,6 +38,10 @@ img {
     bottom: 80px;
     right: 30px;
     z-index: 1000; /* Adjust the z-index as needed */
+    &[dir='rtl'] {
+      right: auto; /* Reset to auto */
+      left: 30px; /* Position for RTL */
+    }
   }
 
   .scrollable-description {
@@ -56,5 +60,5 @@ img {
       font-size: 14px; /* Adjust font size as needed */
       /* Add any additional styles you want to apply */
     }
-    
+  
   }

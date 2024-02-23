@@ -61,7 +61,7 @@
 
 
 <div [hidden]="isEdit">
-<button mat-fab [hidden]="readOnly" color="primary" class="floating-button" (click)="addEmptyTransaction()">
+<button mat-fab [hidden]="readOnly" color="primary" class="floating-button" (click)="addEmptyTransaction()"  [dir]="direction">
   <mat-icon>add</mat-icon>
 </button>
 </div>

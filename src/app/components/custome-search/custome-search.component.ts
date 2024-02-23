@@ -7,6 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatInputModule } from '@angular/material/input';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
+import { TranslationService } from '../../_helper/translation.service';
 
 @Component({
   selector: 'app-custome-search',
@@ -18,13 +20,16 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 })
 export class CustomeSearchComponent {
   @Output() term = new EventEmitter<string>();
-  
+  direction: Direction = 'rtl';
   searchWidth = computed(() => {
     // debugger
     const isSmallDevice = window.innerWidth <= 500; // Check for small devices
     return isSmallDevice ? 300 : 500;
   });
 
+  constructor(private translationService: TranslationService) { 
+    this.direction = this.translationService.currentLangDirection();
+  }
   applyFilter(searchValue: string) {
     this.term.emit(searchValue);
   }

@@ -1,6 +1,6 @@
-<mat-toolbar class="mat-elevation-z3">
+<mat-toolbar class="mat-elevation-z3" [dir]="direction" >
     
-    <button mat-icon-button (click)="toggleCollapse()" >
+    <button  mat-icon-button (click)="toggleCollapse()" >
         <mat-icon>menu</mat-icon>
     </button>
     <div class="spacer"></div> 
@@ -17,10 +17,17 @@
       </button>
 </mat-toolbar>
 <mat-sidenav-container class="content">
-    <mat-sidenav [opened]="opened()"  mode="side" [style.width]="sidenaveWidth()">
-        <app-custom-side-nav dir="auto" [collapsed]="collapsed()" (menuItemClicked)="onLinkClicked($event)"></app-custom-side-nav>
+    <mat-sidenav [opened]="opened()"  mode="side" [style.width]="sidenaveWidth()" [position]="sidenavPosition()">
+        <app-custom-side-nav [dir]="direction" [collapsed]="collapsed()" (menuItemClicked)="onLinkClicked($event)"></app-custom-side-nav>
     </mat-sidenav>
-    <mat-sidenav-content class="content" [style.margin-left]="sidenaveWidth()">
-        <router-outlet></router-outlet>
-    </mat-sidenav-content>
+    @if(direction === "ltr"){
+        <mat-sidenav-content class="content" [style.margin-left]="sidenaveWidth()">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    } @else{
+        <mat-sidenav-content class="content" [style.margin-right]="sidenaveWidth()">
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    }
+    
 </mat-sidenav-container>

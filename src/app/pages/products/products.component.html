@@ -6,7 +6,7 @@
 
 </mat-toolbar>
 <br />
-<div class="responsive-grid" dir="auto">
+<div class="responsive-grid"  [dir]="direction">
     <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
         <mat-card-header>
           <mat-card-title >{{ card.name }}   <div class="footer">{{ card.creation_date | date:'medium' }} </div></mat-card-title>
@@ -38,7 +38,7 @@
           </mat-card-content>
       </mat-card>
 
-      <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
+      <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()"  [dir]="direction">
         <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
       </button>
 

@@ -10,7 +10,7 @@
   </mat-toolbar>
   <br />
 
-  <div class="responsive-grid"  dir="auto">
+  <div class="responsive-grid"  [dir]="direction">
       <mat-card *ngFor="let card of (cards$ | async)?.content;trackBy: myTrackByFunc">
           <mat-card-header >
             <mat-card-title >{{ card.name }}
@@ -29,7 +29,7 @@
             </mat-card-header>
           <br />
           <!-- <img mat-card-image [src]="card.imageUrl" /> -->
-          <mat-card-content dir="auto">
+          <mat-card-content [dir]="direction">
         
             <p>{{"code_id" | translate}}: {{ card.code_id }}</p>
             <!-- <p>Name: {{ card.name }}</p> -->
@@ -53,7 +53,7 @@
             </mat-card-content>
         </mat-card>
   
-        <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()">
+        <button mat-fab color="primary" class="floating-button" (click)="addChildHandler()"  [dir]="direction">
           <mat-icon>add</mat-icon> <!-- You can change the icon as needed -->
         </button>
   

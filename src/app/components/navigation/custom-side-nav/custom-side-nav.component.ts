@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 export type MenuItem = {
   icon: string,
@@ -24,7 +25,7 @@ export class CustomSideNavComponent {
   sidenavCollapsed = signal(false);
   @Output() menuItemClicked = new EventEmitter<any>();
 
-
+  direction: Direction = 'rtl';
   @Input() set collapsed(val : boolean){
     this.sidenavCollapsed.set(val);
   }
@@ -81,7 +82,9 @@ export class CustomSideNavComponent {
 
   profilePicSize = computed(() => this.sidenavCollapsed()? '32' : '100');
 
-  constructor(private translationService: TranslationService) { } 
+  constructor(private translationService: TranslationService) {
+    this.direction = this.translationService.currentLangDirection();
+  } 
 
   onMenuItemClick(item: any): void {
     // Emit the clicked item as an event

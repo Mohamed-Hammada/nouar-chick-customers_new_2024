@@ -19,6 +19,7 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FileSaverModule } from 'ngx-filesaver';
 import FileSaver from 'file-saver';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-customers',
@@ -38,7 +39,7 @@ export class CustomersComponent implements OnInit {
   pageSizeOptions: number[] = [5, 10, 15, 20, 50, 100, 200, 500];
   totalRecords: number = -1;
   @ViewChild(MatPaginator, { static: false }) paginator!: MatPaginator;
-
+  direction: Direction = 'rtl';
   constructor(private service: CustomersService,
     private router: Router,
     private translationService: TranslationService,
@@ -47,7 +48,7 @@ export class CustomersComponent implements OnInit {
     private confirmationDialogService: ConfirmationDialogService,
     private changeDetectorRef: ChangeDetectorRef,
     private notificationService: NotificationService) {
-
+      this.direction = this.translationService.currentLangDirection();
   }
   ngOnInit(): void {
     const isLoggedIn = this.keycloakService.isLoggedIn();
