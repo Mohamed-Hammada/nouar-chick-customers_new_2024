@@ -15,10 +15,9 @@ import { Observable } from 'rxjs';
 import { NavigationExtras, Router } from '@angular/router';
 import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
-import { FinancialTransactionResponse, FinancialTransactionService } from './financial-transaction.service';
+import { FinancialTransactionService } from '../../services/financial-transaction.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
-import { Customer } from '../customers/customers.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list'
 import { CreateUpdateCustomersComponent } from "../customers/create-update-customers/create-update-customers.component";
@@ -26,6 +25,8 @@ import { KeycloakService } from 'keycloak-angular';
 
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { Customer } from '../../models/customer.model';
+import { FinancialTransactionResponse } from '../../models/financial-transaction.model';
 
 
 @Component({

@@ -9,17 +9,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigationExtras, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
-import { CustomerPage, CustomersService } from './customers.service';
+import {  CustomersService } from '../../services/customers.service';
 import { TranslationService } from '../../_helper/translation.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
-import { FinancialTransaction, FinancialTransactionService } from '../financial-transaction/financial-transaction.service';
+import { FinancialTransactionService } from '../../services/financial-transaction.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { FileSaverModule } from 'ngx-filesaver';
 import FileSaver from 'file-saver';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { Direction } from '@angular/cdk/bidi';
+import { CustomerPage } from '../../models/customer.model';
 
 @Component({
   selector: 'app-customers',

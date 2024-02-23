@@ -10,12 +10,13 @@ import { NavigationExtras, Router } from '@angular/router';
 import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
 
-import { ProductPage, ProductService } from './product.service';
+import { ProductService } from '../../services/product.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { NotificationService } from '../../components/notification.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { ProductPage } from '../../models/product.model';
 
 
 @Component({

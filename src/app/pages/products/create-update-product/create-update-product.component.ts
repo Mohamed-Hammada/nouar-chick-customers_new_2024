@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { Product, ProductService } from '../product.service';
+import { ProductService } from '../../../services/product.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,7 @@ import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { Product } from '../../../models/product.model';
 
 @Component({
   selector: 'app-create-update-product',

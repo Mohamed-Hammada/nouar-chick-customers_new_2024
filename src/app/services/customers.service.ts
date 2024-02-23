@@ -1,48 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Environment } from '../../../environments/environment';
-import { NotificationService } from '../../../app/components/notification.service'; // Adjust the import path
-import { FinancialTransaction } from '../financial-transaction/financial-transaction.service';
+import { Environment } from '../../environments/environment';
+import { NotificationService } from '../components/notification.service'; // Adjust the import path
+import { Customer, CustomerPage } from '../models/customer.model';
 
-export type Customer = {
-  id?: number;
-  code_id?: number;
-  name?: string;
-  contact_details?: string;
-  creation_date?: string; // Assuming you want to use a string representation for Instant
-  modification_date?: string; // Assuming you want to use a string representation for Instant
-  visible_to_normal_users?: boolean;
-  transactions?: FinancialTransaction[]; // Assuming you have a FinancialTransaction type
-}
-
-export interface CustomerPage {
-  content?: Customer[];
-  total_elements?: number;
-  total_pages?: number;
-  pageable?: {
-    page_number?: number;
-    page_size?: number;
-    sort?: {
-      empty?: boolean;
-      sorted?: boolean;
-      unsorted?: boolean;
-    };
-    offset?: number;
-    paged?: boolean;
-    unpaged?: boolean;
-  };
-  last?: boolean;
-  number_of_elements?: number;
-  size?: number;
-  number?: number;
-  sort?: {
-    empty?: boolean;
-    sorted?: boolean;
-    unsorted?: boolean;
-  };
-  empty?: boolean;
-}
 
 @Injectable({
   providedIn: 'root'

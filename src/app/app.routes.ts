@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { AnalyticsComponent } from './pages/analytics/analytics.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { FinancialTransactionComponent } from './pages/financial-transaction/financial-transaction.component';
 import { CustomersComponent } from './pages/customers/customers.component';
@@ -17,7 +16,6 @@ import { LogoutComponent } from './components/logout/logout.component';
 export const routes: Routes = [
   // { path: '' ,component: DashboardComponent },
   { path: '', redirectTo: 'customers', pathMatch: 'full' },
-  { path: 'analytics', component: AnalyticsComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'financial', component: FinancialTransactionComponent },
   { path: 'statement-history', component: StatementHistoryComponent},

@@ -1,54 +1,10 @@
-import { Product } from '../products/product.service';
-import { Customer } from '../customers/customers.service';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
-import { Environment } from '../../../environments/environment';
-import { NotificationService } from '../../../app/components/notification.service'; // Adjust the import path
-import { StatementHistory } from '../statement-history/statement-history.service';
-
-
-export type FinancialTransaction = {
-  id?: number;
-  statement?: StatementHistory;
-  product?: Product; // Assuming you have a Product type
-  count?: number;
-  price?: number;
-  borrower?: number;
-  stock?: number;
-  total_borrower?: number;
-  total_stock?: number;
-  customer?: Customer; // Assuming you have a Customer type
-  creation_date?: string; // Assuming you want to use a string representation for Instant
-  modification_date?: string; // Assuming you want to use a string representation for Instant
-}
-
-export interface FinancialTransactionResponse {
-  financial_transactions?: FinancialTransaction[];
-  total_borrower_on_period?: number;
-  total_stock_on_period?: number;
-  total_stock_on_final?: number;
-  total_stock_on_final_real?: number;
-  footer_value?: string;
-}
-
-export type Response = {
-  content: string;
-}
-
-export type FinancialTransactionDto = {
-  id?: number;
-  statement?: string;
-  product?: string; // Assuming you have a Product type
-  count?: number;
-  price?: number;
-  borrower?: number;
-  stock?: number;
-  total_borrower?: number;
-  total_stock?: number;
-  creation_date?: string; // Assuming you want to use a string representation for Instant
-  modification_date?: string; // Assuming you want to use a string representation for Instant
-}
+import { Environment } from '../../environments/environment';
+import { NotificationService } from '../components/notification.service'; // Adjust the import path
+import { FinancialTransaction, FinancialTransactionDto, FinancialTransactionResponse } from '../models/financial-transaction.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root'

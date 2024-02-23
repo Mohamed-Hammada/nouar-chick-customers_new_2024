@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FinancialTransaction, FinancialTransactionDto, FinancialTransactionService } from '../financial-transaction.service';
+import { FinancialTransactionService } from '../../../services/financial-transaction.service';
 import { FormsModule } from '@angular/forms'; // <-- Import FormsModule
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,15 +8,16 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common'; // Import CommonModule
 import { Observable, map } from 'rxjs';
 import { CustomChipAutocompeleteComponentComponent } from "../../../components/custom-chip-autocompelete-component/custom-chip-autocompelete-component.component";
-import { ProductPage, ProductService } from '../../products/product.service';
-import { StatementHistoryService } from '../../statement-history/statement-history.service';
-import { Customer } from '../../customers/customers.service';
+import { ProductService } from '../../../services/product.service';
+import { StatementHistoryService } from '../../../services/statement-history.service';
 import { NotificationService } from '../../../components/notification.service';
 import { NavigationExtras, Router } from '@angular/router';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { FinancialTransactionDto } from '../../../models/financial-transaction.model';
+import { Customer } from '../../../models/customer.model';
 
 
 @Component({

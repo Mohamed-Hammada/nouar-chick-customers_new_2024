@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { StatementHistoryService } from './statement-history.service';
+import { StatementHistoryService } from '../../services/statement-history.service';
 
 describe('StatementHistoryService', () => {
   let service: StatementHistoryService;

@@ -9,12 +9,13 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { Customer, CustomersService } from '../customers.service';
+import { CustomersService } from '../../../services/customers.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { KeycloakService } from 'keycloak-angular';
 import { CommonModule } from '@angular/common';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Customer } from '../../../models/customer.model';
 
 @Component({
   selector: 'app-create-update-customers',

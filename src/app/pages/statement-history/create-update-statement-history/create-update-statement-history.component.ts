@@ -9,11 +9,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { StatementHistory, StatementHistoryService } from '../statement-history.service';
+import { StatementHistoryService } from '../../../services/statement-history.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { StatementHistory } from '../../../models/statement-history.model';
 
 @Component({
   selector: 'app-create-update-statement-history',

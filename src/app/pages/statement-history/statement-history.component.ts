@@ -9,12 +9,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { NavigationExtras, Router } from '@angular/router';
 import { TranslationService } from '../../_helper/translation.service';
 import { CustomeSearchComponent } from "../../components/custome-search/custome-search.component";
-import { StatementHistoryPage, StatementHistoryService } from './statement-history.service';
+import { StatementHistoryService } from '../../services/statement-history.service';
 import { NotificationService } from '../../components/notification.service';
 import { ConfirmationDialogService } from '../../components/confirmation-dialog/confirmation-dialog.service';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { Direction } from '@angular/cdk/bidi';
+import { StatementHistoryPage } from '../../models/statement-history.model';
 
 @Component({
   selector: 'app-statement-history',

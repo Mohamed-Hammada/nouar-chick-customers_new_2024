@@ -1,45 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, throwError } from 'rxjs';
-import { Environment } from '../../../environments/environment';
-import { NotificationService } from '../../../app/components/notification.service'; // Adjust the import path
-
-export type StatementHistory = {
-  id?: any;
-  name?: string;
-  description?: string;
-  creation_date?: string;
-  modification_date?: string;
-}
-
-export interface StatementHistoryPage {
-  content?: StatementHistory[];
-  total_elements?: number;
-  total_pages?: number;
-  pageable?: {
-    page_number?: number;
-    page_size?: number;
-    sort?: {
-      empty?: boolean;
-      sorted?: boolean;
-      unsorted?: boolean;
-    };
-    offset?: number;
-    paged?: boolean;
-    unpaged?: boolean;
-  };
-  last?: boolean;
-  number_of_elements?: number;
-  size?: number;
-  number?: number;
-  sort?: {
-    empty?: boolean;
-    sorted?: boolean;
-    unsorted?: boolean;
-  };
-  empty?: boolean;
-}
-
+import { Environment } from '../../environments/environment';
+import { NotificationService } from '../components/notification.service'; // Adjust the import path
+import { StatementHistory, StatementHistoryPage } from '../models/statement-history.model';
 
 @Injectable({
   providedIn: 'root'
