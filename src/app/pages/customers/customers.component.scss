@@ -37,6 +37,7 @@ img {
     position: fixed;
     bottom: 80px;
     right: 30px;
+    left: auto;
     z-index: 1000; /* Adjust the z-index as needed */
     &[dir='rtl'] {
       right: auto; /* Reset to auto */

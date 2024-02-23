@@ -25,7 +25,7 @@ img {
   .floating-button {
     position: fixed;
     bottom: 80px;
-    // right: 30px;
+    right: 30px;
     z-index: 1000; /* Adjust the z-index as needed */
     &[dir='rtl'] {
       right: auto; /* Reset to auto */
@@ -50,6 +50,11 @@ img {
   }
   
   .form-group {
+    &[dir='rtl'] {
+      margin-right: 0; /* Reset margin-right if direction is RTL */
+      margin-left: 16px; /* Apply margin-left if direction is RTL */  
+    }
+    margin-left:0;
     margin-right: 16px; /* Adjust as needed */
     flex: 1; 
   }

@@ -1,4 +1,4 @@
-<div *ngFor="let transaction of transactions">
+<div *ngFor="let transaction of transactions" [dir]="direction">
   <mat-card>
     <mat-card-content>
 
@@ -60,7 +60,7 @@
 <button [hidden]="readOnly" mat-raised-button color="primary" (click)="onSubmit()">{{"submit" | translate}}</button>
 
 
-<div [hidden]="isEdit">
+<div [hidden]="isEdit" [dir]="direction">
 <button mat-fab [hidden]="readOnly" color="primary" class="floating-button" (click)="addEmptyTransaction()"  [dir]="direction">
   <mat-icon>add</mat-icon>
 </button>

@@ -17,6 +17,8 @@ import { MatAutocompleteTrigger } from '@angular/material/autocomplete'
   
 // Import Angular Core module
 import { CommonModule } from '@angular/common';
+import { Direction } from '@angular/cdk/bidi';
+import { TranslationService } from '../../_helper/translation.service';
 
 @Component({
   selector: 'app-custom-chip-autocompelete-component',
@@ -53,8 +55,10 @@ export class CustomChipAutocompeleteComponentComponent implements OnInit ,AfterV
   @ViewChild('auto') matAutocomplete!: MatAutocompleteTrigger;
   private filteredItemsSubject = new BehaviorSubject<string[]>([]);
   @ViewChild('input') input!: ElementRef; 
+  direction: Direction = 'rtl';
+  constructor(private translationService: TranslationService) {
+    this.direction = this.translationService.currentLangDirection();
 
-  constructor() {
     // this.filteredItems = this.itemCtrl.valueChanges.pipe(
     //   startWith(null),
     //   map((item: string | null) => (item ? this.filterFn(item) : this.allItems.slice())),
