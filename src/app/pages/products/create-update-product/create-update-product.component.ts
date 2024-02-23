@@ -13,6 +13,7 @@ import { MatInputModule } from '@angular/material/input';
 import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-create-update-product',
@@ -27,7 +28,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
   product: Product = {};
   readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
-
+  direction: Direction = 'rtl';
   data:any;
   productForm!: FormGroup;
   constructor(private fb: FormBuilder,
@@ -36,6 +37,7 @@ export class CreateUpdateProductComponent implements OnInit,AfterViewInit  {
     private translationService: TranslationService,
     private notificationService: NotificationService,
     private router: Router) {
+      this.direction = this.translationService.currentLangDirection();
       const navigation = this.router.getCurrentNavigation();
       const state = navigation?.extras.state;
       this.data = state;

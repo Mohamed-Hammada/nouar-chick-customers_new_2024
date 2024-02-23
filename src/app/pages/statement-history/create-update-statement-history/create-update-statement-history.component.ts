@@ -13,6 +13,7 @@ import { StatementHistory, StatementHistoryService } from '../statement-history.
 import { KeycloakService } from 'keycloak-angular';
 import { TranslationService } from '../../../_helper/translation.service';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { Direction } from '@angular/cdk/bidi';
 
 @Component({
   selector: 'app-create-update-statement-history',
@@ -27,7 +28,7 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
   statementHistory: StatementHistory = {};
   readOnly:boolean = false;
   @ViewChild('descriptionTextarea') descriptionTextarea: ElementRef | undefined;
-
+  direction: Direction = 'rtl';
   data:any;
   statementHistoryForm!: FormGroup;
   constructor(private fb: FormBuilder,
@@ -36,6 +37,8 @@ export class CreateUpdateStatementHistoryComponent implements OnInit,AfterViewIn
     private statementHistoryService: StatementHistoryService,
     private notificationService: NotificationService,
     private router: Router) {
+      this.direction = this.translationService.currentLangDirection();
+
       const navigation = this.router.getCurrentNavigation();
       const state = navigation?.extras.state;
       this.data = state;

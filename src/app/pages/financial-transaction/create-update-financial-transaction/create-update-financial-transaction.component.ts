@@ -46,7 +46,7 @@ export class CreateUpdateFinancialTransactionComponent {
   direction: Direction = 'ltr';
   constructor(private productService: ProductService,
     private notificationService: NotificationService,
-    private translationService: TranslationService,
+    public translationService: TranslationService,
     private keycloakService: KeycloakService,
     private router: Router,
     private statementHistoryService: StatementHistoryService,
