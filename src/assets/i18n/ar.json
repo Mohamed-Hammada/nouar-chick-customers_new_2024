@@ -58,5 +58,15 @@
   "delete_product_confirmation": "هل أنت متأكد أنك تريد حذف هذا المنتج؟ سيؤدي حذف المنتج أيضًا إلى حذف سجلات العملاء المرتبطة. يُرجى أخذ الحيطة قبل المتابعة.",
   "delete_statement_confirmation": "هل أنت متأكد أنك تريد حذف هذا البيان؟ سيؤدي حذف البيان أيضًا إلى حذف سجلات العملاء المرتبطة. يُرجى أخذ الحيطة قبل المتابعة.",
   "delete_transaction_confirmation": "هل أنت متأكد أنك تريد حذف سجل العملية المالية هذا؟",
-  "analytics":"التقارير"
+  "analytics":"التقارير",
+  "dashboard_title": "لوحة القيادة",
+  "financial_title": "نظرة عامة على الأمور المالية",
+  "statement-history_title": "سجل البيانات",
+  "customers_title": "إدارة العملاء",
+  "products_title": "كتالوج المنتجات",
+  "create-update-product_title": "إنشاء/تحديث المنتج",
+  "create-update-customer_title": "إنشاء/تحديث العميل",
+  "create-update-statement-history_title": "إنشاء/تحديث سجل البيانات",
+  "create-update-financial_title": "إنشاء/تحديث بند مالي",
+  "analytics_title": "تحليلات"
 }

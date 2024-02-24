@@ -12,6 +12,9 @@ import { CustomeSearchComponent } from "../custome-search/custome-search.compone
 import { fromEvent , Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../_helper/translation.service';
 import { Direction } from '@angular/cdk/bidi';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+
 @Component({
     selector: 'app-navigation',
     standalone: true,
@@ -20,12 +23,15 @@ import { Direction } from '@angular/cdk/bidi';
     imports: [CommonModule, MatToolbarModule,
         MatSidenavModule, MatIconModule,
         MatButtonModule, RouterOutlet,
+        TranslateModule,
         CustomSideNavComponent, CustomeSearchComponent]
 })
 export class NavigationComponent implements OnInit , OnDestroy {
   collapsed = signal(false);
   darkTheme = signal(false);
   langCode = signal('ar');
+  pageTitle: string = '';
+
   resizeObservable$!: Observable<Event>;
   resizeSubscription$!: Subscription;
   sidenaveWidth = computed(() => {
@@ -39,7 +45,9 @@ export class NavigationComponent implements OnInit , OnDestroy {
     return this.collapsed() ? (isSmallDevice ? false : true) : true;
   })
   direction: Direction = 'rtl';
-  constructor(private breakpointObserver: BreakpointObserver, private translationService: TranslationService) {
+  constructor(private breakpointObserver: BreakpointObserver, 
+    private route: ActivatedRoute, private router: Router,
+    private translationService: TranslationService) {
     this.setCollapsedForScreenSize();
     const collapsedStore = localStorage.getItem('collapsed');
     if(collapsedStore){
@@ -55,6 +63,18 @@ export class NavigationComponent implements OnInit , OnDestroy {
   }
 
   ngOnInit() {
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+          // Get the activated route
+          let currentRoute = this.route.root;
+          while (currentRoute.children[0] !== undefined) {
+              currentRoute = currentRoute.children[0];
+          }
+          // Update the page title
+          this.pageTitle = currentRoute.snapshot.data['title'];
+          console.log('Current page title is: ' + this.pageTitle);
+      }
+  });
 
 
     this.resizeObservable$ = fromEvent(window, 'resize')
