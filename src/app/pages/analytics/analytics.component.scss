@@ -1,0 +1,24 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .flex-item {
+    flex: 1;
+    margin: 0 10px;
+  }
+  
+  .chart-canvas {
+    width: 400px;
+    height: 900px;
+  }
+

@@ -57,5 +57,6 @@
   "delete_customer_confirmation": "Are you sure you want to delete this customer?",
   "delete_product_confirmation": "Are you sure you want to delete this product? Deleting the product will also delete associated customer records. Exercise caution before proceeding.",
   "delete_statement_confirmation": "Are you sure you want to delete this statement? Deleting the statement will also delete associated customer records. Exercise caution before proceeding.",
-  "delete_transaction_confirmation": "Are you sure you want to delete this financial transaction record?"
+  "delete_transaction_confirmation": "Are you sure you want to delete this financial transaction record?",
+  "analytics":"Reports"
 }

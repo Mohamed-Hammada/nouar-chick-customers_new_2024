@@ -30,7 +30,6 @@ export class CustomSideNavComponent {
     this.sidenavCollapsed.set(val);
   }
   menuItems = signal<MenuItem[]>([
- 
     {
       icon: 'person',
       label: 'customers',
@@ -47,7 +46,11 @@ export class CustomSideNavComponent {
       route: '/statement-history'
     },
    
-   
+    {
+      label: 'analytics',
+      route: '/analytics',
+      icon: 'analytics'
+    },
     // {
     //   label: 'Financial',
     //   icon: 'attach_money',
